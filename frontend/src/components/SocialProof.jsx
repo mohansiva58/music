@@ -12,7 +12,7 @@ const items = [
 export default function SocialProof() {
   return (
     <section
-      data-testid="social-proof-section"
+      data-testid="social-proof"
       className="relative overflow-hidden border-y border-white/5 bg-[#0a0a0a] py-6"
     >
       <div className="marquee-track flex w-max items-center gap-14 whitespace-nowrap">
