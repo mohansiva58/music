@@ -1,17 +1,16 @@
-import { useEffect, useRef, useState } from "react";
 import { waLink, ARTIST } from "../lib/content";
 
 /*
  * Cinematic Hero — Aethera-style, music-adapted
  * - Light off-white background
  * - Instrument Serif display typography with italic emphasis words
- * - Fullscreen looping background video with custom fade-in / fade-out via RAF
+ * - Fullscreen music portrait (red duotone) anchored to bottom
  * - Minimal glass nav bar at top
  * - Centered hero with animate-fade-rise sequence
  */
 
-const HERO_VIDEO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4";
+const HERO_IMAGE_URL =
+  "https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?crop=entropy&cs=tinysrgb&fit=crop&w=2400&q=90";
 
 const NAV_LINKS = [
   { label: "Home", href: "#top", active: true },
@@ -22,93 +21,30 @@ const NAV_LINKS = [
 ];
 
 export default function Hero() {
-  const videoRef = useRef(null);
-  const rafRef = useRef(null);
-  const [opacity, setOpacity] = useState(0);
-
-  // Custom fade-in / fade-out loop:
-  //   - On first `canplay`, start RAF that samples currentTime
-  //   - Fade in over 0.5s at the start (opacity 0 → 1)
-  //   - Fade out over 0.5s before the end (opacity 1 → 0)
-  //   - On `ended`: set opacity 0, wait 100ms, reset currentTime = 0, play() again
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const FADE_DURATION = 0.5; // seconds
-
-    const tick = () => {
-      if (video.duration && !Number.isNaN(video.duration)) {
-        const t = video.currentTime;
-        const d = video.duration;
-        let next = 1;
-        if (t < FADE_DURATION) {
-          next = t / FADE_DURATION;
-        } else if (t > d - FADE_DURATION) {
-          next = Math.max(0, (d - t) / FADE_DURATION);
-        }
-        setOpacity(next);
-      }
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    const onEnded = () => {
-      setOpacity(0);
-      setTimeout(() => {
-        try {
-          video.currentTime = 0;
-          const p = video.play();
-          if (p && typeof p.catch === "function") p.catch(() => {});
-        } catch (e) {
-          /* swallow */
-        }
-      }, 100);
-    };
-
-    const onCanPlay = () => {
-      const p = video.play();
-      if (p && typeof p.catch === "function") p.catch(() => {});
-    };
-
-    video.addEventListener("ended", onEnded);
-    video.addEventListener("canplay", onCanPlay);
-    rafRef.current = requestAnimationFrame(tick);
-
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      video.removeEventListener("ended", onEnded);
-      video.removeEventListener("canplay", onCanPlay);
-    };
-  }, []);
-
   return (
     <section
       id="top"
       data-testid="hero-section"
       className="relative min-h-screen w-full overflow-hidden bg-white"
     >
-      {/* ===================== Video Background ===================== */}
+      {/* ===================== Music Image Background (replaces video) ===================== */}
       <div
         className="absolute z-0"
         style={{ top: "300px", inset: "auto 0 0 0", height: "calc(100vh + 300px)" }}
       >
-        <video
-          ref={videoRef}
-          data-testid="hero-video"
-          muted
-          playsInline
-          preload="auto"
-          className="h-full w-full object-cover"
-          style={{ opacity, transition: "opacity 40ms linear" }}
-        >
-          <source src={HERO_VIDEO_URL} type="video/mp4" />
-        </video>
+        <div className="duotone-red-wrap relative h-full w-full">
+          <img
+            src={HERO_IMAGE_URL}
+            alt="Listening to music"
+            data-testid="hero-image"
+            className="duotone-red absolute inset-0 h-full w-full object-cover object-[center_25%]"
+          />
+        </div>
       </div>
 
-      {/* Gradient overlays on video — fade top & bottom to white bg */}
+      {/* Gradient overlays — fade top & bottom to white bg */}
       <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-white via-transparent to-white" />
-      {/* Extra subtle vignette for legibility */}
-      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_40%,transparent_40%,rgba(255,255,255,0.55)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(255,255,255,0.85)_0%,transparent_55%)]" />
 
       {/* ===================== Nav Bar ===================== */}
       <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 py-6 md:px-8">
