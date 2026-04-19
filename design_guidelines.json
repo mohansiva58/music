@@ -1,0 +1,167 @@
+{
+  "theme": "dark",
+  "archetype": "5 (Jewel & Luxury)",
+  "design_philosophy": "Cinematic, music-led, emotion-driven storytelling. Premium luxury feel. No corporate elements, no generic 'SaaS' styles, no purple/violet gradients. Focus on deep contrasts, soft glowing neon highlights, glassmorphism audio players, and waveform aesthetics.",
+  "colors": {
+    "background": {
+      "primary": "#050505",
+      "secondary": "#0A0A0A",
+      "tertiary": "#121212",
+      "glass": "rgba(255, 255, 255, 0.03)"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A1A1AA",
+      "accent": "#E2B365"
+    },
+    "primary": {
+      "DEFAULT": "#E2B365",
+      "hover": "#F0C882",
+      "glow": "rgba(226, 179, 101, 0.4)"
+    },
+    "accent": {
+      "DEFAULT": "#2DD4BF",
+      "hover": "#4FD1C5",
+      "glow": "rgba(45, 212, 191, 0.3)"
+    },
+    "border": {
+      "subtle": "rgba(255, 255, 255, 0.08)",
+      "highlight": "rgba(255, 255, 255, 0.15)"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "heading": "'Clash Display', sans-serif",
+      "body": "'Manrope', sans-serif"
+    },
+    "import_urls": [
+      "https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap",
+      "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+    ],
+    "scales": {
+      "h1": "text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tighter leading-tight",
+      "h2": "text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-snug",
+      "h3": "text-2xl md:text-3xl font-medium tracking-tight",
+      "h4": "text-xl font-medium",
+      "body": "text-base md:text-lg font-light leading-relaxed text-zinc-400",
+      "label": "text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-zinc-500"
+    }
+  },
+  "spacing_and_layout": {
+    "section_padding": "py-24 md:py-32 lg:py-40",
+    "container": "max-w-7xl mx-auto px-6 md:px-12",
+    "grid_bento": "grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8",
+    "border_radius": {
+      "card": "rounded-2xl",
+      "button": "rounded-full",
+      "pill": "rounded-full"
+    }
+  },
+  "surfaces_and_effects": {
+    "glass_card": "bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
+    "glowing_button": "bg-[#E2B365] text-black shadow-[0_0_20px_rgba(226,179,101,0.4)] hover:shadow-[0_0_30px_rgba(226,179,101,0.6)] transition-all duration-300",
+    "image_overlay": "bg-gradient-to-b from-black/20 via-black/60 to-black",
+    "hover_lift": "hover:-translate-y-2 hover:border-white/20 transition-all duration-500"
+  },
+  "media": {
+    "images": {
+      "hero_bg": {
+        "url": "https://images.unsplash.com/photo-1615358589317-78332cb21a22?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHwxfHxjaW5lbWF0aWMlMjBhdWRpbyUyMHdhdmVmb3JtJTIwZGFya3xlbnwwfHx8fDE3NzY1NzM0ODl8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Abstract audio waveform for hero background overlay"
+      },
+      "artist_portrait": {
+        "url": "https://images.unsplash.com/photo-1563170261-90260910461d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHw0fHxjaW5lbWF0aWMlMjBtdXNpY2lhbiUyMHBvcnRyYWl0JTIwZGFyayUyMG1vb2R5fGVufDB8fHx8MTc3NjU3MzQ4NHww&ixlib=rb-4.1.0&q=85",
+        "description": "Moody, cinematic portrait of the artist standing in the dark"
+      },
+      "song_covers": [
+        "https://images.unsplash.com/photo-1769431904780-62d87d1b90b2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGNpbmVtYXRpYyUyMHZpbnlsJTIwcmVjb3JkJTIwcm9tYW50aWN8ZW58MHx8fHwxNzc2NTczNDg0fDA&ixlib=rb-4.1.0&q=85",
+        "https://images.pexels.com/photos/7605539/pexels-photo-7605539.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "https://images.unsplash.com/photo-1769431904976-36e4d1df9a6c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGNpbmVtYXRpYyUyMHZpbnlsJTIwcmVjb3JkJTIwcm9tYW50aWN8ZW58MHx8fHwxNzc2NTczNDg0fDA&ixlib=rb-4.1.0&q=85",
+        "https://images.pexels.com/photos/7605490/pexels-photo-7605490.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "https://images.unsplash.com/photo-1666209932583-9eec57930e23?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwzfHxhYnN0cmFjdCUyMGNpbmVtYXRpYyUyMHZpbnlsJTIwcmVjb3JkJTIwcm9tYW50aWN8ZW58MHx8fHwxNzc2NTczNDg0fDA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1590347830191-399f8397e2db?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHw0fHxtdXNpYyUyMHN0dWRpbyUyMG5lb24lMjBkYXJrfGVufDB8fHx8MTc3NjU3MzQ4OXww&ixlib=rb-4.1.0&q=85"
+      ],
+      "studio_vibe": {
+        "url": "https://images.unsplash.com/photo-1556296569-44d434fb28d6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwyfHxtdXNpYyUyMHN0dWRpbyUyMG5lb24lMjBkYXJrfGVufDB8fHx8MTc3NjU3MzQ4OXww&ixlib=rb-4.1.0&q=85",
+        "description": "Artist singing into microphone in studio, for How it Works section"
+      }
+    },
+    "audio": {
+      "samples": [
+        "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3",
+        "https://cdn.pixabay.com/audio/2022/10/25/audio_51f0c2bd1e.mp3",
+        "https://cdn.pixabay.com/audio/2022/11/22/audio_120b085609.mp3"
+      ]
+    }
+  },
+  "sections": [
+    {
+      "name": "Hero",
+      "type": "immersive_header",
+      "instructions": "Full-height (min-h-screen). Absolute positioned background image 'hero_bg' with heavy black overlay (`bg-black/60`). Center the text using Flexbox. H1 must be massive (`text-5xl md:text-7xl+`) using Clash Display. Subheadline in Manrope. CTA: Primary button is 'glowing_button' for WhatsApp, secondary is 'glass_card' pill for Listen to Songs. Include an animated waveform SVG at the bottom or behind the text."
+    },
+    {
+      "name": "Social Proof",
+      "type": "marquee_or_strip",
+      "instructions": "A subtle, dark strip separating the hero from content. Text: '150+ SONGS CREATED SINCE 2025' combined with 5-star ratings or simple elegant icons. Use extremely wide tracking (`tracking-[0.3em]`) and muted color (`text-zinc-500`)."
+    },
+    {
+      "name": "About the Artist",
+      "type": "split_bento",
+      "instructions": "Grid layout. Left side: The 'artist_portrait' image, taking full height, rounded-2xl, grayscale with gold tint overlay on hover. Right side: Large typography, deep storytelling. Use 'text-3xl' for the quote. Include a subtle signature or script font accent if possible."
+    },
+    {
+      "name": "How It Works",
+      "type": "timeline_cards",
+      "instructions": "4 steps. Do not use standard 1-2-3-4 circles. Use a vertical glowing line (tracing beam effect) on desktop, connecting 4 glassmorphism cards. Steps: 1. Share Your Story, 2. Choose the Vibe, 3. The Studio Magic, 4. Your Song Arrives. Add subtle neon gold accents on active state."
+    },
+    {
+      "name": "Audio Portfolio",
+      "type": "music_player_grid",
+      "instructions": "Showcase 6 song cards. Grid: 1 col on mobile, 2 cols on tablet, 3 cols on desktop. Card design: Glassmorphism (`bg-white/5 border-white/10`). Inside: Song cover image (use 'song_covers' array, small square like a vinyl cover, rounded-lg), Title, Occasion label. Custom UI: Add a play button and a faux waveform line (SVG or divs) that animates (pulses) when 'playing'. Only one should play at a time. Connect to pixabay audio samples."
+    },
+    {
+      "name": "Value Proposition",
+      "type": "bento_grid",
+      "instructions": "5 benefits of a personalized song. Use Mode A: Tetris Grid. The main benefit spans 2 cols/2 rows. Use Phosphor or Lucide icons with a gold glow. Keep background transparent but borders subtle. Benefits: Immortalize Memories, Perfect Gifting, High Studio Quality, 100% Custom Lyrics, Emotional Impact."
+    },
+    {
+      "name": "Testimonials",
+      "type": "carousel_or_masonry",
+      "instructions": "Cards with glassmorphism. Include quotes. Give them varying heights if using masonry, or a smooth sliding carousel. Emphasize the emotional reaction of the recipients ('She cried when she heard it')."
+    },
+    {
+      "name": "Pricing",
+      "type": "pricing_tiers",
+      "instructions": "3 packages: Basic, Premium, Studio-Quality. High contrast. The 'Premium' package should stand out with a 1px gold border and a subtle gold inner glow. Use the WhatsApp button as the CTA for all 3 ('Inquire via WhatsApp')."
+    },
+    {
+      "name": "FAQ",
+      "type": "accordion",
+      "instructions": "Shadcn accordion. Override the default white background to transparent or `bg-white/5`. Text should be high-contrast white."
+    },
+    {
+      "name": "Final CTA",
+      "type": "cinematic_footer",
+      "instructions": "Use 'studio_vibe' background image with `bg-black/80` overlay. Massive text: 'Ready to write your story in sound?'. Large glowing WhatsApp button."
+    },
+    {
+      "name": "Floating WhatsApp CTA",
+      "type": "fixed_action",
+      "instructions": "Fixed bottom right. A circular button with WhatsApp icon, pulsing green or gold glow. `z-50`."
+    }
+  ],
+  "technical_requirements": {
+    "libraries_to_add": [
+      "lucide-react",
+      "framer-motion"
+    ],
+    "shadcn_components": [
+      "accordion",
+      "card",
+      "button"
+    ],
+    "animations": "Use framer-motion for scroll reveals (fade up, slow ease-out). Use CSS for pulsing glows and waveform bars. Do not overuse parallax on mobile.",
+    "testing": "All interactive elements must include `data-testid` attributes (e.g., `data-testid='whatsapp-cta-hero'`)."
+  }
+}
