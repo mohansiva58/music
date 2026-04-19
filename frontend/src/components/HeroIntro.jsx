@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 /*
@@ -13,13 +13,13 @@ export default function HeroIntro({
 }) {
   const [isIntroPlaying, setIsIntroPlaying] = useState(true);
 
-  const finishIntro = () => {
+  const finishIntro = useCallback(() => {
     setIsIntroPlaying((prev) => {
       if (!prev) return prev;
       if (typeof onComplete === "function") onComplete();
       return false;
     });
-  };
+  }, [onComplete]);
 
   // Shared easing + durations tuned for premium, non-jarring transitions.
   const timing = useMemo(
@@ -50,7 +50,7 @@ export default function HeroIntro({
       window.removeEventListener("keydown", skipIntro);
       window.removeEventListener("scroll", onScroll);
     };
-  }, [isIntroPlaying]);
+  }, [isIntroPlaying, finishIntro]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-black" id="top">
