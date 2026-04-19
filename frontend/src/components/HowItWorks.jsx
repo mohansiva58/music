@@ -52,12 +52,12 @@ export default function HowItWorks() {
       id="process"
       ref={ref}
       data-testid="how-it-works-section"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-crimson"
+      className="relative min-h-[100svh] w-full overflow-hidden"
     >
       {/* Parallax background imagery */}
       <motion.div
         style={prefersReduced ? undefined : { scale: bgScale, y: bgY }}
-        className="absolute inset-0 z-0 opacity-35"
+        className="absolute inset-0 z-0 opacity-20"
       >
         <div className="duotone-red-wrap absolute inset-0">
           <img
@@ -70,7 +70,7 @@ export default function HowItWorks() {
       </motion.div>
 
       {/* Radial color wash */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_20%_40%,rgba(220,38,38,0.45),transparent_60%)]" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_20%_40%,rgba(220,38,38,0.26),transparent_60%)]" />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-[#450505]/40 to-[#080202]" />
 
       {/* Ghost chapter text */}

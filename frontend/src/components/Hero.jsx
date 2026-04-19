@@ -9,7 +9,7 @@ import {
 import { waLink, ARTIST } from "../lib/content";
 
 /*
- * Hero — content only. The video background lives in <VideoBackdrop> wrapping
+ * Hero ï¿½ content only. The video background lives in <VideoBackdrop> wrapping
  * Hero + next section(s), so scrubbing continues as the user scrolls beyond
  * the hero. This component focuses on nav + headline + CTAs, sitting on top
  * of the shared video layer.
@@ -45,16 +45,19 @@ export default function Hero() {
       data-testid="hero-section"
       className="relative min-h-screen w-full overflow-hidden"
     >
-      {/* Readability layers (light, so video stays visible) */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-40 bg-gradient-to-b from-black/35 to-transparent" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1]"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0) 70%)",
-        }}
-      />
+      {/* Background image with overlay for readability */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="content.png"
+          alt="Letters to Tomorrow cover"
+          className="h-full w-full object-cover"
+          style={{ pointerEvents: "none" }}
+        />
+        <div
+          className="absolute inset-0 bg-black/30"
+          style={{ zIndex: 1, pointerEvents: "none" }}
+        />
+      </div>
 
       {/* ===================== Nav Bar ===================== */}
       <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 py-6 md:px-8">
@@ -64,7 +67,7 @@ export default function Hero() {
           className="font-serif-display flex items-baseline text-3xl tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]"
         >
           {ARTIST.brand}
-          <sup className="ml-0.5 text-[10px] font-normal text-white">®</sup>
+          <sup className="ml-0.5 text-[10px] font-normal text-white">ï¿½</sup>
         </a>
 
         <div className="hidden items-center gap-8 md:flex">
@@ -109,77 +112,60 @@ export default function Hero() {
         <div style={{ paddingTop: "calc(8rem - 75px)", paddingBottom: "10rem" }}>
           <h1
             data-testid="hero-headline"
-            className="font-serif-display animate-fade-rise mx-auto max-w-7xl text-5xl font-normal sm:text-7xl md:text-8xl"
+            className="font-serif-display animate-fade-rise mx-auto max-w-3xl text-5xl font-bold sm:text-7xl md:text-8xl"
             style={{
-              lineHeight: "0.95",
+              lineHeight: "1.05",
               letterSpacing: "-2.46px",
               color: "#FFFFFF",
               textShadow: "0 6px 40px rgba(0,0,0,0.55)",
             }}
           >
-            Beyond{" "}
-            <em
-              style={{
-                color: "rgba(255,255,255,0.78)",
-                fontStyle: "italic",
-                fontFamily: "Instrument Serif, Georgia, serif",
-              }}
-            >
-              words,
-            </em>{" "}
-            we compose{" "}
-            <em
-              style={{
-                color: "rgba(255,255,255,0.78)",
-                fontStyle: "italic",
-                fontFamily: "Instrument Serif, Georgia, serif",
-              }}
-            >
-              the unforgettable.
-            </em>
+            TURN YOUR <em style={{ fontStyle: "italic", color: "#ffe082" }}>STORY</em><br />INTO A SONG
           </h1>
 
           <p
             data-testid="hero-sub"
-            className="animate-fade-rise-delay mx-auto mt-8 max-w-2xl text-base leading-relaxed sm:text-lg"
+            className="animate-fade-rise-delay mx-auto mt-8 max-w-2xl text-lg leading-relaxed"
             style={{
-              color: "rgba(255,255,255,0.82)",
+              color: "rgba(255,255,255,0.92)",
               fontFamily: "Inter, sans-serif",
               textShadow: "0 2px 18px rgba(0,0,0,0.55)",
             }}
           >
-            Original songs built for brilliant moments, fearless love stories,
-            and thoughtful souls. Through the noise, we craft music for memories
-            that last a lifetime — 150+ stories already turned into song.
+            Personalized music for proposals, anniversaries, and milestones. <br />
+            Capture your memories in a song made just for you or your loved ones.
           </p>
 
-          <div className="flex flex-col items-center">
+          <div className="flex flex-row items-center justify-center gap-4 mt-10">
             <a
               href={waLink()}
               target="_blank"
               rel="noopener noreferrer"
               data-testid="hero-whatsapp-cta"
-              className="animate-fade-rise-delay-2 mt-12 rounded-full px-14 py-5 text-base transition-transform hover:scale-[1.03]"
+              className="animate-fade-rise-delay-2 rounded-full px-6 py-3 text-sm font-semibold transition-transform hover:scale-[1.03] shadow-lg"
               style={{
-                backgroundColor: "#FFFFFF",
-                color: "#000000",
+                background: "linear-gradient(90deg, #FFD700 0%, #FFB300 100%)",
+                color: "#1a0303",
                 fontFamily: "Inter, sans-serif",
-                boxShadow: "0 12px 40px rgba(0,0,0,0.35)",
+                boxShadow: "0 8px 24px rgba(255,193,7,0.14)",
+                border: "none",
               }}
             >
-              Begin Journey
+              <span style={{ fontWeight: 700, letterSpacing: 1 }}>REQUEST YOUR SONG</span>
             </a>
             <a
               href="#songs"
               data-testid="hero-listen-btn"
-              className="animate-fade-rise-delay-2 mt-6 text-xs uppercase tracking-[0.3em] transition-colors"
+              className="animate-fade-rise-delay-2 rounded-full px-5 py-3 text-xs font-semibold uppercase tracking-[0.3em] transition-colors"
               style={{
-                color: "rgba(255,255,255,0.72)",
+                background: "#1a0303",
+                color: "#FFD700",
                 fontFamily: "Inter, sans-serif",
                 textShadow: "0 2px 12px rgba(0,0,0,0.5)",
+                border: "1.5px solid #FFD700",
               }}
             >
-              or listen to songs ?
+              LISTEN TO SAMPLES
             </a>
           </div>
         </div>

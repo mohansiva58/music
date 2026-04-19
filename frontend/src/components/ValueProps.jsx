@@ -63,7 +63,7 @@ export default function ValueProps() {
       id="benefits"
       ref={ref}
       data-testid="value-proposition-section"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-[#080202]"
+      className="relative min-h-[100svh] w-full overflow-hidden"
     >
       {/* Parallax bg */}
       <motion.div
@@ -79,8 +79,8 @@ export default function ValueProps() {
           />
         </div>
       </motion.div>
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(220,38,38,0.25),transparent_60%)]" />
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#080202] via-transparent to-[#080202]" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(220,38,38,0.16),transparent_60%)]" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#080202]/32 via-transparent to-[#080202]/48" />
 
       {/* Ghost chapter text */}
       <motion.div

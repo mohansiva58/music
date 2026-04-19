@@ -36,7 +36,7 @@ export default function FAQ() {
       id="faq"
       ref={ref}
       data-testid="faq-section"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-crimson"
+      className="relative min-h-[100svh] w-full overflow-hidden"
     >
       <motion.div
         style={prefersReduced ? undefined : { y: bgY }}
@@ -51,7 +51,7 @@ export default function FAQ() {
           />
         </div>
       </motion.div>
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#080202] via-transparent to-[#080202]" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#080202]/35 via-transparent to-[#080202]/50" />
 
       <motion.div
         aria-hidden

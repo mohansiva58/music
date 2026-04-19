@@ -30,14 +30,14 @@ export default function FinalCTA() {
     <section
       ref={ref}
       data-testid="final-cta-section"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-[#080202]"
+      className="relative min-h-[100svh] w-full overflow-hidden"
     >
       {/* Parallax portrait bg */}
       <motion.div
         style={prefersReduced ? undefined : { scale: bgScale }}
         className="absolute inset-0 z-0"
       >
-        <div className="duotone-red-wrap absolute inset-0 opacity-45">
+        <div className="duotone-red-wrap absolute inset-0 opacity-28">
           <img
             src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?crop=entropy&cs=tinysrgb&fit=crop&w=2000&q=85"
             alt=""
@@ -45,8 +45,8 @@ export default function FinalCTA() {
             loading="lazy"
           />
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(220,38,38,0.5)_0%,#450505_60%,#080202_100%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080202]/60 via-transparent to-[#080202]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(220,38,38,0.3)_0%,rgba(69,5,5,0.42)_60%,rgba(8,2,2,0.65)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080202]/35 via-transparent to-[#080202]/52" />
       </motion.div>
 
       <motion.div

@@ -86,7 +86,7 @@ export default function AudioPortfolio() {
       id="songs"
       ref={ref}
       data-testid="audio-portfolio-section"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-[#200303]"
+      className="relative min-h-[100svh] w-full overflow-hidden"
     >
       {/* Ghost text drifting */}
       <motion.div
@@ -127,28 +127,8 @@ export default function AudioPortfolio() {
               WHAT
             </motion.h2>
 
-            <motion.div
-              style={prefersReduced ? undefined : { scale: portraitScale }}
-              className="col-span-12 flex justify-center md:col-span-4"
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={song.id}
-                  initial={{ opacity: 0, scale: 0.92 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.08 }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="duotone-red-wrap relative h-[56vh] w-full max-w-md overflow-hidden md:h-[68vh]"
-                >
-                  <img
-                    src={song.cover}
-                    alt={song.title}
-                    className="duotone-red absolute inset-0 h-full w-full object-cover object-[center_20%]"
-                    loading="lazy"
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </motion.div>
+            {/* Empty center column to preserve right alignment */}
+            <div className="col-span-12 md:col-span-4" />
 
             <motion.h2
               initial={{ opacity: 0, x: 40 }}

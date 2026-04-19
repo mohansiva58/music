@@ -38,14 +38,6 @@ export default function About() {
       data-testid="about-section"
       className="relative min-h-[100svh] w-full overflow-hidden"
     >
-      {/* Darkening veil so the shared video backdrop stays cinematic while
-          keeping SOULNOTE typography legible */}
-      <div className="pointer-events-none absolute inset-0 z-0 bg-black/55" />
-      {/* Smoke-edge fades - top fades from hero area, bottom fades into the
-          next (opaque) section so the video hands off cleanly */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-32 bg-gradient-to-b from-black/70 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-56 bg-gradient-to-t from-[#080202] via-[#080202]/70 to-transparent" />
-
       {/* Ghost text drifting */}
       <motion.div
         aria-hidden
@@ -56,7 +48,7 @@ export default function About() {
           className="ghost-text text-[22vw] leading-none opacity-60"
           style={{ transform: "translateX(-8%)" }}
         >
-          CHAPTER·01
+          CHAPTER.01
         </div>
       </motion.div>
 

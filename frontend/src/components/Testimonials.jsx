@@ -41,12 +41,12 @@ export default function Testimonials() {
       id="testimonials"
       ref={ref}
       data-testid="testimonials-section"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-crimson"
+      className="relative min-h-[100svh] w-full overflow-hidden"
     >
       {/* Parallax background portrait */}
       <motion.div
         style={prefersReduced ? undefined : { scale: bgScale, y: bgY }}
-        className="absolute inset-0 z-0 opacity-20"
+        className="absolute inset-0 z-0 opacity-16"
       >
         <div className="duotone-red-wrap absolute inset-0">
           <img
@@ -57,7 +57,7 @@ export default function Testimonials() {
           />
         </div>
       </motion.div>
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_30%,#080202_95%)]" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_30%,rgba(8,2,2,0.62)_95%)]" />
 
       <motion.div
         aria-hidden

@@ -17,8 +17,7 @@ export const SONGS = [
     id: 1,
     title: "Letters to Tomorrow",
     occasion: "Anniversary Love Song",
-    cover:
-      "https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
+    cover: "content.png",
     audio: "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3",
     duration: "2:48",
   },

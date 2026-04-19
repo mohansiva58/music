@@ -31,7 +31,7 @@ export default function Pricing() {
       id="pricing"
       ref={ref}
       data-testid="pricing-section"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-[#080202]"
+      className="relative min-h-[100svh] w-full overflow-hidden"
     >
       {/* Parallax bg */}
       <motion.div
@@ -47,8 +47,8 @@ export default function Pricing() {
           />
         </div>
       </motion.div>
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_30%_30%,rgba(220,38,38,0.22),transparent_65%)]" />
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#080202] via-transparent to-[#080202]" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_30%_30%,rgba(220,38,38,0.16),transparent_65%)]" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#080202]/32 via-transparent to-[#080202]/48" />
 
       <motion.div
         aria-hidden

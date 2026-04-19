@@ -9,12 +9,13 @@ import { useScroll, useMotionValueEvent } from "framer-motion";
  */
 export default function VideoBackdrop({
   children,
-  src = "/  .mp4",
+  src = "/hero2.mp4",
   webmSrc = "/media/hero-bg.webm",
-  poster = "/herobg.png",
+  poster = "",
   className = "",
+  enabled = true,
 }) {
-  const SCRUB_SPEED = 0.5;
+  const SCRUB_SPEED = 1;
   const LERP_FACTOR = 0.8;
   const SNAP_THRESHOLD = 0.24;
 
@@ -29,6 +30,7 @@ export default function VideoBackdrop({
   });
 
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
+    if (!enabled) return;
     const video = videoRef.current;
     if (!video || !video.duration || Number.isNaN(video.duration)) return;
 
@@ -80,6 +82,22 @@ export default function VideoBackdrop({
     };
   }, []);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (!enabled) {
+      try {
+        video.pause();
+        video.currentTime = 0;
+      } catch (_) {}
+      return;
+    }
+    try {
+      video.pause();
+      video.currentTime = 0;
+    } catch (_) {}
+  }, [enabled]);
+
   return (
     <div ref={wrapperRef} className={`relative ${className}`}>
       <div
@@ -90,19 +108,26 @@ export default function VideoBackdrop({
         <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
           <video
             ref={videoRef}
-            poster={poster}
+            poster={poster || undefined}
             muted
             playsInline
             preload="auto"
             disablePictureInPicture
             data-testid="hero-video"
-            className="absolute inset-0 h-full w-full object-cover"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+              enabled ? "opacity-100" : "opacity-0"
+            }`}
           >
             <source src={webmSrc} type="video/webm" />
             <source src={src} type="video/mp4" />
           </video>
         </div>
       </div>
+
+      {/* Global cinematic overlay like About, applied across all wrapped sections */}
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-black/35" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-32 bg-gradient-to-b from-black/45 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-56 bg-gradient-to-t from-[#080202] via-[#080202]/45 to-transparent" />
 
       <div className="relative z-10">{children}</div>
     </div>
