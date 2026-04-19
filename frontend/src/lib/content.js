@@ -1,3 +1,41 @@
+// Steps for the process section (theme: gold/amber/dark)
+export const PROCESS_STEPS = [
+  {
+    label: "Your story",
+    color: "#FFD700", // gold
+    description: "Our process begins with understanding you. We dive deep into your memories, emotions, and the unique narrative you want to express in song. This initial consultation forms the heart of your composition.",
+    image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80",
+    title: "1. Sharing Your Story",
+  },
+  {
+    label: "The writing",
+    color: "#FFB300", // amber
+    description: "Our lyricists and composers transform your narrative into compelling words and melodies, capturing your story in a unique musical form.",
+    image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80",
+    title: "Step 2: The Writing",
+  },
+  {
+    label: "The music",
+    color: "#222326", // dark
+    description: "We compose and arrange the music, ensuring every note and instrument reflects your story and emotions.",
+    image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80",
+    title: "Step 3: The Music",
+  },
+  {
+    label: "The reaction",
+    color: "#FFD700",
+    description: "You listen to your custom song for the first time, experiencing your story in a new, unforgettable way.",
+    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+    title: "Step 4: The Reaction",
+  },
+  {
+    label: "Your turn",
+    color: "#FFB300",
+    description: "Share your song with loved ones, celebrate your moments, and cherish your story forever.",
+    image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
+    title: "Step 5: Your Turn",
+  },
+];
 // Shared constants for the landing page
 export const WHATSAPP_NUMBER = "919999999999"; // placeholder
 export const WHATSAPP_MSG = encodeURIComponent(

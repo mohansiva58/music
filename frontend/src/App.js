@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HeroIntro from "./components/HeroIntro";
 import Hero from "./components/Hero";
 import About from "./components/About";
+import ProcessSection from "./components/ProcessSection";
 import VideoBackdrop from "./components/VideoBackdrop";
 import MelodyFinder from "./components/MelodyFinder";
 import HowItWorks from "./components/HowItWorks";
@@ -27,6 +28,7 @@ const Landing = () => {
         <VideoBackdrop enabled>
           <main>
             <Hero />
+            <ProcessSection />
             <About />
             <MelodyFinder />
             <HowItWorks />
