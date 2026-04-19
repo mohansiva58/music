@@ -5,6 +5,7 @@ import HeroIntro from "./components/HeroIntro";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import VideoBackdrop from "./components/VideoBackdrop";
+import MelodyFinder from "./components/MelodyFinder";
 import HowItWorks from "./components/HowItWorks";
 import AudioPortfolio from "./components/AudioPortfolio";
 import ValueProps from "./components/ValueProps";
@@ -27,6 +28,7 @@ const Landing = () => {
           <main>
             <Hero />
             <About />
+            <MelodyFinder />
             <HowItWorks />
             <AudioPortfolio />
             <ValueProps />
