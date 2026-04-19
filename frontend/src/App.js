@@ -2,6 +2,7 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Hero from "./components/Hero";
 import About from "./components/About";
+import VideoBackdrop from "./components/VideoBackdrop";
 import HowItWorks from "./components/HowItWorks";
 import AudioPortfolio from "./components/AudioPortfolio";
 import ValueProps from "./components/ValueProps";
@@ -16,8 +17,10 @@ const Landing = () => {
   return (
     <div className="relative min-h-screen bg-[#080202] text-white grain">
       <main>
-        <Hero />
-        <About />
+        <VideoBackdrop>
+          <Hero />
+          <About />
+        </VideoBackdrop>
         <HowItWorks />
         <AudioPortfolio />
         <ValueProps />

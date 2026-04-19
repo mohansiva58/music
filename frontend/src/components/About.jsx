@@ -8,10 +8,10 @@ import {
 } from "framer-motion";
 import { ARTIST } from "../lib/content";
 
-/* About — full-bleed hero-level chapter
-   - Full-height background portrait (duotone red)
+/* About - full-bleed hero-level chapter
+   - Shared video backdrop shows through
    - Huge "WITH / SOULNOTE" typography overlaid
-   - Scroll-driven parallax (bg zoom, text translate) matching hero language
+   - Scroll-driven text motion matching hero language
 */
 export default function About() {
   const ref = useRef(null);
@@ -22,20 +22,12 @@ export default function About() {
     offset: ["start end", "end start"],
   });
 
-  const bgScale = useSpring(
-    useTransform(scrollYProgress, [0, 1], [1.15, 1]),
-    { stiffness: 100, damping: 30 }
-  );
-  const bgY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-80, 80]),
+  const ghostX = useSpring(
+    useTransform(scrollYProgress, [0, 1], [-120, 120]),
     { stiffness: 100, damping: 30 }
   );
   const textY = useSpring(
     useTransform(scrollYProgress, [0, 1], [80, -80]),
-    { stiffness: 100, damping: 30 }
-  );
-  const ghostX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-120, 120]),
     { stiffness: 100, damping: 30 }
   );
 
@@ -44,27 +36,15 @@ export default function About() {
       id="about"
       ref={ref}
       data-testid="about-section"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-[#080202]"
+      className="relative min-h-[100svh] w-full overflow-hidden"
     >
-      {/* Full-bleed parallax bg portrait */}
-      <motion.div
-        style={prefersReduced ? undefined : { scale: bgScale, y: bgY }}
-        className="absolute inset-0 z-0"
-      >
-        <div className="duotone-red-wrap absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?crop=entropy&cs=tinysrgb&fit=crop&w=2000&q=85"
-            alt=""
-            className="duotone-red absolute inset-0 h-full w-full object-cover object-[center_25%]"
-            loading="lazy"
-          />
-        </div>
-        {/* Smoke-edge fades */}
-        <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-[#080202] via-[#080202]/60 to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[#080202]/70 via-transparent to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#080202] to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#080202] to-transparent" />
-      </motion.div>
+      {/* Darkening veil so the shared video backdrop stays cinematic while
+          keeping SOULNOTE typography legible */}
+      <div className="pointer-events-none absolute inset-0 z-0 bg-black/55" />
+      {/* Smoke-edge fades - top fades from hero area, bottom fades into the
+          next (opaque) section so the video hands off cleanly */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-32 bg-gradient-to-b from-black/70 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-56 bg-gradient-to-t from-[#080202] via-[#080202]/70 to-transparent" />
 
       {/* Ghost text drifting */}
       <motion.div
@@ -76,7 +56,7 @@ export default function About() {
           className="ghost-text text-[22vw] leading-none opacity-60"
           style={{ transform: "translateX(-8%)" }}
         >
-          CHAPTER·01
+          CHAPTER�01
         </div>
       </motion.div>
 
@@ -93,7 +73,7 @@ export default function About() {
           transition={{ duration: 0.8 }}
           className="font-archivo mb-6 text-[11px] uppercase tracking-[0.4em] text-[#ff5722]"
         >
-          Chapter 01 — The Story
+          Chapter 01 - The Story
         </motion.span>
 
         {/* With + SOULNOTE (stacked, left-aligned) */}
@@ -128,7 +108,7 @@ export default function About() {
           transition={{ duration: 0.9, delay: 0.3 }}
           className="font-archivo mt-10 max-w-xl text-base leading-relaxed text-white/90 md:text-xl"
         >
-          inspiration transforms into sound — every memory, every emotion,
+          inspiration transforms into sound - every memory, every emotion,
           every story becoming something you can truly{" "}
           <span className="text-ember font-semibold">hear, feel, and keep.</span>
         </motion.p>
