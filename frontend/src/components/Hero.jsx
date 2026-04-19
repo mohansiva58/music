@@ -116,20 +116,20 @@ export default function Hero() {
             style={{
               lineHeight: "1.05",
               letterSpacing: "-2.46px",
-              color: "#FFFFFF",
-              textShadow: "0 6px 40px rgba(0,0,0,0.55)",
+              color: "rgba(255,255,255,0.54)",
+              textShadow: "0 6px 40px rgba(0,0,0,0.32)",
             }}
           >
-            TURN YOUR <em style={{ fontStyle: "italic", color: "#ffe082" }}>STORY</em><br />INTO A  <em style={{ fontStyle: "italic", color: "#ffe082" }}>MEMORABLE</em><br /> SONG
+            TURN YOUR <em style={{ fontStyle: "italic", color: "#ffe082", opacity: 0.92 }}>STORY</em><br />INTO A  <em style={{ fontStyle: "italic", color: "#ffe082", opacity: 0.92 }}>MEMORABLE</em><br /> SONG
           </h1>
 
           <p
             data-testid="hero-sub"
             className="animate-fade-rise-delay mx-auto mt-8 max-w-2xl text-lg leading-relaxed"
             style={{
-              color: "rgba(255,255,255,0.92)",
+              color: "rgba(255,255,255,0.68)",
               fontFamily: "Inter, sans-serif",
-              textShadow: "0 2px 18px rgba(0,0,0,0.55)",
+              textShadow: "0 2px 18px rgba(0,0,0,0.38)",
             }}
           >
             Personalized music for proposals, anniversaries, and milestones. <br />
