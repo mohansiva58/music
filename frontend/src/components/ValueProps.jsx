@@ -132,11 +132,11 @@ export default function ValueProps() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 data-testid={`value-card-${i + 1}`}
-                className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-[#1a0303]/80 to-[#0a0101]/80 p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-[#ff5722]/50 md:p-10 ${it.span}`}
+                className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-b from-[#1a0303]/80 to-[#0a0101]/80 p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 md:p-10 ${it.span}`}
               >
                 <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-[#ff5722]/5 blur-3xl transition duration-700 group-hover:bg-[#ff5722]/25" />
                 <div className="relative">
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#ff5722]/30 bg-[#ff5722]/10 text-[#ff5722]">
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#ff5722]/10 text-[#ff5722]">
                     <Icon className="h-5 w-5" />
                   </div>
                   <h3 className="font-display text-2xl font-black leading-tight text-white md:text-3xl">

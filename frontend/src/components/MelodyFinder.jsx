@@ -83,7 +83,7 @@ export default function MelodyFinder() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.9, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto mt-14 h-[430px] w-full max-w-5xl rounded-[2.2rem] border border-white/12 bg-[#0f0404]/45 p-4 shadow-[0_30px_90px_-35px_rgba(0,0,0,0.85)] backdrop-blur-md md:h-[540px] md:p-6"
+          className="relative mx-auto mt-14 h-[430px] w-full max-w-5xl rounded-[2.2rem] bg-[#0f0404]/35 p-4 shadow-[0_30px_90px_-35px_rgba(0,0,0,0.85)] backdrop-blur-md md:h-[540px] md:p-6"
         >
           <div className="absolute inset-0 rounded-[2.2rem] bg-[radial-gradient(ellipse_at_50%_100%,rgba(255,153,96,0.08)_0%,transparent_55%)]" />
           {memoryFrames.map((frame, i) => (
@@ -96,9 +96,9 @@ export default function MelodyFinder() {
               className={`absolute ${frame.className}`}
             >
               <div
-                className={`h-full w-full overflow-hidden rounded-[2px] border-2 ${frame.frameClass} bg-[#120606] p-1.5 shadow-[0_18px_35px_-12px_rgba(0,0,0,0.8)]`}
+                className={`h-full w-full overflow-hidden rounded-[2px] bg-[#120606] p-1.5 shadow-[0_18px_35px_-12px_rgba(0,0,0,0.8)]`}
               >
-                <div className="h-full w-full overflow-hidden border border-black/30 bg-black/20">
+                <div className="h-full w-full overflow-hidden bg-black/20">
                   <img
                     src={frame.src}
                     alt={frame.alt}
@@ -118,15 +118,15 @@ export default function MelodyFinder() {
           transition={{ duration: 0.8, delay: 0.16 }}
           className="mx-auto mt-10 max-w-5xl"
         >
-          <div className="rounded-3xl border border-white/14 bg-[#100505]/65 px-4 py-4 backdrop-blur-xl md:px-6">
+          <div className="rounded-3xl bg-[#100505]/55 px-4 py-4 backdrop-blur-xl md:px-6">
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
               {tracks.map((track) => (
                 <div
                   key={track.title}
-                  className={`rounded-2xl border px-4 py-3.5 ${
+                  className={`rounded-2xl px-4 py-3.5 ${
                     track.active
-                      ? "border-[#ffb980]/55 bg-[#ffb980]/10"
-                      : "border-white/12 bg-black/25"
+                      ? "bg-[#ffb980]/10"
+                      : "bg-black/25"
                   }`}
                 >
                   <p className="font-archivo text-sm font-medium text-white/92">
@@ -145,7 +145,7 @@ export default function MelodyFinder() {
               ))}
             </div>
 
-            <div className="mt-3 flex items-center justify-center rounded-full border border-[#ffb980]/35 bg-black/40 px-5 py-3 text-[#ffb980]">
+            <div className="mt-3 flex items-center justify-center rounded-full bg-black/40 px-5 py-3 text-[#ffb980]">
               <div className="flex items-center gap-5">
                 <SkipBack className="h-5 w-5" />
                 <Pause className="h-6 w-6" />
@@ -169,7 +169,7 @@ export default function MelodyFinder() {
             target="_blank"
             rel="noopener noreferrer"
             data-testid="melody-finder-cta"
-            className="glow-orange inline-flex items-center gap-3 rounded-full border border-[#ffb980]/50 bg-black/55 px-10 py-4 font-archivo text-sm font-semibold uppercase tracking-[0.16em] text-[#ffcfaa] md:text-base"
+            className="glow-orange inline-flex items-center gap-3 rounded-full bg-black/55 px-10 py-4 font-archivo text-sm font-semibold uppercase tracking-[0.16em] text-[#ffcfaa] md:text-base"
           >
             <Search className="h-4 w-4" />
             Find Your Melody
