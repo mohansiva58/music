@@ -45,7 +45,7 @@ export default function About() {
         >
           <div className="duotone-red-wrap relative h-[72vh] w-full max-w-[900px] overflow-hidden md:h-[80vh]">
             <img
-              src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?crop=entropy&cs=tinysrgb&fit=crop&w=1400&q=85"
+              src="https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?crop=entropy&cs=tinysrgb&fit=crop&w=1400&q=85"
               alt="Listening to music"
               className="duotone-red absolute inset-0 h-full w-full object-cover"
               loading="lazy"

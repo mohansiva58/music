@@ -23,7 +23,7 @@ export default function HowItWorks() {
     <section
       id="process"
       data-testid="how-it-works-section"
-      className="relative overflow-hidden bg-[#450505] bg-crimson px-6 py-24 md:px-10 md:py-32"
+      className="relative overflow-hidden bg-crimson px-6 py-24 md:px-10 md:py-32"
     >
       <div className="mx-auto max-w-[1400px]">
         {/* ====== Top: label + big heading ====== */}
@@ -93,7 +93,7 @@ export default function HowItWorks() {
             <div className="overflow-hidden rounded-xl bg-[#2a0404] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]">
               <div className="duotone-red-wrap relative h-56">
                 <img
-                  src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?crop=entropy&cs=tinysrgb&fit=crop&w=600&q=85"
+                  src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?crop=entropy&cs=tinysrgb&fit=crop&w=600&q=85"
                   alt=""
                   className="duotone-red absolute inset-0 h-full w-full object-cover"
                   loading="lazy"

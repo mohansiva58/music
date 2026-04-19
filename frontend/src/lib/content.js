@@ -18,7 +18,7 @@ export const SONGS = [
     title: "Letters to Tomorrow",
     occasion: "Anniversary Love Song",
     cover:
-      "https://images.unsplash.com/photo-1769431904780-62d87d1b90b2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGNpbmVtYXRpYyUyMHZpbnlsJTIwcmVjb3JkJTIwcm9tYW50aWN8ZW58MHx8fHwxNzc2NTczNDg0fDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1484755560615-a4c64e778a6c?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
     audio: "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3",
     duration: "2:48",
   },
@@ -27,7 +27,7 @@ export const SONGS = [
     title: "Birthday Dust & Sunlight",
     occasion: "Birthday Surprise Song",
     cover:
-      "https://images.pexels.com/photos/7605539/pexels-photo-7605539.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
     audio: "https://cdn.pixabay.com/audio/2022/10/25/audio_51f0c2bd1e.mp3",
     duration: "3:12",
   },
@@ -36,7 +36,7 @@ export const SONGS = [
     title: "The First Dance",
     occasion: "Wedding Story Song",
     cover:
-      "https://images.unsplash.com/photo-1769431904976-36e4d1df9a6c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGNpbmVtYXRpYyUyMHZpbnlsJTIwcmVjb3JkJTIwcm9tYW50aWN8ZW58MHx8fHwxNzc2NTczNDg0fDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
     audio: "https://cdn.pixabay.com/audio/2022/11/22/audio_120b085609.mp3",
     duration: "3:40",
   },
@@ -45,7 +45,7 @@ export const SONGS = [
     title: "Miles Between Us",
     occasion: "Long-Distance Relationship",
     cover:
-      "https://images.pexels.com/photos/7605490/pexels-photo-7605490.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "https://images.unsplash.com/photo-1516280906200-dfcb5f7c8cb1?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
     audio: "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3",
     duration: "3:05",
   },
@@ -54,7 +54,7 @@ export const SONGS = [
     title: "For The Ones Who Stayed",
     occasion: "Friendship Tribute",
     cover:
-      "https://images.unsplash.com/photo-1666209932583-9eec57930e23?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwzfHxhYnN0cmFjdCUyMGNpbmVtYXRpYyUyMHZpbnlsJTIwcmVjb3JkJTIwcm9tYW50aWN8ZW58MHx8fHwxNzc2NTczNDg0fDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
     audio: "https://cdn.pixabay.com/audio/2022/10/25/audio_51f0c2bd1e.mp3",
     duration: "2:54",
   },
@@ -63,7 +63,7 @@ export const SONGS = [
     title: "Rise Again",
     occasion: "Self-Motivation Anthem",
     cover:
-      "https://images.unsplash.com/photo-1590347830191-399f8397e2db?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHw0fHxtdXNpYyUyMHN0dWRpbyUyMG5lb24lMjBkYXJrfGVufDB8fHx8MTc3NjU3MzQ4OXww&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
     audio: "https://cdn.pixabay.com/audio/2022/11/22/audio_120b085609.mp3",
     duration: "3:18",
   },

@@ -71,7 +71,7 @@ export default function AudioPortfolio() {
     <section
       id="songs"
       data-testid="audio-portfolio-section"
-      className="relative overflow-hidden bg-[#200303] bg-crimson px-6 pb-24 pt-24 md:px-10 md:pb-32 md:pt-32"
+      className="relative overflow-hidden bg-[#200303] px-6 pb-24 pt-24 md:px-10 md:pb-32 md:pt-32"
     >
       <div className="mx-auto max-w-[1400px]">
         {/* Section label */}
