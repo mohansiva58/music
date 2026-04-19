@@ -120,7 +120,7 @@ export default function Hero() {
               textShadow: "0 6px 40px rgba(0,0,0,0.55)",
             }}
           >
-            TURN YOUR <em style={{ fontStyle: "italic", color: "#ffe082" }}>STORY</em><br />INTO A SONG
+            TURN YOUR <em style={{ fontStyle: "italic", color: "#ffe082" }}>STORY</em><br />INTO A  <em style={{ fontStyle: "italic", color: "#ffe082" }}>MEMORABLE</em><br /> SONG
           </h1>
 
           <p
