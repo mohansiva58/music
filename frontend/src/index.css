@@ -106,6 +106,43 @@ body {
     pointer-events: none;
 }
 
+/* ================ Therapy duotone (calm / meditative) ================ */
+/* Soft lavender → warm rose blend — for light "healing" hero bg */
+.duotone-therapy {
+    filter: grayscale(1) contrast(0.95) brightness(1.12) saturate(1.1);
+}
+.duotone-therapy-wrap {
+    position: relative;
+    overflow: hidden;
+}
+.duotone-therapy-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        #c5b8e8 0%,
+        #e2c6d9 45%,
+        #f0cbc1 100%
+    );
+    mix-blend-mode: multiply;
+    z-index: 1;
+    pointer-events: none;
+}
+.duotone-therapy-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at 50% 45%,
+        rgba(255, 244, 240, 0.28) 0%,
+        transparent 55%
+    );
+    mix-blend-mode: screen;
+    z-index: 2;
+    pointer-events: none;
+}
+
 /* Orange text gradient for accents */
 .text-ember {
     background: linear-gradient(135deg, #ff9960 0%, #ff5722 45%, #c2410c 100%);

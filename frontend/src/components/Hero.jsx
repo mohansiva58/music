@@ -75,25 +75,24 @@ export default function Hero() {
         }
         className="absolute z-0 origin-center"
       >
-        <div className="duotone-red-wrap relative h-full w-full">
+        <div className="duotone-therapy-wrap relative h-full w-full">
           <img
             src={HERO_IMAGE_URL}
             alt="Listening to music"
             data-testid="hero-image"
-            className="duotone-red absolute inset-0 h-full w-full object-cover object-[center_25%]"
-            style={{ transform: "scaleX(-1)" }} /* flipped horizontally */
+            className="duotone-therapy absolute inset-0 h-full w-full object-cover object-[center_25%]"
           />
         </div>
       </motion.div>
 
       {/* White gradient fades (soften image into bg) */}
       <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-white via-transparent to-white" />
-      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(255,255,255,0.85)_0%,transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(255,255,255,0.8)_0%,transparent_60%)]" />
 
-      {/* Scroll-driven darkening overlay (matches the old video-hero language) */}
+      {/* Scroll-driven soft darkening overlay */}
       <motion.div
         style={prefersReduced ? undefined : { opacity: overlayOpacity }}
-        className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-white/30 via-transparent to-[#080202]"
+        className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-white/20 via-transparent to-[#080202]"
         aria-hidden
       />
 
