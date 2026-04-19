@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import {
   motion,
   useScroll,
@@ -6,373 +6,229 @@ import {
   useSpring,
   useReducedMotion,
 } from "framer-motion";
-import { Play, ArrowDown, Sparkles } from "lucide-react";
-import { waLink } from "../lib/content";
+import { ArrowRight, Instagram, Send, Facebook } from "lucide-react";
+import { waLink, ARTIST } from "../lib/content";
 
-/* ------------------------------------------------------------------ */
-/*                     Music-themed background layers                 */
-/* ------------------------------------------------------------------ */
-
-/** Animated aurora mesh — large, soft, purple/blue glowing blobs that drift. */
-function AuroraBackdrop() {
-  return (
-    <div aria-hidden className="absolute inset-0 overflow-hidden">
-      {/* Base navy */}
-      <div className="absolute inset-0 bg-[#05060F]" />
-
-      {/* Big drifting blobs — purple, blue, teal */}
-      <motion.div
-        className="absolute -top-40 -left-40 h-[620px] w-[620px] rounded-full blur-[120px]"
-        style={{ background: "radial-gradient(circle, #6D28D9 0%, transparent 65%)" }}
-        animate={{ x: [0, 80, 0], y: [0, 40, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute top-20 right-0 h-[700px] w-[700px] rounded-full blur-[130px]"
-        style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 65%)" }}
-        animate={{ x: [0, -60, 0], y: [0, 60, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-[-160px] left-1/3 h-[520px] w-[520px] rounded-full blur-[120px]"
-        style={{ background: "radial-gradient(circle, #0EA5E9 0%, transparent 70%)" }}
-        animate={{ x: [0, 50, -30, 0], y: [0, -40, 20, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Subtle dot grid overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.18]"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-
-      {/* Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#05060F_100%)]" />
-      {/* Bottom fade into page body */}
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#05060F]" />
-    </div>
-  );
-}
-
-/** Floating particle dots — extremely lightweight (pure CSS/framer). */
-function Particles({ count = 30 }) {
-  const particles = useMemo(
-    () =>
-      Array.from({ length: count }).map(() => ({
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 3 + 1,
-        duration: Math.random() * 12 + 10,
-        delay: Math.random() * 8,
-        opacity: Math.random() * 0.4 + 0.2,
-      })),
-    [count]
-  );
-
-  return (
-    <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((p, i) => (
-        <motion.span
-          key={i}
-          className="absolute rounded-full bg-white"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: p.size,
-            height: p.size,
-            opacity: p.opacity,
-            boxShadow: "0 0 8px rgba(167,139,250,0.7)",
-          }}
-          animate={{ y: [0, -40, 0], opacity: [p.opacity, p.opacity * 0.2, p.opacity] }}
-          transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ))}
-    </div>
-  );
-}
-
-/** Animated audio visualizer — bars that pulse with a music-like rhythm. */
-function AudioVisualizer() {
-  const bars = Array.from({ length: 80 });
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-x-0 bottom-0 flex h-44 items-end justify-center gap-[3px] px-4 md:h-60 md:gap-[4px]"
-    >
-      {bars.map((_, i) => (
-        <span
-          key={i}
-          className="wave-bar w-[3px] rounded-full md:w-[4px]"
-          style={{
-            height: `${25 + Math.abs(Math.sin(i * 0.55)) * 65 + Math.random() * 10}%`,
-            background:
-              "linear-gradient(to top, rgba(139,92,246,0) 0%, rgba(139,92,246,0.9) 50%, #E9D5FF 100%)",
-            animationDelay: `${(i % 14) * 0.065}s`,
-            animationDuration: `${0.9 + (i % 5) * 0.12}s`,
-            opacity: 0.45 + (i % 7) * 0.06,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-/** Small floating music-note bars that drift slowly. */
-function FloatingNotes() {
-  const items = [
-    { left: "8%", top: "22%", delay: 0, size: 12 },
-    { left: "16%", top: "68%", delay: 2.4, size: 8 },
-    { left: "82%", top: "30%", delay: 1.2, size: 10 },
-    { left: "72%", top: "72%", delay: 3.5, size: 14 },
-    { left: "42%", top: "18%", delay: 0.8, size: 6 },
-  ];
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0">
-      {items.map((n, i) => (
-        <motion.span
-          key={i}
-          className="absolute rounded-full"
-          style={{
-            left: n.left,
-            top: n.top,
-            width: n.size,
-            height: n.size,
-            background:
-              "radial-gradient(circle, #A78BFA 0%, rgba(167,139,250,0) 70%)",
-            boxShadow: "0 0 20px rgba(167,139,250,0.8)",
-          }}
-          animate={{ y: [0, -22, 0], scale: [1, 1.3, 1] }}
-          transition={{
-            duration: 6 + i * 0.6,
-            delay: n.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*                              Hero                                  */
-/* ------------------------------------------------------------------ */
-
+/* SonicMind-inspired hero for Soulnote
+   - Deep red/black palette
+   - Red-duotone portrait anchored center-right
+   - Giant layered "SOUL / NOTE" typography on the left
+   - Ghost "SOULNOTE" bleeding off the right edge
+   - Scroll-based parallax + fade
+*/
 export default function Hero() {
   const ref = useRef(null);
   const prefersReduced = useReducedMotion();
 
-  /**
-   * Scroll-linked animations
-   * ------------------------------------------------------------
-   * We read raw window scroll progress for this section (target=ref)
-   * and map the [0 → 1] progress (top of section at viewport top →
-   * bottom of section at viewport top) into distinct visual outputs:
-   *   - `bgScale`         : background zoom  (1 → 1.2)
-   *   - `contentY`        : foreground parallax   (drifts up)
-   *   - `contentOpacity`  : content fades out near end of scroll
-   *   - `contentBlur`     : soft blur as user leaves hero
-   *   - `ctaY`            : CTAs move up slower (additional parallax)
-   *   - `vizOpacity`      : visualizer fades out
-   *   - `creditsY`        : bottom meta row slight parallax
-   */
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const bgScaleRaw = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
-  const contentYRaw = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const contentOpacityRaw = useTransform(scrollYProgress, [0, 0.6, 1], [1, 0.5, 0]);
-  const contentBlurRaw = useTransform(scrollYProgress, [0, 1], [0, 8]);
-  const ctaYRaw = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const vizOpacityRaw = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const creditsYRaw = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  // Scroll transforms
+  const bgScaleRaw = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const textYRaw = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const textOpacityRaw = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const portraitYRaw = useTransform(scrollYProgress, [0, 1], [0, 160]);
+  const ghostXRaw = useTransform(scrollYProgress, [0, 1], [0, 200]);
 
-  // Spring smoothing (skip when user prefers reduced motion)
-  const springCfg = { stiffness: 110, damping: 28, mass: 0.6 };
-  const bgScale = useSpring(bgScaleRaw, springCfg);
-  const contentY = useSpring(contentYRaw, springCfg);
-  const contentOpacity = useSpring(contentOpacityRaw, springCfg);
-  const contentBlur = useSpring(contentBlurRaw, springCfg);
-  const ctaY = useSpring(ctaYRaw, springCfg);
-  const vizOpacity = useSpring(vizOpacityRaw, springCfg);
-  const creditsY = useSpring(creditsYRaw, springCfg);
-
-  // Filter value string depends on blur output
-  const contentFilter = useTransform(contentBlur, (b) => `blur(${b}px)`);
+  const spring = { stiffness: 120, damping: 30, mass: 0.6 };
+  const bgScale = useSpring(bgScaleRaw, spring);
+  const textY = useSpring(textYRaw, spring);
+  const textOpacity = useSpring(textOpacityRaw, spring);
+  const portraitY = useSpring(portraitYRaw, spring);
+  const ghostX = useSpring(ghostXRaw, spring);
 
   return (
     <section
       ref={ref}
       id="top"
       data-testid="hero-section"
-      className="relative min-h-[100svh] w-full overflow-hidden text-white"
+      className="relative min-h-[100svh] w-full overflow-hidden bg-crimson text-white"
     >
-      {/* =============================================================== */}
-      {/*                     BACKGROUND (scroll zooms)                   */}
-      {/* =============================================================== */}
+      {/* Decorative radial red glow behind portrait */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-1/2 h-[90%] w-[70%] -translate-x-1/4 -translate-y-1/2 rounded-full bg-[#e11d48]/35 blur-[140px]" />
+        <div className="absolute right-0 top-0 h-[60%] w-[40%] bg-gradient-to-bl from-[#ef4444]/30 via-transparent to-transparent blur-3xl" />
+      </div>
+
+      {/* =========== TOP NAV =========== */}
+      <div className="relative z-30 mx-auto flex max-w-[1400px] items-center justify-between px-6 pt-7 md:px-10 md:pt-8">
+        {/* Logo */}
+        <a
+          href="#top"
+          data-testid="hero-logo"
+          className="flex items-center gap-3 font-display leading-none"
+        >
+          <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white text-[9px] font-bold tracking-tight text-white">
+            S
+          </span>
+          <div className="flex flex-col gap-0.5">
+            <span className="font-display text-sm tracking-[0.02em]">
+              SOUL
+            </span>
+            <span className="font-display text-sm tracking-[0.02em]">
+              NOTE
+            </span>
+          </div>
+        </a>
+
+        {/* Nav links */}
+        <nav className="hidden items-center gap-10 md:flex">
+          {[
+            { label: "How It Works", href: "#process" },
+            { label: "Showcase", href: "#songs" },
+            { label: "Benefits", href: "#benefits" },
+            { label: "Testimonials", href: "#testimonials" },
+          ].map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="text-[15px] font-archivo text-white/85 transition-colors hover:text-white"
+            >
+              {l.label}
+            </a>
+          ))}
+        </nav>
+
+        {/* Socials */}
+        <div className="flex items-center gap-3">
+          <a
+            href="#"
+            aria-label="Instagram"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white hover:text-[#7a0c0c]"
+          >
+            <Instagram className="h-4 w-4" />
+          </a>
+          <a
+            href="#"
+            aria-label="Telegram"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white hover:text-[#7a0c0c]"
+          >
+            <Send className="h-4 w-4" />
+          </a>
+          <a
+            href="#"
+            aria-label="Facebook"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white hover:text-[#7a0c0c]"
+          >
+            <Facebook className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+
+      {/* =========== BACKGROUND PORTRAIT =========== */}
       <motion.div
-        style={prefersReduced ? undefined : { scale: bgScale }}
-        className="absolute inset-0 origin-center"
+        style={prefersReduced ? undefined : { scale: bgScale, y: portraitY }}
+        className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
       >
-        <AuroraBackdrop />
-        <Particles count={36} />
-        <FloatingNotes />
+        <div className="duotone-red-wrap relative h-[90%] w-[72%] md:w-[58%]">
+          <img
+            src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?crop=entropy&cs=tinysrgb&fit=crop&w=1600&q=85"
+            alt=""
+            className="duotone-red absolute inset-0 h-full w-full object-cover object-[center_20%]"
+            loading="eager"
+          />
+        </div>
+        {/* Side fades to blend portrait into red bg */}
+        <div className="absolute inset-y-0 left-0 z-10 w-1/3 bg-gradient-to-r from-[#450505] via-[#7a0c0c]/40 to-transparent" />
+        <div className="absolute inset-y-0 right-0 z-10 w-1/4 bg-gradient-to-l from-[#450505] via-transparent to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[#080202]" />
       </motion.div>
 
-      {/* Audio visualizer (music-themed element, fades on scroll) */}
+      {/* =========== GHOST SOULNOTE (right edge) =========== */}
       <motion.div
-        style={prefersReduced ? undefined : { opacity: vizOpacity }}
-        className="absolute inset-0"
+        aria-hidden
+        style={prefersReduced ? undefined : { x: ghostX }}
+        className="pointer-events-none absolute right-0 top-0 z-20 hidden h-full items-center md:flex"
       >
-        <AudioVisualizer />
+        <div
+          className="ghost-text text-[28vw] leading-none"
+          style={{ writingMode: "horizontal-tb", transform: "translateX(18%)" }}
+        >
+          SOULNOTE
+        </div>
       </motion.div>
 
-      {/* =============================================================== */}
-      {/*              FOREGROUND CONTENT (parallax + fade)               */}
-      {/* =============================================================== */}
+      {/* =========== CONTENT =========== */}
       <motion.div
         style={
-          prefersReduced
-            ? undefined
-            : { y: contentY, opacity: contentOpacity, filter: contentFilter }
+          prefersReduced ? undefined : { y: textY, opacity: textOpacity }
         }
-        className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-6 pt-28 md:px-12"
+        className="relative z-30 mx-auto flex min-h-[calc(100svh-120px)] max-w-[1400px] flex-col justify-between px-6 pt-12 pb-10 md:px-10 md:pt-16 md:pb-12"
       >
-        {/* --------- Glassmorphism content card --------- */}
+        {/* Top-right tagline */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-2xl md:p-14"
-          style={{
-            boxShadow:
-              "0 25px 80px -20px rgba(109,40,217,0.35), 0 0 0 1px rgba(255,255,255,0.06) inset",
-          }}
+          transition={{ duration: 0.9, delay: 0.15 }}
+          className="ml-auto max-w-xs text-right"
         >
-          {/* Inner shimmer line */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent" />
-
-          <div className="flex flex-col items-center text-center">
-            {/* Credibility pill */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] uppercase tracking-[0.28em] text-white/80 backdrop-blur-xl"
-              data-testid="hero-eyebrow"
-            >
-              <Sparkles className="h-3.5 w-3.5 text-[#A78BFA]" />
-              150+ songs created since 2025
-            </motion.div>
-
-            {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              data-testid="hero-headline"
-              className="font-display mt-7 text-5xl font-semibold leading-[1.02] tracking-tight text-white md:text-6xl lg:text-7xl"
-            >
-              Turn Your Story <br className="hidden sm:block" />
-              Into a{" "}
-              <span
-                className="relative bg-gradient-to-r from-[#E9D5FF] via-[#A78BFA] to-[#60A5FA] bg-clip-text text-transparent"
-                style={{ WebkitTextFillColor: "transparent" }}
-              >
-                Song
-                <svg
-                  aria-hidden
-                  viewBox="0 0 300 18"
-                  className="absolute -bottom-3 left-0 h-3 w-full"
-                >
-                  <path
-                    d="M3 14 Q 80 2, 150 10 T 297 8"
-                    stroke="url(#underlineGrad)"
-                    strokeWidth="3"
-                    fill="none"
-                    strokeLinecap="round"
-                  />
-                  <defs>
-                    <linearGradient id="underlineGrad" x1="0" x2="1">
-                      <stop offset="0%" stopColor="#A78BFA" />
-                      <stop offset="100%" stopColor="#60A5FA" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </span>
-              .
-            </motion.h1>
-
-            {/* Sub */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.35 }}
-              data-testid="hero-sub"
-              className="mt-7 max-w-2xl text-base font-light leading-relaxed text-white/70 md:text-lg"
-            >
-              Custom songs created from your memories, emotions, and the
-              moments that matter. Studio-produced. Delivered to your heart.
-            </motion.p>
-
-            {/* CTAs (extra parallax) */}
-            <motion.div
-              style={prefersReduced ? undefined : { y: ctaY }}
-              className="mt-10 flex w-full flex-col items-stretch gap-4 sm:w-auto sm:flex-row sm:items-center"
-            >
-              <motion.a
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                href={waLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="hero-whatsapp-cta"
-                className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#3B82F6] px-7 py-4 text-sm font-semibold text-white shadow-[0_10px_40px_-8px_rgba(139,92,246,0.7)] transition-all hover:shadow-[0_14px_50px_-4px_rgba(139,92,246,0.9)] md:text-base"
-              >
-                {/* Hover shimmer */}
-                <span className="pointer-events-none absolute inset-0 translate-x-[-120%] bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-[120%]" />
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#25D366]">
-                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 fill-white" aria-hidden>
-                    <path d="M12.04 2.003a9.97 9.97 0 0 0-8.52 15.12l-1.5 5.47 5.62-1.47a9.97 9.97 0 1 0 4.4-19.12Zm5.8 14.2c-.25.7-1.44 1.33-2 1.4-.52.06-1.17.09-1.88-.12-.44-.14-1-.33-1.73-.65-3.05-1.32-5.04-4.39-5.19-4.59-.15-.2-1.24-1.65-1.24-3.15s.78-2.23 1.06-2.54c.28-.31.61-.39.81-.39.2 0 .41.002.59.01.19.007.44-.07.69.52.25.6.84 2.07.92 2.22.08.15.13.32.03.52-.1.2-.15.31-.3.48-.15.17-.32.38-.46.51-.15.14-.31.3-.13.6.18.31.79 1.3 1.7 2.11 1.17 1.03 2.16 1.35 2.47 1.5.31.15.49.13.67-.08.18-.2.77-.89.98-1.19.2-.31.41-.25.69-.15.28.1 1.77.84 2.07 1 .3.15.49.23.56.36.08.13.08.77-.16 1.47Z"></path>
-                  </svg>
-                </span>
-                Request Your Song on WhatsApp
-              </motion.a>
-
-              <motion.a
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                href="#songs"
-                data-testid="hero-listen-btn"
-                className="group inline-flex items-center justify-center gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-4 text-sm font-medium text-white backdrop-blur-xl transition-all hover:border-white/40 hover:bg-white/10 md:text-base"
-              >
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-black transition-transform group-hover:scale-110">
-                  <Play className="h-3.5 w-3.5 fill-black translate-x-[1px]" />
-                </span>
-                Listen to Songs
-              </motion.a>
-            </motion.div>
-          </div>
+          <p className="font-archivo text-[15px] font-light leading-snug text-white/95 md:text-base">
+            From a spark of emotion <br />
+            to a full song, made for you.
+          </p>
         </motion.div>
-      </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        style={prefersReduced ? undefined : { y: creditsY, opacity: contentOpacity }}
-        className="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-2 text-[10px] uppercase tracking-[0.35em] text-white/50"
-      >
-        <span className="flex items-center gap-2">
-          <ArrowDown className="h-3.5 w-3.5 animate-bounce" />
-          Scroll to explore
-        </span>
+        {/* Middle area (giant heading) */}
+        <div className="relative mt-auto flex flex-1 items-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+            data-testid="hero-headline"
+            className="font-display text-[20vw] font-black leading-[0.82] tracking-[-0.04em] text-white drop-shadow-[0_6px_20px_rgba(0,0,0,0.4)] md:text-[16vw] lg:text-[14.5rem]"
+          >
+            SOUL
+            <br />
+            NOTE
+          </motion.h1>
+        </div>
+
+        {/* Bottom row: description + CTA */}
+        <div className="relative z-30 mt-10 grid grid-cols-1 items-end gap-8 md:grid-cols-12">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3 }}
+            data-testid="hero-sub"
+            className="font-archivo max-w-xs text-sm leading-relaxed text-white/95 md:col-span-5 md:text-base"
+          >
+            {ARTIST.brand} turns your memories, emotions,
+            <br className="hidden md:block" /> and moments into an original,
+            studio-produced song — 150+ created since 2025.
+          </motion.p>
+
+          <div className="md:col-span-3" />
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.45 }}
+            className="flex flex-col gap-3 md:col-span-4 md:items-end"
+          >
+            <a
+              href={waLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="hero-whatsapp-cta"
+              className="group inline-flex w-full items-center justify-between gap-6 rounded-full bg-white px-8 py-5 text-base font-archivo font-semibold text-[#0a0202] transition-all hover:bg-[#ff5722] hover:text-white md:w-auto md:min-w-[320px]"
+            >
+              <span>Request Your Song</span>
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0a0202] text-white transition-all group-hover:translate-x-1 group-hover:bg-white group-hover:text-[#ff5722]">
+                <ArrowRight className="h-4 w-4" />
+              </span>
+            </a>
+            <a
+              href="#songs"
+              data-testid="hero-listen-btn"
+              className="flex items-center gap-2 pl-2 text-[12px] font-archivo uppercase tracking-[0.3em] text-white/75 transition-colors hover:text-white md:self-end"
+            >
+              or listen to songs
+              <ArrowRight className="h-3 w-3" />
+            </a>
+          </motion.div>
+        </div>
       </motion.div>
     </section>
   );

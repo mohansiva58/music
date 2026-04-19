@@ -1,53 +1,50 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Pause, Play } from "lucide-react";
+import { Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
 import { SONGS } from "../lib/content";
 
-// Single shared audio controller via module state
-let currentAudio = null;
-let currentId = null;
-const listeners = new Set();
-const setGlobalPlaying = (id, audio) => {
-  currentId = id;
-  currentAudio = audio;
-  listeners.forEach((fn) => fn(id));
-};
+/* SonicMind-style showcase:
+   - "HEAR WHAT ... AI CAN DO" headline split around centered portrait
+   - Centered hero portrait (duotone red)
+   - Big waveform audio player below (orange bars)
+   - Previous / Next controls, 1/10 counter, 2:36 timecode
+*/
 
-function SongCard({ song, index }) {
-  const audioRef = useRef(null);
+function formatTime(sec) {
+  if (!Number.isFinite(sec)) return "0:00";
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+export default function AudioPortfolio() {
+  const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [current, setCurrent] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef(null);
 
-  useEffect(() => {
-    const onGlobal = (id) => {
-      if (id !== song.id && playing) {
-        audioRef.current?.pause();
-        setPlaying(false);
-      }
-    };
-    listeners.add(onGlobal);
-    return () => {
-      listeners.delete(onGlobal);
-    };
-  }, [song.id, playing]);
+  const song = SONGS[index];
+  const total = SONGS.length;
 
   useEffect(() => {
     const a = audioRef.current;
     if (!a) return;
-    const onTime = () => {
-      if (a.duration) setProgress((a.currentTime / a.duration) * 100);
-    };
-    const onEnd = () => {
+    const onTime = () => setCurrent(a.currentTime);
+    const onLoaded = () => setDuration(a.duration || 0);
+    const onEnded = () => {
       setPlaying(false);
-      setProgress(0);
+      setCurrent(0);
     };
     a.addEventListener("timeupdate", onTime);
-    a.addEventListener("ended", onEnd);
+    a.addEventListener("loadedmetadata", onLoaded);
+    a.addEventListener("ended", onEnded);
     return () => {
       a.removeEventListener("timeupdate", onTime);
-      a.removeEventListener("ended", onEnd);
+      a.removeEventListener("loadedmetadata", onLoaded);
+      a.removeEventListener("ended", onEnded);
     };
-  }, []);
+  }, [index]);
 
   const toggle = () => {
     const a = audioRef.current;
@@ -55,151 +52,167 @@ function SongCard({ song, index }) {
     if (playing) {
       a.pause();
       setPlaying(false);
-      if (currentId === song.id) setGlobalPlaying(null, null);
     } else {
-      if (currentAudio && currentAudio !== a) {
-        try {
-          currentAudio.pause();
-        } catch (e) {
-          // ignore
-        }
-      }
-      a.play()
-        .then(() => {
-          setPlaying(true);
-          setGlobalPlaying(song.id, a);
-        })
-        .catch(() => {
-          // autoplay/user gesture errors — ignore silently
-        });
+      a.play().then(() => setPlaying(true)).catch(() => {});
     }
   };
 
-  // Waveform bars
-  const barCount = 40;
+  const go = (dir) => {
+    setPlaying(false);
+    setCurrent(0);
+    setIndex((i) => (i + dir + total) % total);
+  };
+
+  const progress = duration > 0 ? (current / duration) * 100 : 0;
+  const barCount = 100;
   const bars = Array.from({ length: barCount });
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{
-        duration: 0.7,
-        delay: index * 0.06,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      data-testid={`song-card-${song.id}`}
-      className="group glass relative flex flex-col overflow-hidden rounded-3xl p-5 transition-all duration-500 hover:-translate-y-1 hover:border-white/20"
-    >
-      <div className="relative overflow-hidden rounded-2xl">
-        <img
-          src={song.cover}
-          alt={song.title}
-          className={`h-56 w-full object-cover transition duration-700 group-hover:scale-105 ${
-            playing ? "scale-105" : ""
-          }`}
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-
-        {/* Play button */}
-        <button
-          onClick={toggle}
-          data-testid={`song-play-btn-${song.id}`}
-          aria-label={playing ? "Pause" : "Play"}
-          className="absolute bottom-4 left-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#E2B365] text-black glow-btn"
-        >
-          {playing ? (
-            <Pause className="h-5 w-5 fill-black" />
-          ) : (
-            <Play className="h-5 w-5 fill-black translate-x-[1px]" />
-          )}
-        </button>
-
-        {/* Duration */}
-        <div className="absolute right-4 top-4 rounded-full bg-black/50 px-3 py-1 text-[11px] uppercase tracking-widest text-zinc-200 backdrop-blur-xl">
-          {song.duration}
-        </div>
-      </div>
-
-      {/* Meta */}
-      <div className="mt-5 flex items-start justify-between gap-3">
-        <div>
-          <div className="text-[11px] uppercase tracking-[0.2em] text-[#E2B365]">
-            {song.occasion}
-          </div>
-          <h3 className="font-display mt-1 text-xl font-medium text-white">
-            {song.title}
-          </h3>
-        </div>
-      </div>
-
-      {/* Waveform */}
-      <div className="mt-5 flex h-10 items-center gap-[2px]">
-        {bars.map((_, i) => {
-          const barActive = playing && (i / barCount) * 100 < progress;
-          const reached = (i / barCount) * 100 <= progress;
-          return (
-            <span
-              key={i}
-              className={`flex-1 rounded-full transition-all duration-200 ${
-                reached ? "bg-[#E2B365]" : "bg-white/15"
-              } ${playing ? "wave-bar" : ""}`}
-              style={{
-                height: `${25 + Math.abs(Math.sin(i * 0.6)) * 70}%`,
-                animationDelay: `${(i % 10) * 0.08}s`,
-                opacity: barActive ? 1 : 0.8,
-              }}
-            />
-          );
-        })}
-      </div>
-
-      <audio
-        ref={audioRef}
-        src={song.audio}
-        preload="none"
-        data-testid={`song-audio-${song.id}`}
-      />
-    </motion.div>
-  );
-}
-
-export default function AudioPortfolio() {
   return (
     <section
       id="songs"
       data-testid="audio-portfolio-section"
-      className="relative px-6 py-24 md:px-12 md:py-32"
+      className="relative overflow-hidden bg-[#200303] bg-crimson px-6 pb-24 pt-24 md:px-10 md:pb-32 md:pt-32"
     >
-      <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <div className="max-w-2xl">
-            <span className="text-[11px] uppercase tracking-[0.3em] text-[#E2B365]">
-              The catalogue
-            </span>
-            <h2
-              className="font-display mt-4 text-4xl font-medium tracking-tight text-white md:text-5xl lg:text-6xl"
-              data-testid="portfolio-headline"
-            >
-              Real songs. <br />
-              <span className="font-script text-gold-gradient">Real people.</span>
-            </h2>
-          </div>
-          <p className="max-w-md text-sm text-zinc-400 md:text-base">
-            A selection from the 150+ songs written for birthdays,
-            anniversaries, weddings, long-distance love and everything in
-            between. Press play — only one track plays at a time.
-          </p>
+      <div className="mx-auto max-w-[1400px]">
+        {/* Section label */}
+        <div className="mb-10 font-archivo text-sm text-white/70 md:text-base">
+          Showcase
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {SONGS.map((s, i) => (
-            <SongCard key={s.id} song={s} index={i} />
-          ))}
+        {/* Big split headline around the portrait */}
+        <div className="relative">
+          <div className="relative grid grid-cols-12 items-end gap-4">
+            <motion.h2
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9 }}
+              data-testid="showcase-headline-left"
+              className="font-display col-span-12 z-20 text-[12vw] font-black leading-[0.9] text-white/90 md:col-span-4 md:text-[4.2vw]"
+            >
+              HEAR WHAT
+            </motion.h2>
+
+            {/* Center portrait */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="col-span-12 flex justify-center md:col-span-4"
+            >
+              <div className="duotone-red-wrap relative h-[62vh] w-full max-w-md overflow-hidden md:h-[68vh]">
+                <img
+                  src={song.cover}
+                  alt={song.title}
+                  className="duotone-red absolute inset-0 h-full w-full object-cover object-center"
+                  key={song.id}
+                  loading="lazy"
+                />
+              </div>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9 }}
+              data-testid="showcase-headline-right"
+              className="font-display col-span-12 z-20 text-right text-[12vw] font-black leading-[0.9] text-ember md:col-span-4 md:text-[4.2vw]"
+            >
+              AI CAN DO
+            </motion.h2>
+          </div>
+
+          {/* Song title underneath */}
+          <motion.div
+            key={`title-${song.id}`}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mt-6 text-center"
+          >
+            <div className="font-archivo text-xs uppercase tracking-[0.35em] text-[#ff5722]">
+              {song.occasion}
+            </div>
+            <div className="font-display mt-2 text-xl text-white md:text-2xl">
+              {song.title}
+            </div>
+          </motion.div>
+
+          {/* Prev / Next */}
+          <div className="mt-10 flex items-center justify-between">
+            <button
+              onClick={() => go(-1)}
+              data-testid="showcase-prev"
+              className="group flex items-center gap-3 font-archivo text-sm uppercase tracking-[0.3em] text-white/70 transition-colors hover:text-white"
+            >
+              <ChevronLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
+              Previous
+            </button>
+            <button
+              onClick={() => go(1)}
+              data-testid="showcase-next"
+              className="group flex items-center gap-3 font-archivo text-sm uppercase tracking-[0.3em] text-white/70 transition-colors hover:text-white"
+            >
+              Next
+              <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </button>
+          </div>
+
+          {/* Waveform player row */}
+          <div className="mt-8 flex items-center justify-between">
+            <div className="font-display text-2xl text-white md:text-3xl">
+              {formatTime(current)}
+            </div>
+            <div className="font-display text-2xl text-white md:text-3xl">
+              {index + 1}/{total.toString().padStart(2, "0")}
+            </div>
+          </div>
+
+          {/* Waveform */}
+          <div className="relative mt-3 flex h-40 items-end justify-between gap-[2px] md:h-48">
+            {/* Center play button */}
+            <button
+              onClick={toggle}
+              data-testid="showcase-play-btn"
+              aria-label={playing ? "Pause" : "Play"}
+              className="absolute left-1/2 top-1/2 z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#1a0303] text-white ring-1 ring-white/30 transition-transform hover:scale-110 md:h-24 md:w-24"
+            >
+              {playing ? (
+                <Pause className="h-7 w-7 fill-white" />
+              ) : (
+                <Play className="h-7 w-7 translate-x-[2px] fill-white" />
+              )}
+            </button>
+
+            {bars.map((_, i) => {
+              const reached = (i / barCount) * 100 <= progress;
+              const height =
+                30 +
+                Math.abs(Math.sin(i * 0.45 + index * 1.1)) * 70 +
+                Math.abs(Math.sin(i * 0.13)) * 20;
+              return (
+                <span
+                  key={i}
+                  className={`flex-1 rounded-full transition-colors duration-200 ${
+                    playing ? "wave-bar" : ""
+                  }`}
+                  style={{
+                    height: `${Math.min(height, 100)}%`,
+                    background: reached
+                      ? "linear-gradient(to top,#ff5722,#ffb38a)"
+                      : "rgba(255,255,255,0.18)",
+                    animationDelay: `${(i % 12) * 0.05}s`,
+                  }}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
+
+      <audio ref={audioRef} src={song.audio} preload="none" />
     </section>
   );
 }

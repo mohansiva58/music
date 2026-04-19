@@ -1,111 +1,74 @@
 import { motion } from "framer-motion";
 import { ARTIST } from "../lib/content";
 
+/* SonicMind-style "About" — red smoke portrait + huge white "WITH SOULNOTE" headline */
 export default function About() {
   return (
     <section
       id="about"
       data-testid="about-section"
-      className="relative px-6 py-24 md:px-12 md:py-32"
+      className="relative overflow-hidden bg-[#080202] px-6 py-24 md:px-10 md:py-32"
     >
-      <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-12 md:gap-16">
-        {/* Image */}
+      <div className="mx-auto max-w-[1400px]">
+        {/* Top: WITH + SOULNOTE */}
+        <div className="relative flex flex-col items-end">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8 }}
+            className="mb-2 mr-4 self-start md:mr-0 md:self-end md:pr-[14%]"
+          >
+            <span className="font-script text-3xl text-white md:text-4xl">
+              With
+            </span>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            data-testid="about-headline"
+            className="font-display text-[18vw] font-black leading-[0.85] tracking-[-0.04em] text-white md:text-[13vw] lg:text-[11rem]"
+          >
+            {ARTIST.brand.toUpperCase()}
+          </motion.h2>
+        </div>
+
+        {/* Portrait with red smoke */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative md:col-span-5"
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mt-[-2vw] flex justify-center"
         >
-          <div className="relative overflow-hidden rounded-3xl border border-white/10">
+          <div className="duotone-red-wrap relative h-[72vh] w-full max-w-[900px] overflow-hidden md:h-[80vh]">
             <img
-              src="https://images.unsplash.com/photo-1563170261-90260910461d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHw0fHxjaW5lbWF0aWMlMjBtdXNpY2lhbiUyMHBvcnRyYWl0JTIwZGFyayUyMG1vb2R5fGVufDB8fHx8MTc3NjU3MzQ4NHww&ixlib=rb-4.1.0&q=85"
-              alt={`${ARTIST.name} portrait`}
-              className="h-[560px] w-full object-cover grayscale transition duration-700 hover:grayscale-0"
+              src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?crop=entropy&cs=tinysrgb&fit=crop&w=1400&q=85"
+              alt="Listening to music"
+              className="duotone-red absolute inset-0 h-full w-full object-cover"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
-              <div>
-                <div className="font-script text-4xl text-[#E2B365]">
-                  {ARTIST.name}
-                </div>
-                <div className="mt-1 text-[11px] uppercase tracking-[0.3em] text-zinc-300">
-                  {ARTIST.tagline}
-                </div>
-              </div>
-              <div className="glass rounded-2xl px-4 py-3 text-right">
-                <div className="font-display text-2xl font-semibold text-white">
-                  150+
-                </div>
-                <div className="text-[10px] uppercase tracking-[0.25em] text-zinc-400">
-                  songs · since 2025
-                </div>
-              </div>
-            </div>
           </div>
+          {/* Smoke-like fade edges */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#080202] via-transparent to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#080202] via-transparent to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[#080202]" />
         </motion.div>
 
-        {/* Text */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+        {/* Bottom description */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col justify-center md:col-span-7"
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="font-archivo mx-auto mt-[-4vw] max-w-2xl text-center text-lg leading-relaxed text-white/90 md:text-xl"
         >
-          <span className="mb-5 text-[11px] uppercase tracking-[0.3em] text-[#E2B365]">
-            Meet the artist
-          </span>
-          <h2
-            className="font-display text-4xl font-medium leading-[1.1] tracking-tight text-white md:text-5xl lg:text-6xl"
-            data-testid="about-headline"
-          >
-            Every song I write <br />
-            starts with{" "}
-            <span className="font-script text-gold-gradient">
-              your story.
-            </span>
-          </h2>
-          <p className="mt-7 max-w-xl text-base leading-relaxed text-zinc-400 md:text-lg">
-            I don't make stock songs. I don't use templates. Every single
-            personalized track you hear on this page was written from a blank
-            page — built around a real conversation with a real human about the
-            moment they wanted to preserve.
-          </p>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-zinc-400 md:text-lg">
-            Lyrics first. Then the melody. Then the arrangement. Then the
-            studio. My goal is simple: when the person you give this to hits
-            play, they should feel seen.
-          </p>
-
-          <div className="mt-10 grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
-            <div>
-              <div className="font-display text-3xl font-semibold text-white md:text-4xl">
-                150+
-              </div>
-              <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-                songs created
-              </div>
-            </div>
-            <div>
-              <div className="font-display text-3xl font-semibold text-white md:text-4xl">
-                7–14 <span className="text-base text-zinc-500">days</span>
-              </div>
-              <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-                typical delivery
-              </div>
-            </div>
-            <div>
-              <div className="font-display text-3xl font-semibold text-white md:text-4xl">
-                100%
-              </div>
-              <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-                original lyrics
-              </div>
-            </div>
-          </div>
-        </motion.div>
+          inspiration transforms into sound — every memory, every emotion,
+          every story becoming something you can truly{" "}
+          <span className="text-ember font-semibold">hear, feel, and keep.</span>
+        </motion.p>
       </div>
     </section>
   );

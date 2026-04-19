@@ -12,29 +12,36 @@ export default function Testimonials() {
 
   return (
     <section
+      id="testimonials"
       data-testid="testimonials-section"
-      className="relative overflow-hidden px-6 py-24 md:px-12 md:py-32"
+      className="relative overflow-hidden bg-crimson px-6 py-24 md:px-10 md:py-32"
     >
-      <div className="absolute inset-0 radial-gold opacity-50" />
-
-      <div className="relative mx-auto max-w-6xl">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-[#E2B365]">
-            In their own words
-          </span>
-          <h2
-            className="font-display mt-4 text-4xl font-medium tracking-tight text-white md:text-5xl lg:text-6xl"
-            data-testid="testimonials-headline"
-          >
-            The{" "}
-            <span className="font-script text-gold-gradient">reactions</span>{" "}
-            that keep me going.
-          </h2>
+      <div className="mx-auto max-w-[1400px]">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+          <div className="md:col-span-3">
+            <span className="font-archivo text-sm text-white/80 md:text-base">
+              Testimonials
+            </span>
+          </div>
+          <div className="md:col-span-9">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1 }}
+              data-testid="testimonials-headline"
+              className="font-display text-[9vw] font-black leading-[0.95] tracking-[-0.03em] text-white md:text-[5.6vw] lg:text-[4.8rem]"
+            >
+              REACTIONS THAT <span className="text-ember">KEEP</span>
+              <br />
+              ME GOING.
+            </motion.h2>
+          </div>
         </div>
 
         <div className="mt-16 md:mt-20">
-          <div className="glass-strong relative mx-auto max-w-4xl rounded-3xl p-8 md:p-14">
-            <Quote className="absolute left-8 top-8 h-10 w-10 text-[#E2B365]/30 md:h-14 md:w-14" />
+          <div className="relative mx-auto max-w-4xl rounded-2xl border border-white/10 bg-[#1a0303]/70 p-8 backdrop-blur-xl md:p-14">
+            <Quote className="absolute left-8 top-8 h-10 w-10 text-[#ff5722]/40 md:h-14 md:w-14" />
 
             <AnimatePresence mode="wait">
               <motion.div
@@ -49,14 +56,14 @@ export default function Testimonials() {
                   “{t.quote}”
                 </p>
                 <div className="mt-10 flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E2B365] text-sm font-semibold text-black">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5722] text-sm font-semibold text-black">
                     {t.initials}
                   </div>
                   <div>
-                    <div className="text-base font-medium text-white">
+                    <div className="font-archivo text-base font-medium text-white">
                       {t.name}
                     </div>
-                    <div className="text-xs uppercase tracking-[0.25em] text-zinc-500">
+                    <div className="font-archivo text-xs uppercase tracking-[0.25em] text-white/50">
                       {t.location}
                     </div>
                   </div>
@@ -65,13 +72,12 @@ export default function Testimonials() {
             </AnimatePresence>
           </div>
 
-          {/* Controls */}
           <div className="mt-8 flex items-center justify-center gap-5">
             <button
               onClick={prev}
               data-testid="testimonial-prev"
               aria-label="Previous testimonial"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-all hover:border-[#E2B365] hover:text-[#E2B365]"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all hover:border-[#ff5722] hover:text-[#ff5722]"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
@@ -83,8 +89,8 @@ export default function Testimonials() {
                   aria-label={`Go to testimonial ${i + 1}`}
                   className={`h-1.5 rounded-full transition-all ${
                     i === index
-                      ? "w-8 bg-[#E2B365]"
-                      : "w-1.5 bg-white/20 hover:bg-white/40"
+                      ? "w-8 bg-[#ff5722]"
+                      : "w-1.5 bg-white/25 hover:bg-white/50"
                   }`}
                 />
               ))}
@@ -93,7 +99,7 @@ export default function Testimonials() {
               onClick={next}
               data-testid="testimonial-next"
               aria-label="Next testimonial"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-all hover:border-[#E2B365] hover:text-[#E2B365]"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all hover:border-[#ff5722] hover:text-[#ff5722]"
             >
               <ChevronRight className="h-4 w-4" />
             </button>

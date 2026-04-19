@@ -1,5 +1,4 @@
-@import url("https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Caveat:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -11,16 +10,16 @@ html {
 
 body {
     margin: 0;
-    font-family: "Manrope", system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #050505;
+    background-color: #080202;
     color: #ffffff;
     overflow-x: hidden;
 }
 
 ::selection {
-    background: rgba(226, 179, 101, 0.35);
+    background: rgba(239, 68, 68, 0.45);
     color: #fff;
 }
 
@@ -28,23 +27,23 @@ body {
     :root {
         --background: 0 0% 2%;
         --foreground: 0 0% 98%;
-        --card: 0 0% 4%;
+        --card: 0 30% 6%;
         --card-foreground: 0 0% 98%;
-        --popover: 0 0% 4%;
+        --popover: 0 30% 6%;
         --popover-foreground: 0 0% 98%;
-        --primary: 38 62% 64%;
+        --primary: 16 100% 55%;
         --primary-foreground: 0 0% 5%;
-        --secondary: 0 0% 10%;
+        --secondary: 0 30% 8%;
         --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 12%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 172 66% 50%;
+        --muted: 0 15% 12%;
+        --muted-foreground: 0 0% 70%;
+        --accent: 16 100% 55%;
         --accent-foreground: 0 0% 5%;
-        --destructive: 0 62.8% 30.6%;
+        --destructive: 0 62% 40%;
         --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 12%;
-        --input: 0 0% 14.9%;
-        --ring: 38 62% 64%;
+        --border: 0 30% 14%;
+        --input: 0 30% 14%;
+        --ring: 16 100% 55%;
         --radius: 1rem;
     }
 }
@@ -58,59 +57,109 @@ body {
     }
 }
 
-/* Display headings */
+/* ================ Typography ================ */
 .font-display {
-    font-family: "Clash Display", "Manrope", sans-serif;
-    letter-spacing: -0.02em;
+    font-family: "Archivo Black", "Archivo", "Inter", sans-serif;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+}
+
+.font-archivo {
+    font-family: "Archivo", "Inter", sans-serif;
 }
 
 .font-script {
     font-family: "Caveat", cursive;
+    text-transform: none;
+    letter-spacing: 0;
 }
 
-/* Gold text gradient */
-.text-gold-gradient {
-    background: linear-gradient(135deg, #f3d89e 0%, #e2b365 45%, #a67c35 100%);
+/* ================ Red duotone portrait ================ */
+/* Strong crimson duotone for any photo */
+.duotone-red {
+    filter: grayscale(1) contrast(1.15) brightness(0.95);
+}
+.duotone-red-wrap {
+    position: relative;
+    overflow: hidden;
+}
+.duotone-red-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #7a0c0c 0%, #dc2626 40%, #ef4444 100%);
+    mix-blend-mode: multiply;
+    z-index: 1;
+    pointer-events: none;
+}
+.duotone-red-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at 50% 40%,
+        transparent 40%,
+        rgba(0, 0, 0, 0.55) 100%
+    );
+    mix-blend-mode: multiply;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Orange text gradient for accents */
+.text-ember {
+    background: linear-gradient(135deg, #ff9960 0%, #ff5722 45%, #c2410c 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
-/* Noise grain overlay */
-.grain::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+/* Deep crimson backdrop gradient */
+.bg-crimson {
+    background:
+        radial-gradient(
+            ellipse at 50% 0%,
+            #991b1b 0%,
+            #450505 40%,
+            #0a0202 100%
+        );
 }
 
-/* Glowing border for premium elements */
-.glow-gold {
+.bg-crimson-pure {
+    background: linear-gradient(180deg, #dc2626 0%, #991b1b 50%, #450a0a 100%);
+}
+
+/* ================ Glass ================ */
+.glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-red {
+    background: rgba(220, 38, 38, 0.08);
+    backdrop-filter: blur(22px);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* ================ Glow buttons ================ */
+.glow-orange {
     box-shadow:
-        0 0 0 1px rgba(226, 179, 101, 0.25),
-        0 10px 40px -10px rgba(226, 179, 101, 0.35);
-}
-
-.glow-btn {
-    box-shadow:
-        0 0 0 1px rgba(226, 179, 101, 0.4),
-        0 10px 30px -8px rgba(226, 179, 101, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        0 0 0 1px rgba(255, 87, 34, 0.4),
+        0 10px 30px -8px rgba(255, 87, 34, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.glow-btn:hover {
+.glow-orange:hover {
     box-shadow:
-        0 0 0 1px rgba(226, 179, 101, 0.7),
-        0 14px 40px -4px rgba(226, 179, 101, 0.8),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        0 0 0 1px rgba(255, 87, 34, 0.8),
+        0 14px 40px -4px rgba(255, 87, 34, 0.9),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
 }
 
-/* Waveform bars animation */
+/* ================ Waveform bars (reused) ================ */
 @keyframes wave {
     0%,
     100% {
@@ -120,13 +169,12 @@ body {
         transform: scaleY(1);
     }
 }
-
 .wave-bar {
     animation: wave 1s ease-in-out infinite;
     transform-origin: center;
 }
 
-/* Pulse glow */
+/* ================ Pulse glow ================ */
 @keyframes pulseGlow {
     0%,
     100% {
@@ -144,27 +192,7 @@ body {
     animation: pulseGlow 2.4s ease-out infinite;
 }
 
-/* Floating shimmer on hero */
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
-.shimmer {
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(226, 179, 101, 0.15),
-        transparent
-    );
-    background-size: 200% 100%;
-    animation: shimmer 4s linear infinite;
-}
-
-/* Marquee */
+/* ================ Marquee ================ */
 @keyframes marquee {
     0% {
         transform: translateX(0);
@@ -177,131 +205,42 @@ body {
     animation: marquee 40s linear infinite;
 }
 
-/* Subtle rotate for vinyl */
-@keyframes spinSlow {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-.spin-slow {
-    animation: spinSlow 18s linear infinite;
-}
-
-/* Custom scrollbar */
+/* ================ Scrollbar ================ */
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
 }
 ::-webkit-scrollbar-track {
-    background: #0a0a0a;
+    background: #0a0202;
 }
 ::-webkit-scrollbar-thumb {
-    background: #2a2a2a;
+    background: #3b0a0a;
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #3a3a3a;
+    background: #7a0c0c;
 }
 
-/* Glass card */
-.glass {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-strong {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-/* Radial background */
-.radial-gold {
-    background:
-        radial-gradient(
-            ellipse at 20% 20%,
-            rgba(226, 179, 101, 0.12),
-            transparent 50%
-        ),
-        radial-gradient(
-            ellipse at 80% 80%,
-            rgba(45, 212, 191, 0.08),
-            transparent 50%
-        );
-}
-
-/* Hide arrows for number input */
-input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-}
-
-/* ============ 3D Vinyl Record ============ */
-.vinyl {
-    background:
-        radial-gradient(
-            circle at 50% 50%,
-            #151515 0%,
-            #0a0a0a 35%,
-            #050505 65%,
-            #0a0a0a 100%
-        );
-    box-shadow:
-        0 45px 120px -20px rgba(0, 0, 0, 0.85),
-        0 15px 40px -10px rgba(0, 0, 0, 0.6),
-        inset 0 0 40px rgba(0, 0, 0, 0.6);
-    will-change: transform;
-}
-
-/* Concentric grooves using repeating-radial-gradient */
-.vinyl-grooves {
-    background:
-        repeating-radial-gradient(
-            circle at 50% 50%,
-            rgba(255, 255, 255, 0.04) 0px,
-            rgba(255, 255, 255, 0.04) 1px,
-            transparent 1px,
-            transparent 4px
-        ),
-        repeating-radial-gradient(
-            circle at 50% 50%,
-            rgba(0, 0, 0, 0.4) 0px,
-            rgba(0, 0, 0, 0.4) 2px,
-            transparent 2px,
-            transparent 5px
-        );
-    mask-image: radial-gradient(
-        circle at 50% 50%,
-        transparent 26%,
-        black 28%,
-        black 100%
-    );
-    -webkit-mask-image: radial-gradient(
-        circle at 50% 50%,
-        transparent 26%,
-        black 28%,
-        black 100%
-    );
-}
-
-/* Metallic shimmer sweep on top of the disc */
-.vinyl-shimmer {
-    background: conic-gradient(
-        from 0deg at 50% 50%,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 240, 200, 0.05) 10%,
-        rgba(255, 255, 255, 0) 22%,
-        rgba(226, 179, 101, 0.08) 48%,
-        rgba(255, 255, 255, 0) 55%,
-        rgba(255, 240, 200, 0.04) 78%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    mix-blend-mode: screen;
+/* ================ Grain overlay ================ */
+.grain::before {
+    content: "";
+    position: fixed;
+    inset: 0;
     pointer-events: none;
+    z-index: 1;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ================ Ghost text (huge background letters) ================ */
+.ghost-text {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12);
+    font-family: "Archivo Black", sans-serif;
+    text-transform: uppercase;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.04em;
+    line-height: 0.85;
+}

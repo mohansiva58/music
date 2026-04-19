@@ -4,25 +4,25 @@ import { Gift, Heart, Infinity as InfinityIcon, PenTool, Sparkles } from "lucide
 const items = [
   {
     title: "Immortalize the memory",
-    body: "A song lives forever. Long after the cake is eaten and the confetti is gone, this is the thing they'll play on anniversaries, birthdays, and quiet drives home.",
+    body: "Long after the cake is eaten and the confetti is gone, this is what they'll still be playing on lonely drives and quiet anniversaries.",
     icon: InfinityIcon,
     span: "md:col-span-7 md:row-span-2",
   },
   {
     title: "Perfect gifting",
-    body: "For the person who has everything. For the occasion you don't want to forget.",
+    body: "For the person who has everything. For the occasion you refuse to forget.",
     icon: Gift,
     span: "md:col-span-5",
   },
   {
     title: "100% custom lyrics",
-    body: "Every line written for one specific story. No templates. No recycled verses.",
+    body: "Every line written for one specific story. No templates. No recycling.",
     icon: PenTool,
     span: "md:col-span-5",
   },
   {
     title: "Studio-grade production",
-    body: "Recorded and mixed in a real studio. Not a bedroom demo.",
+    body: "Recorded, mixed, and mastered in a real studio. Not a bedroom demo.",
     icon: Sparkles,
     span: "md:col-span-6",
   },
@@ -37,24 +37,31 @@ const items = [
 export default function ValueProps() {
   return (
     <section
+      id="benefits"
       data-testid="value-proposition-section"
-      className="relative px-6 py-24 md:px-12 md:py-32"
+      className="relative overflow-hidden bg-[#080202] px-6 py-24 md:px-10 md:py-32"
     >
-      <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-[#E2B365]">
-            Why a personalized song
-          </span>
-          <h2
-            className="font-display mt-4 text-4xl font-medium tracking-tight text-white md:text-5xl lg:text-6xl"
-            data-testid="value-headline"
-          >
-            Not another{" "}
-            <span className="font-script text-gold-gradient">
-              ordinary
-            </span>{" "}
-            gift.
-          </h2>
+      <div className="mx-auto max-w-[1400px]">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+          <div className="md:col-span-3">
+            <span className="font-archivo text-sm text-white/70 md:text-base">
+              Benefits
+            </span>
+          </div>
+          <div className="md:col-span-9">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1 }}
+              data-testid="value-headline"
+              className="font-display text-[9vw] font-black leading-[0.95] tracking-[-0.03em] text-white md:text-[5.6vw] lg:text-[4.8rem]"
+            >
+              NOT ANOTHER <span className="text-ember">ORDINARY</span>
+              <br />
+              GIFT.
+            </motion.h2>
+          </div>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-12">
@@ -72,17 +79,17 @@ export default function ValueProps() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 data-testid={`value-card-${i + 1}`}
-                className={`glass group relative flex flex-col justify-between overflow-hidden rounded-3xl p-8 transition-all duration-500 hover:border-white/20 md:p-10 ${it.span}`}
+                className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/8 bg-gradient-to-b from-[#1a0303] to-[#0a0101] p-8 transition-all duration-500 hover:border-[#ff5722]/40 md:p-10 ${it.span}`}
               >
-                <div className="absolute -right-6 -top-6 h-40 w-40 rounded-full bg-[#E2B365]/5 blur-3xl transition duration-700 group-hover:bg-[#E2B365]/15" />
+                <div className="absolute -right-6 -top-6 h-40 w-40 rounded-full bg-[#ff5722]/5 blur-3xl transition duration-700 group-hover:bg-[#ff5722]/20" />
                 <div className="relative">
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#E2B365]/30 bg-[#E2B365]/10 text-[#E2B365]">
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#ff5722]/30 bg-[#ff5722]/10 text-[#ff5722]">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="font-display text-2xl font-medium text-white md:text-3xl">
+                  <h3 className="font-display text-2xl font-black leading-tight text-white md:text-3xl">
                     {it.title}
                   </h3>
-                  <p className="mt-3 max-w-md text-sm leading-relaxed text-zinc-400 md:text-base">
+                  <p className="font-archivo mt-3 max-w-md text-sm leading-relaxed text-white/70 md:text-base">
                     {it.body}
                   </p>
                 </div>

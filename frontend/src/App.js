@@ -1,8 +1,6 @@
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import SocialProof from "./components/SocialProof";
 import About from "./components/About";
 import HowItWorks from "./components/HowItWorks";
 import AudioPortfolio from "./components/AudioPortfolio";
@@ -16,11 +14,9 @@ import FloatingWhatsApp from "./components/FloatingWhatsApp";
 
 const Landing = () => {
   return (
-    <div className="relative min-h-screen bg-[#050505] text-white grain">
-      <Navbar />
+    <div className="relative min-h-screen bg-[#080202] text-white grain">
       <main>
         <Hero />
-        <SocialProof />
         <About />
         <HowItWorks />
         <AudioPortfolio />
