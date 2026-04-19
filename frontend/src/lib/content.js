@@ -7,7 +7,7 @@ export const waLink = (msg) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${msg ? encodeURIComponent(msg) : WHATSAPP_MSG}`;
 
 export const ARTIST = {
-  name: "Aarav Mehra",
+  name: "Sujay",
   brand: "Soulnote",
   tagline: "Songwriter · Producer · Storyteller",
 };

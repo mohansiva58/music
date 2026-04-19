@@ -97,7 +97,7 @@ export default function Testimonials() {
 
   return (
     <section className="relative w-full py-20 bg-transparent overflow-hidden">
-      <div className="mx-auto max-w-5xl px-6 md:px-12 flex flex-col md:flex-row gap-16 items-center">
+      <div className="w-full px-8 md:px-16 flex flex-col md:flex-row gap-16 items-center">
 
         {/* LEFT: Timeline + Avatars */}
         <div className="flex flex-col items-start w-full md:w-5/12">
