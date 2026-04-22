@@ -37,15 +37,15 @@ export const PROCESS_STEPS = [
   },
 ];
 // Shared constants for the landing page
-export const WHATSAPP_NUMBER = "919999999999"; // placeholder
+export const WHATSAPP_NUMBER = ""; // WhatsApp Business Account
 export const WHATSAPP_MSG = encodeURIComponent(
-  "Hi, I want to order a personalized song for a special occasion."
+  "Hi! I'm interested in ordering a personalized song for a special occasion. Tell me more!"
 );
 export const waLink = (msg) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${msg ? encodeURIComponent(msg) : WHATSAPP_MSG}`;
 
 export const ARTIST = {
-  name: "Sujay",
+  // name: "Sujay",
   brand: "Soulnote",
   tagline: "Songwriter · Producer · Storyteller",
 };
@@ -56,7 +56,8 @@ export const SONGS = [
     title: "Letters to Tomorrow",
     occasion: "Anniversary Love Song",
     cover: "content.png",
-    audio: "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3",
+    // REPLACE: Change 'sample1.mp3' to your actual audio file when ready
+    audio: "/audio/sample1.mp3",
     duration: "2:48",
   },
   {
@@ -65,7 +66,8 @@ export const SONGS = [
     occasion: "Birthday Surprise Song",
     cover:
       "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
-    audio: "https://cdn.pixabay.com/audio/2022/10/25/audio_51f0c2bd1e.mp3",
+    // REPLACE: Change 'sample2.mp3' to your actual audio file when ready
+    audio: "/audio/sample2.mp3",
     duration: "3:12",
   },
   {
@@ -74,7 +76,8 @@ export const SONGS = [
     occasion: "Wedding Story Song",
     cover:
       "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
-    audio: "https://cdn.pixabay.com/audio/2022/11/22/audio_120b085609.mp3",
+    // REPLACE: Change 'sample3.mp3' to your actual audio file when ready
+    audio: "/audio/sample3.mp3",
     duration: "3:40",
   },
   {
@@ -83,7 +86,8 @@ export const SONGS = [
     occasion: "Long-Distance Relationship",
     cover:
       "https://images.unsplash.com/photo-1516280906200-dfcb5f7c8cb1?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
-    audio: "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3",
+    // REPLACE: Change 'sample4.mp3' to your actual audio file when ready
+    audio: "/audio/sample4.mp3",
     duration: "3:05",
   },
   {
@@ -92,7 +96,8 @@ export const SONGS = [
     occasion: "Friendship Tribute",
     cover:
       "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
-    audio: "https://cdn.pixabay.com/audio/2022/10/25/audio_51f0c2bd1e.mp3",
+    // REPLACE: Change 'sample5.mp3' to your actual audio file when ready
+    audio: "/audio/sample5.mp3",
     duration: "2:54",
   },
   {
@@ -101,7 +106,8 @@ export const SONGS = [
     occasion: "Self-Motivation Anthem",
     cover:
       "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
-    audio: "https://cdn.pixabay.com/audio/2022/11/22/audio_120b085609.mp3",
+    // REPLACE: Change 'sample6.mp3' to your actual audio file when ready
+    audio: "/audio/sample6.mp3",
     duration: "3:18",
   },
 ];

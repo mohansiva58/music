@@ -1,38 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Star } from "lucide-react";
-
-const TESTIMONIALS = [
-  {
-    id: 1,
-    name: "Edward Alexander",
-    date: "29 Aug, 2017",
-    rating: 4.9,
-    initials: "EA",
-    avatar: "https://i.pravatar.cc/150?img=11",
-    quote:
-      "Absolutely fantastic team. They listened to every requirement and delivered beyond expectations. The communication throughout was impeccable and professional.",
-  },
-  {
-    id: 2,
-    name: "Diana Johnston",
-    date: "29 Aug, 2017",
-    rating: 4.9,
-    initials: "DJ",
-    avatar: "https://i.pravatar.cc/150?img=47",
-    quote:
-      "Overall pleasurable experience. Pay a little first and Pay a little during the development of the app as milestones are achieved, which made me feel very confident and comfortable. Seamless and Easy process.",
-  },
-  {
-    id: 3,
-    name: "Lauren Contreras",
-    date: "29 Aug, 2017",
-    rating: 4.9,
-    initials: "LC",
-    avatar: "https://i.pravatar.cc/150?img=49",
-    quote:
-      "I was impressed by the level of detail and care put into every stage of the project. A truly collaborative and transparent experience from start to finish.",
-  },
-];
+import { TESTIMONIALS } from "../lib/content";
 
 function getIndices(active, total) {
   const prev = (active - 1 + total) % total;
@@ -104,7 +71,7 @@ export default function Testimonials() {
           {/* Section label */}
           <div className="mb-6">
             <div className="w-10 h-1 bg-green-400 rounded mb-3" />
-            <h2 className="text-2xl font-bold text-white tracking-tight">Customer Reviews</h2>
+            <h2 className="text-2xl font-bold text-white tracking-tight">Client Stories</h2>
           </div>
 
           {/* Timeline */}
@@ -144,41 +111,27 @@ export default function Testimonials() {
                   `}
                   style={{ paddingLeft: "32px" }}
                 >
-                  {/* Avatar */}
+                  {/* Avatar with initials */}
                   <div
                     className={`
                       rounded-full overflow-hidden flex items-center justify-center
-                      bg-white/10 grayscale flex-shrink-0
+                      bg-gradient-to-br from-green-400 to-emerald-600 flex-shrink-0
                       ${s.avatarSize} ${s.ring}
-                      transition-all duration-500
+                      transition-all duration-500 font-semibold text-white
                     `}
                   >
-                    <img
-                      src={t.avatar}
-                      alt={t.name}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.style.display = "none";
-                      }}
-                    />
+                    {t.initials}
                   </div>
 
-                  {/* Name + rating */}
+                  {/* Name + location */}
                   <div className="flex flex-col">
                     <span
                       className={`text-white transition-all duration-300 ${s.nameSize}`}
                     >
                       {t.name}
                     </span>
-                    <span className="flex items-center gap-1 mt-0.5">
-                      <Star
-                        className={`fill-green-400 text-green-400 transition-all duration-300 ${isActive ? "w-4 h-4" : "w-3 h-3"}`}
-                      />
-                      <span
-                        className={`text-white/50 transition-all duration-300 ${isActive ? "text-sm" : "text-xs"}`}
-                      >
-                        {t.rating} on {t.date}
-                      </span>
+                    <span className="text-white/60 transition-all duration-300 text-xs">
+                      {t.location}
                     </span>
                   </div>
                 </div>

@@ -8,21 +8,21 @@ export default function Footer() {
     >
       <div className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
         <div className="flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-white text-[10px] font-bold text-white">
+          {/* <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-white text-[10px] font-bold text-white">
             S
-          </span>
+          </span> */}
           <div>
             <div className="font-display text-sm font-black text-white">
               {ARTIST.brand.toUpperCase()}
             </div>
-            <div className="font-archivo text-[10px] uppercase tracking-[0.25em] text-white/50">
+            {/* <div className="font-archivo text-[10px] uppercase tracking-[0.25em] text-white/50">
               by {ARTIST.name}
-            </div>
+            </div> */}
           </div>
         </div>
 
         <p className="font-archivo text-xs text-white/50">
-          © {new Date().getFullYear()} {ARTIST.brand}. Every song written from
+         {ARTIST.brand}. Every song written from
           scratch.
         </p>
       </div>
