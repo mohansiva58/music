@@ -17,7 +17,13 @@ import FloatingWhatsApp from "./components/FloatingWhatsApp";
 const Landing = () => {
   return (
     <div className="relative min-h-screen bg-[#080202] text-white grain">
-      <VideoBackdrop enabled>
+      <VideoBackdrop 
+        enabled 
+        useSplitVideo={true}
+        srcPart1="/hero_part_1.mp4"
+        srcPart2="/hero_part_2.mp4"
+        srcPart3="/hero_part_3.mp4"
+      >
         <main>
           <Hero />
           <ProcessSection />
@@ -30,7 +36,7 @@ const Landing = () => {
           <FAQ />
           <FinalCTA />
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </VideoBackdrop>
       <FloatingWhatsApp />
     </div>

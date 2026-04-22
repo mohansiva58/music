@@ -23,12 +23,12 @@ export default function FAQ() {
     offset: ["start end", "end start"],
   });
   const bgY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-60, 100]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [-30, 60]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
   const ghostX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-150, 150]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [-80, 80]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
 
   return (
@@ -113,12 +113,18 @@ export default function FAQ() {
             data-testid="faq-accordion"
           >
             {FAQS.map((f, i) => (
-              <AccordionItem
+              <motion.div
                 key={i}
-                value={`item-${i}`}
-                data-testid={`faq-item-${i}`}
-                className="border-b border-white/15 last:border-0"
+                initial={{ opacity: 0, y: 20, x: 20 }}
+                whileInView={{ opacity: 1, y: 0, x: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
               >
+                <AccordionItem
+                  value={`item-${i}`}
+                  data-testid={`faq-item-${i}`}
+                  className="border-b border-white/15 last:border-0"
+                >
                 <AccordionTrigger className="py-7 text-left font-archivo text-lg font-semibold text-white hover:text-[#ff5722] hover:no-underline md:text-xl">
                   {f.q}
                 </AccordionTrigger>
@@ -126,6 +132,7 @@ export default function FAQ() {
                   {f.a}
                 </AccordionContent>
               </AccordionItem>
+              </motion.div>
             ))}
           </Accordion>
         </motion.div>

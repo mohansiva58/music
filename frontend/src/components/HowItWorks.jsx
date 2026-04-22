@@ -35,16 +35,16 @@ export default function HowItWorks() {
   });
 
   const bgScale = useSpring(
-    useTransform(scrollYProgress, [0, 1], [1, 1.15]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [1, 1.08]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
   const bgY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-60, 120]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [-35, 70]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
   const ghostY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [80, -80]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [50, -50]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
 
   return (

@@ -18,12 +18,12 @@ export default function FinalCTA() {
     offset: ["start end", "end start"],
   });
   const bgScale = useSpring(
-    useTransform(scrollYProgress, [0, 1], [1.15, 1]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [1.08, 1]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
   const ghostY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [120, -120]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [70, -70]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
 
   return (

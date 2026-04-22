@@ -65,13 +65,21 @@ export default function ProcessSection() {
   });
 
   const bgY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-40, 100]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [-25, 60]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
   const ghostX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-80, 80]),
-    { stiffness: 80, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [-50, 50]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
+
+  // Micro-keyframe frame index (0-100 frames based on scroll)
+  const frameIndex = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  
+  // Frame-based opacity changes for visual feedback
+  const frameFeedback = useTransform(frameIndex, (idx) => {
+    return Math.sin(idx * 0.1) * 0.2 + 0.8; // Subtle pulse per frame
+  });
 
   return (
     <section
@@ -106,6 +114,14 @@ export default function ProcessSection() {
       </motion.div>
 
       <div className="relative z-20 w-full px-8 md:px-16">
+        {/* Micro-keyframe indicator */}
+        <motion.div
+          style={prefersReduced ? undefined : { opacity: frameFeedback }}
+          className="absolute top-0 right-8 text-[10px] font-mono text-[#ff5722]/60 pointer-events-none"
+        >
+          FRAME <motion.span>{frameIndex}</motion.span>
+        </motion.div>
+
         {/* Header */}
         <motion.span
           initial={{ opacity: 0, y: 20 }}
@@ -137,12 +153,12 @@ export default function ProcessSection() {
             return (
               <motion.div
                 key={step.num}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 80, x: isEven ? -40 : 40 }}
+                whileInView={{ opacity: 1, y: 0, x: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{
-                  duration: 1,
-                  delay: 0.1,
+                  duration: 0.75,
+                  delay: i * 0.1,
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 className={`group relative flex flex-col ${

@@ -85,13 +85,21 @@ export default function MelodyFinder() {
   });
 
   const bgY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-50, 120]),
-    { stiffness: 80, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [-30, 70]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
 
-  const frame0Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -30]), { stiffness: 60, damping: 25 });
-  const frame1Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -50]), { stiffness: 60, damping: 25 });
-  const frame2Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -20]), { stiffness: 60, damping: 25 });
+  // Micro-keyframe index (0-150 frames per scroll)
+  const frameIndex = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  
+  // Frame-by-frame opacity fluctuation for visual feedback
+  const framePulse = useTransform(frameIndex, (idx) => {
+    return 0.85 + Math.sin(idx * 0.15) * 0.15;
+  });
+
+  const frame0Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -20]), { stiffness: 140, damping: 45, mass: 0.3 });
+  const frame1Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -30]), { stiffness: 140, damping: 45, mass: 0.3 });
+  const frame2Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -12]), { stiffness: 140, damping: 45, mass: 0.3 });
   const frame3Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -40]), { stiffness: 60, damping: 25 });
   const frame4Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -25]), { stiffness: 60, damping: 25 });
   const frameYs = [frame0Y, frame1Y, frame2Y, frame3Y, frame4Y];
@@ -132,14 +140,21 @@ export default function MelodyFinder() {
 
       <div className="relative z-10 w-full px-8 py-20 md:px-16 md:py-28">
 
-        {/* Header */}
+        {/* Header with frame indicator */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.9 }}
-          className="max-w-3xl"
+          className="max-w-3xl relative"
         >
+          {/* Frame counter display */}
+          <motion.div
+            style={{ opacity: framePulse }}
+            className="absolute -top-8 right-0 text-[9px] font-mono text-[#ff5722]/50"
+          >
+            FRAME <motion.span>{frameIndex}</motion.span>
+          </motion.div>
           <span className="font-archivo text-[11px] uppercase tracking-[0.4em]" style={{ color: "#ff5722" }}>
             Chapter 03 — Find Your Melody
           </span>
@@ -156,12 +171,13 @@ export default function MelodyFinder() {
           </p>
         </motion.div>
 
-        {/* Memory board */}
+        {/* Memory board with frame-by-frame feedback */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          style={prefersReduced ? undefined : { opacity: framePulse }}
           className="relative mx-auto mt-14 w-full overflow-visible"
           style={{
             height: "clamp(320px, 48vw, 560px)",

@@ -23,12 +23,12 @@ export default function About() {
   });
 
   const ghostX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-120, 120]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [-70, 70]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
   const textY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [80, -80]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [50, -50]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
 
   return (

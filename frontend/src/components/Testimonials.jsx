@@ -1,4 +1,11 @@
 import { useState, useEffect, useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useReducedMotion,
+} from "framer-motion";
 import { TESTIMONIALS } from "../lib/content";
 
 function getIndices(active, total) {
@@ -8,11 +15,27 @@ function getIndices(active, total) {
 }
 
 export default function Testimonials() {
+  const ref = useRef(null);
+  const prefersReduced = useReducedMotion();
   const [active, setActive] = useState(1);
   const [animating, setAnimating] = useState(false);
   const [quoteVisible, setQuoteVisible] = useState(true);
   const timerRef = useRef(null);
   const total = TESTIMONIALS.length;
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const bgY = useSpring(
+    useTransform(scrollYProgress, [0, 1], [-30, 60]),
+    { stiffness: 120, damping: 40, mass: 0.4 }
+  );
+  const ghostX = useSpring(
+    useTransform(scrollYProgress, [0, 1], [-60, 60]),
+    { stiffness: 120, damping: 40, mass: 0.4 }
+  );
 
   const goTo = (index) => {
     if (animating || index === active) return;
@@ -63,8 +86,19 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="relative w-full py-20 bg-transparent overflow-hidden">
-      <div className="w-full px-8 md:px-16 flex flex-col md:flex-row gap-16 items-center">
+    <section
+      ref={ref}
+      id="testimonials"
+      className="relative w-full py-20 bg-transparent overflow-hidden"
+    >
+      {/* Parallax ghost text background */}
+      <motion.div
+        style={prefersReduced ? undefined : { x: ghostX }}
+        className="pointer-events-none absolute inset-0 z-0 flex items-center opacity-10"
+      >
+        <div className="text-8xl font-bold text-white whitespace-nowrap">VOICES</div>
+      </motion.div>
+      <div className="relative z-10 w-full px-8 md:px-16 flex flex-col md:flex-row gap-16 items-center">
 
         {/* LEFT: Timeline + Avatars */}
         <div className="flex flex-col items-start w-full md:w-5/12">

@@ -56,8 +56,7 @@ export const SONGS = [
     title: "Letters to Tomorrow",
     occasion: "Anniversary Love Song",
     cover: "content.png",
-    // REPLACE: Change 'sample1.mp3' to your actual audio file when ready
-    audio: "/audio/sample1.mp3",
+    audio: "/audio/sample1.mpeg",
     duration: "2:48",
   },
   {
@@ -66,8 +65,7 @@ export const SONGS = [
     occasion: "Birthday Surprise Song",
     cover:
       "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
-    // REPLACE: Change 'sample2.mp3' to your actual audio file when ready
-    audio: "/audio/sample2.mp3",
+    audio: "/audio/sample2.mpeg",
     duration: "3:12",
   },
   {
@@ -76,8 +74,7 @@ export const SONGS = [
     occasion: "Wedding Story Song",
     cover:
       "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
-    // REPLACE: Change 'sample3.mp3' to your actual audio file when ready
-    audio: "/audio/sample3.mp3",
+    audio: "/audio/sample3.mpeg",
     duration: "3:40",
   },
   {
@@ -86,8 +83,7 @@ export const SONGS = [
     occasion: "Long-Distance Relationship",
     cover:
       "https://images.unsplash.com/photo-1516280906200-dfcb5f7c8cb1?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
-    // REPLACE: Change 'sample4.mp3' to your actual audio file when ready
-    audio: "/audio/sample4.mp3",
+    audio: "/audio/sample4.mpeg",
     duration: "3:05",
   },
   {
@@ -96,8 +92,7 @@ export const SONGS = [
     occasion: "Friendship Tribute",
     cover:
       "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
-    // REPLACE: Change 'sample5.mp3' to your actual audio file when ready
-    audio: "/audio/sample5.mp3",
+    audio: "/audio/sample5.mpeg",
     duration: "2:54",
   },
   {
@@ -106,8 +101,7 @@ export const SONGS = [
     occasion: "Self-Motivation Anthem",
     cover:
       "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?crop=entropy&cs=tinysrgb&fit=crop&w=900&q=85",
-    // REPLACE: Change 'sample6.mp3' to your actual audio file when ready
-    audio: "/audio/sample6.mp3",
+    audio: "/audio/sample6.mpeg",
     duration: "3:18",
   },
 ];

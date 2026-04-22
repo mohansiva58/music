@@ -52,12 +52,12 @@ export default function ValueProps() {
   });
 
   const bgY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-60, 140]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [-35, 80]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
   const ghostX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [120, -120]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [70, -70]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
 
   return (

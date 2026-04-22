@@ -8,12 +8,12 @@ import {
 } from "framer-motion";
 import { waLink, ARTIST } from "../lib/content";
 
-/*
- * Hero � content only. The video background lives in <VideoBackdrop> wrapping
- * Hero + next section(s), so scrubbing continues as the user scrolls beyond
- * the hero. This component focuses on nav + headline + CTAs, sitting on top
- * of the shared video layer.
- */
+  /*
+   * Hero - content only. The video background lives in <VideoBackdrop> wrapping
+   * Hero + next section(s), so scrubbing continues as the user scrolls beyond
+   * the hero. This component focuses on nav + headline + CTAs, sitting on top
+   * of the shared video layer.
+   */
 
 const NAV_LINKS = [
   { label: "Home", href: "#top", active: true },
@@ -34,6 +34,11 @@ export default function Hero() {
 
   const textYRaw = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const textOpacityRaw = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  
+  // Micro-keyframe scrubbing: frame-by-frame scale & rotation changes
+  const textScale = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [0.95, 1, 0.98, 0.85]);
+  const textRotate = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, -2]);
+  
   const spring = { stiffness: 120, damping: 30, mass: 0.6 };
   const textY = useSpring(textYRaw, spring);
   const textOpacity = useSpring(textOpacityRaw, spring);
@@ -107,25 +112,28 @@ export default function Hero() {
       {/* ===================== Hero Content (scroll parallax) ===================== */}
       <motion.div
         style={prefersReduced ? undefined : { y: textY, opacity: textOpacity }}
-        className="relative z-10 flex flex-col items-center justify-center px-6 text-center"
+        className="relative z-10 flex min-h-[calc(100vh-96px)] flex-col items-start justify-end px-6 pb-14 text-left md:px-12 lg:px-16"
       >
-        <div style={{ paddingTop: "calc(8rem - 75px)", paddingBottom: "10rem" }}>
-          <h1
-            data-testid="hero-headline"
-            className="font-serif-display animate-fade-rise mx-auto max-w-3xl text-5xl font-bold sm:text-7xl md:text-8xl"
+        <div className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl">
+          <motion.h1
             style={{
-              lineHeight: "1.05",
-              letterSpacing: "-2.46px",
-              color: "rgba(255,255,255,0.54)",
-              textShadow: "0 6px 40px rgba(0,0,0,0.32)",
+              ...{
+                lineHeight: "1.05",
+                letterSpacing: "-2.46px",
+                color: "rgba(255,255,255,0.54)",
+                textShadow: "0 6px 40px rgba(0,0,0,0.32)",
+              },
+              ...(prefersReduced ? {} : { scale: textScale, rotate: textRotate })
             }}
+            data-testid="hero-headline"
+            className="font-serif-display animate-fade-rise text-4xl font-bold sm:text-6xl md:text-7xl lg:text-8xl"
           >
             TURN YOUR <em style={{ fontStyle: "italic", color: "#ffe082", opacity: 0.92 }}>STORY</em><br />INTO A  <em style={{ fontStyle: "italic", color: "#ffe082", opacity: 0.92 }}>MEMORABLE</em><br /> SONG
-          </h1>
+          </motion.h1>
 
           <p
             data-testid="hero-sub"
-            className="animate-fade-rise-delay mx-auto mt-8 max-w-2xl text-lg leading-relaxed"
+            className="animate-fade-rise-delay mt-6 max-w-xl text-base leading-relaxed sm:text-lg"
             style={{
               color: "rgba(255,255,255,0.68)",
               fontFamily: "Inter, sans-serif",
@@ -136,7 +144,7 @@ export default function Hero() {
             Capture your memories in a song made just for you or your loved ones.
           </p>
 
-          <div className="flex flex-row items-center justify-center gap-4 mt-10">
+          <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
               href={waLink()}
               target="_blank"

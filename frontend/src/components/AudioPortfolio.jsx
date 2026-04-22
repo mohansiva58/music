@@ -69,12 +69,12 @@ export default function AudioPortfolio() {
     offset: ["start end", "end start"],
   });
   const portraitScale = useSpring(
-    useTransform(scrollYProgress, [0, 1], [1.1, 0.95]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [1.05, 0.98]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
   const ghostY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [100, -100]),
-    { stiffness: 100, damping: 30 }
+    useTransform(scrollYProgress, [0, 1], [60, -60]),
+    { stiffness: 140, damping: 45, mass: 0.3 }
   );
 
   const progress = duration > 0 ? (current / duration) * 100 : 0;
