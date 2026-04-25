@@ -5,7 +5,7 @@ import { waLink } from "../lib/content";
 
 const memoryFrames = [
   {
-    src: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1100&q=85",
+    src: "/content.png",
     alt: "Couple smiling outdoors",
     className: "left-[3%] top-[6%] h-[36%] w-[22%]",
     rotate: -2.8,
@@ -13,7 +13,7 @@ const memoryFrames = [
     caption: "Forever yours",
   },
   {
-    src: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1300&q=85",
+    src: "/image.png",
     alt: "Wedding memory moment",
     className: "left-[27%] top-[1%] h-[54%] w-[36%]",
     rotate: 0.4,
@@ -21,15 +21,15 @@ const memoryFrames = [
     caption: "The big day",
   },
   {
-    src: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1000&q=85",
+    src: "/image%20copy.png",
     alt: "Family hiking memory",
-    className: "right-[4%] top-[8%] h-[38%] w-[25%]",
+    className: "right-[4%] top-[1%] h-[38%] w-[25%]",
     rotate: 2.2,
     delay: 0.16,
     caption: "Peak moments",
   },
   {
-    src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1000&q=85",
+    src: "/image%20copy%202.png",
     alt: "Graduation celebration",
     className: "left-[16%] top-[58%] h-[32%] w-[24%]",
     rotate: 0.9,
@@ -37,7 +37,7 @@ const memoryFrames = [
     caption: "Achievement unlocked",
   },
   {
-    src: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1000&q=85",
+    src: "/contenqt.png",
     alt: "Friends around campfire",
     className: "right-[13%] top-[56%] h-[34%] w-[24%]",
     rotate: -1.6,
@@ -121,6 +121,14 @@ export default function MelodyFinder() {
         @keyframes float2 { 0%,100%{transform:translateY(0px) rotate(2.2deg)}  50%{transform:translateY(-6px) rotate(2.2deg)} }
         @keyframes float3 { 0%,100%{transform:translateY(0px) rotate(0.9deg)}  50%{transform:translateY(-10px) rotate(0.9deg)} }
         @keyframes float4 { 0%,100%{transform:translateY(0px) rotate(-1.6deg)} 50%{transform:translateY(-7px) rotate(-1.6deg)} }
+        @keyframes melodyConnectorFlow {
+          from { stroke-dashoffset: 34; }
+          to { stroke-dashoffset: 0; }
+        }
+        @keyframes melodyConnectorPulse {
+          0%, 100% { opacity: 0.55; transform: scale(0.9); }
+          50% { opacity: 1; transform: scale(1.08); }
+        }
       `}</style>
 
       {/* Parallax bg */}
@@ -177,9 +185,9 @@ export default function MelodyFinder() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          style={prefersReduced ? undefined : { opacity: framePulse }}
           className="relative mx-auto mt-14 w-full overflow-visible"
           style={{
+            ...(prefersReduced ? {} : { opacity: framePulse }),
             height: "clamp(320px, 48vw, 560px)",
             borderRadius: "2rem",
             background: "rgba(15,4,4,0.30)",
@@ -191,6 +199,70 @@ export default function MelodyFinder() {
           <div className="absolute inset-0 pointer-events-none rounded-[2rem]"
             style={{ background: "radial-gradient(ellipse at 50% 110%, rgba(255,153,96,0.10) 0%, transparent 60%)" }}
           />
+
+          {/* Flow line connecting the middle memory to the next memory */}
+          <svg
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-[6] h-full w-full overflow-visible"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="melody-connector-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#ff5722" stopOpacity="0.15" />
+                <stop offset="42%" stopColor="#ffb980" stopOpacity="0.95" />
+                <stop offset="100%" stopColor="#ff5722" stopOpacity="0.55" />
+              </linearGradient>
+              <filter id="melody-connector-glow" x="-20%" y="-80%" width="140%" height="260%">
+                <feGaussianBlur stdDeviation="1.2" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <path
+              d="M 60 5 C 63 1.5, 68 1.5, 72 5"
+              fill="none"
+              stroke="rgba(255,185,128,0.16)"
+              strokeWidth="1.15"
+              strokeLinecap="round"
+            />
+            <path
+              d="M 60 5 C 63 1.5, 68 1.5, 72 5"
+              fill="none"
+              stroke="url(#melody-connector-gradient)"
+              strokeWidth="0.72"
+              strokeLinecap="round"
+              strokeDasharray="7 5"
+              filter="url(#melody-connector-glow)"
+              style={{
+                animation: prefersReduced ? "none" : "melodyConnectorFlow 1.7s linear infinite",
+              }}
+            />
+            <circle
+              cx="60"
+              cy="5"
+              r="0.8"
+              fill="#ffb980"
+              style={{
+                transformOrigin: "60px 5px",
+                filter: "drop-shadow(0 0 7px rgba(255,185,128,0.95))",
+                animation: prefersReduced ? "none" : "melodyConnectorPulse 1.8s ease-in-out infinite",
+              }}
+            />
+            <circle
+              cx="72"
+              cy="5"
+              r="0.8"
+              fill="#ffb980"
+              style={{
+                transformOrigin: "72px 5px",
+                filter: "drop-shadow(0 0 7px rgba(255,185,128,0.95))",
+                animation: prefersReduced ? "none" : "melodyConnectorPulse 1.8s ease-in-out infinite 0.45s",
+              }}
+            />
+          </svg>
 
           {memoryFrames.map((frame, i) => (
             <motion.figure

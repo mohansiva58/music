@@ -13,8 +13,7 @@ const STEPS = [
     num: "01",
     description:
       "Our process begins with understanding you. We dive deep into your memories, emotions, and the unique narrative you want to express in song. This initial consultation forms the heart of your composition.",
-    image:
-      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG11c2ljfGVufDB8fDB8fHww",
     title: "Sharing Your Story",
   },
   {
@@ -23,7 +22,7 @@ const STEPS = [
     description:
       "Our lyricists and composers transform your narrative into compelling words and melodies, capturing your story in a unique musical form.",
     image:
-      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1586095087956-bc66fe634955?q=80&w=766&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "The Writing",
   },
   {
@@ -32,7 +31,7 @@ const STEPS = [
     description:
       "We compose and arrange the music, ensuring every note and instrument reflects your story and emotions.",
     image:
-      "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80",
     title: "The Music",
   },
   {
@@ -40,8 +39,7 @@ const STEPS = [
     num: "04",
     description:
       "You listen to your custom song for the first time, experiencing your story in a new, unforgettable way.",
-    image:
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG11c2ljfGVufDB8fDB8fHww",
     title: "The Reaction",
   },
   {
@@ -49,8 +47,7 @@ const STEPS = [
     num: "05",
     description:
       "Share your song with loved ones, celebrate your moments, and cherish your story forever.",
-    image:
-      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1642559732916-347fab27cdca?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDc4fHx8ZW58MHx8fHx8",
     title: "Your Turn",
   },
 ];
@@ -141,9 +138,9 @@ export default function ProcessSection() {
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           className="font-display mt-6 text-[11vw] font-black leading-[0.88] tracking-[-0.03em] text-white md:text-[6vw] lg:text-[6rem]"
         >
-          HOW YOUR
+          The Journey
           <br />
-          <span className="text-ember">SONG</span> GETS MADE.
+          <span className="text-ember">Of </span>Your Song.
         </motion.h2>
 
         {/* Steps */}
@@ -193,35 +190,56 @@ export default function ProcessSection() {
 
                 {/* Image side */}
                 <motion.div
-                  whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="relative w-full md:w-5/12 flex-shrink-0 overflow-hidden rounded-2xl"
-                  style={{ aspectRatio: "4/3" }}
+                  className="relative w-full md:w-5/12 flex-shrink-0 overflow-hidden rounded-2xl p-3"
+                  style={{
+                    aspectRatio: "4/3",
+                    background:
+                      "linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.045))",
+                    border: "1px solid rgba(255,255,255,0.18)",
+                    boxShadow:
+                      "0 24px 70px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.18)",
+                    backdropFilter: "blur(18px) saturate(135%)",
+                    WebkitBackdropFilter: "blur(18px) saturate(135%)",
+                  }}
                 >
-                  {/* Grayscale + overlay */}
-                  <img
-                    src={step.image}
-                    alt={step.title}
-                    className="absolute inset-0 h-full w-full object-cover grayscale opacity-70 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-90"
-                  />
-                  {/* Tint overlay */}
                   <div
-                    className="absolute inset-0 transition-opacity duration-700 group-hover:opacity-0"
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(135deg, rgba(215,123,43,0.25) 0%, rgba(8,2,2,0.4) 100%)",
+                        "radial-gradient(circle at 18% 12%, rgba(255,185,128,0.20), transparent 34%), linear-gradient(160deg, rgba(255,255,255,0.10), transparent 42%)",
                     }}
                   />
-                  {/* Step label badge */}
-                  <div
-                    className="absolute bottom-5 left-5 font-archivo text-[10px] uppercase tracking-[0.35em] px-3 py-1.5 rounded-full"
-                    style={{
-                      background: "rgba(255,87,34,0.15)",
-                      border: "1px solid rgba(255,87,34,0.35)",
-                      color: "#ff7a50",
-                    }}
-                  >
-                    {step.label}
+                  {/* Image */}
+                  <div className="relative h-full w-full overflow-hidden rounded-xl">
+                    <img
+                      src={step.image}
+                      alt={step.title}
+                      className="absolute inset-0 h-full w-full object-cover opacity-80"
+                    />
+                    {/* Tint overlay */}
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, rgba(215,123,43,0.16) 0%, rgba(8,2,2,0.34) 100%)",
+                      }}
+                    />
+                    {/* Step label badge */}
+                    <div
+                      className="absolute bottom-5 left-5 font-archivo text-[10px] uppercase tracking-[0.35em] px-3 py-1.5 rounded-full"
+                      style={{
+                        background: "rgba(8,2,2,0.42)",
+                        border: "1px solid rgba(255,185,128,0.34)",
+                        color: "#ffcfaa",
+                        backdropFilter: "blur(12px)",
+                        WebkitBackdropFilter: "blur(12px)",
+                        boxShadow: "0 10px 30px rgba(0,0,0,0.24)",
+                      }}
+                    >
+                      {step.label}
+                    </div>
                   </div>
                 </motion.div>
 
