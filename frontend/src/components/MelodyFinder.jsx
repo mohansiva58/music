@@ -1,108 +1,104 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import { Pause, Search, SkipBack, SkipForward, Music2 } from "lucide-react";
 import { waLink } from "../lib/content";
 
-const memoryFrames = [
-  {
-    src: "/content.png",
-    alt: "Couple smiling outdoors",
-    className: "left-[3%] top-[6%] h-[36%] w-[22%]",
-    rotate: -2.8,
-    delay: 0,
-    caption: "Forever yours",
-  },
-  {
-    src: "/image.png",
-    alt: "Wedding memory moment",
-    className: "left-[27%] top-[1%] h-[54%] w-[36%]",
-    rotate: 0.4,
-    delay: 0.08,
-    caption: "The big day",
-  },
-  {
-    src: "/image%20copy.png",
-    alt: "Family hiking memory",
-    className: "right-[4%] top-[1%] h-[38%] w-[25%]",
-    rotate: 2.2,
-    delay: 0.16,
-    caption: "Peak moments",
-  },
-  {
-    src: "/image%20copy%202.png",
-    alt: "Graduation celebration",
-    className: "left-[16%] top-[58%] h-[32%] w-[24%]",
-    rotate: 0.9,
-    delay: 0.24,
-    caption: "Achievement unlocked",
-  },
-  {
-    src: "/contenqt.png",
-    alt: "Friends around campfire",
-    className: "right-[13%] top-[56%] h-[34%] w-[24%]",
-    rotate: -1.6,
-    delay: 0.32,
-    caption: "Warmth & laughter",
-  },
-];
-
+// ─── Tracks ────────────────────────────────────────────────────────────────────
 const tracks = [
   { title: "Golden Hour", artist: "Memory Session", progress: 28 },
-  { title: "Perfect", artist: "Story Cut", progress: 74, active: true },
-  { title: "Count On Me", artist: "Soul Draft", progress: 42 },
+  { title: "Perfect",     artist: "Story Cut",      progress: 74 },
+  { title: "Count On Me", artist: "Soul Draft",     progress: 42 },
 ];
 
 const BAR_COUNT = 28;
 
+// ─── Waveform bar ──────────────────────────────────────────────────────────────
 function WaveBar({ i, active }) {
-  const [heights] = useState(() =>
-    Array.from({ length: BAR_COUNT }, () => 20 + Math.random() * 80)
-  );
+  const [height] = useState(() => 20 + Math.random() * 80);
   return (
     <div
       className="rounded-full"
       style={{
         width: 3,
-        height: `${heights[i % heights.length]}%`,
+        flexShrink: 0,
+        height: `${height}%`,
         background: active
-          ? `rgba(255,185,128,${0.5 + Math.random() * 0.5})`
+          ? `rgba(255,185,128,${0.5 + Math.random() * 0.45})`
           : "rgba(255,255,255,0.15)",
-        animation: active ? `wave ${0.6 + Math.random() * 0.8}s ease-in-out infinite alternate` : "none",
+        animation: active
+          ? `waveAnim ${0.6 + Math.random() * 0.8}s ease-in-out infinite alternate`
+          : "none",
         animationDelay: `${i * 0.04}s`,
       }}
     />
   );
 }
 
+// ─── Mosaic column data ────────────────────────────────────────────────────────
+// Each column = { images: [{ src, alt, height }] }
+// Columns are bottom-aligned (alignItems: flex-end) → ascending staircase left→right
+const mosaicColumns = [
+  // Col 1 — shortest, 1 image
+  {
+    images: [
+      { src: "/content.png", alt: "Couple smiling", h: 240 },
+    ],
+  },
+  // Col 2 — 2 images
+  {
+    images: [
+      { src: "/image.png",        alt: "Wedding moment",   h: 176 },
+      { src: "/image%20copy.png", alt: "Family hiking",    h: 176 },
+    ],
+  },
+  // Col 3 — 2 images, taller
+  {
+    images: [
+      { src: "/image%20copy%202.png", alt: "Graduation",        h: 212 },
+      { src: "/contenqt.png",         alt: "Friends campfire",  h: 212 },
+    ],
+  },
+  // Col 4 — 2 images, taller still
+  {
+    images: [
+      { src: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80", alt: "Studio mic",        h: 250 },
+      { src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&auto=format&fit=crop&q=60", alt: "Musician",          h: 250 },
+    ],
+  },
+  // Col 5 — tallest single image
+  {
+    images: [
+      { src: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=600&q=80", alt: "Singer on stage",   h: 520 },
+    ],
+  },
+  // Col 6 — 2 images, steps back down slightly
+  {
+    images: [
+      { src: "https://images.unsplash.com/photo-1524650359799-842906ca1c06?auto=format&fit=crop&w=600&q=80", alt: "Concert lights",    h: 290 },
+      { src: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=600&q=80", alt: "Studio console",    h: 224 },
+    ],
+  },
+  // Col 7 — 3 images stacked (rightmost)
+  {
+    images: [
+      { src: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=600&q=80", alt: "Guitar detail",     h: 164 },
+      { src: "https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?w=600&auto=format&fit=crop&q=60", alt: "Music crowd",       h: 164 },
+      { src: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600&auto=format&fit=crop&q=60", alt: "Concert crowd",     h: 164 },
+    ],
+  },
+];
+
+// ─── Main component ────────────────────────────────────────────────────────────
 export default function MelodyFinder() {
-  const ref = useRef(null);
+  const ref            = useRef(null);
   const prefersReduced = useReducedMotion();
   const [activeTrack, setActiveTrack] = useState(1);
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const bgY = useSpring(
     useTransform(scrollYProgress, [0, 1], [-30, 70]),
     { stiffness: 140, damping: 45, mass: 0.3 }
   );
-
-  // Micro-keyframe index (0-150 frames per scroll)
-  const frameIndex = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  
-  // Frame-by-frame opacity fluctuation for visual feedback
-  const framePulse = useTransform(frameIndex, (idx) => {
-    return 0.85 + Math.sin(idx * 0.15) * 0.15;
-  });
-
-  const frame0Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -20]), { stiffness: 140, damping: 45, mass: 0.3 });
-  const frame1Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -30]), { stiffness: 140, damping: 45, mass: 0.3 });
-  const frame2Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -12]), { stiffness: 140, damping: 45, mass: 0.3 });
-  const frame3Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -40]), { stiffness: 60, damping: 25 });
-  const frame4Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -25]), { stiffness: 60, damping: 25 });
-  const frameYs = [frame0Y, frame1Y, frame2Y, frame3Y, frame4Y];
 
   return (
     <section
@@ -112,26 +108,13 @@ export default function MelodyFinder() {
       className="relative min-h-[100svh] w-full overflow-hidden bg-transparent"
     >
       <style>{`
-        @keyframes wave {
+        @keyframes waveAnim {
           from { transform: scaleY(0.4); }
           to   { transform: scaleY(1); }
         }
-        @keyframes float0 { 0%,100%{transform:translateY(0px) rotate(-2.8deg)} 50%{transform:translateY(-8px) rotate(-2.8deg)} }
-        @keyframes float1 { 0%,100%{transform:translateY(0px) rotate(0.4deg)}  50%{transform:translateY(-12px) rotate(0.4deg)} }
-        @keyframes float2 { 0%,100%{transform:translateY(0px) rotate(2.2deg)}  50%{transform:translateY(-6px) rotate(2.2deg)} }
-        @keyframes float3 { 0%,100%{transform:translateY(0px) rotate(0.9deg)}  50%{transform:translateY(-10px) rotate(0.9deg)} }
-        @keyframes float4 { 0%,100%{transform:translateY(0px) rotate(-1.6deg)} 50%{transform:translateY(-7px) rotate(-1.6deg)} }
-        @keyframes melodyConnectorFlow {
-          from { stroke-dashoffset: 34; }
-          to { stroke-dashoffset: 0; }
-        }
-        @keyframes melodyConnectorPulse {
-          0%, 100% { opacity: 0.55; transform: scale(0.9); }
-          50% { opacity: 1; transform: scale(1.08); }
-        }
       `}</style>
 
-      {/* Parallax bg */}
+      {/* ── Parallax bg ── */}
       <motion.div
         style={prefersReduced ? undefined : { y: bgY }}
         className="absolute inset-0 z-0 opacity-15 pointer-events-none"
@@ -146,169 +129,155 @@ export default function MelodyFinder() {
       <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-[#080202]/40 via-transparent to-[#080202]/60" />
       <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_52%_25%,rgba(255,153,96,0.1)_0%,transparent_60%)]" />
 
-      <div className="relative z-10 w-full px-8 py-20 md:px-16 md:py-28">
+      <div className="relative z-10 w-full px-6 py-16 md:px-16 md:py-32">
 
-        {/* Header with frame indicator */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.9 }}
-          className="max-w-3xl relative"
+        {/* ══════════════════════════════════════════════════════════════
+            HERO ROW — text anchored bottom-left, mosaic fills right
+        ══════════════════════════════════════════════════════════════ */}
+        <div
+          className="hidden md:flex"
+          style={{ alignItems: "flex-end", gap: "56px", minHeight: "680px", width: "100%" }}
         >
-          {/* Frame counter display */}
+
+          {/* Text block — bottom-aligned with the mosaic */}
           <motion.div
-            style={{ opacity: framePulse }}
-            className="absolute -top-8 right-0 text-[9px] font-mono text-[#ff5722]/50"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.9 }}
+            style={{ flexShrink: 0, width: "430px", paddingBottom: "10px" }}
           >
-            FRAME <motion.span>{frameIndex}</motion.span>
-          </motion.div>
-          <span className="font-archivo text-[11px] uppercase tracking-[0.4em]" style={{ color: "#ff5722" }}>
-            Chapter 03 — Find Your Melody
-          </span>
-          <h2
-            className="font-display mt-6 font-black leading-[0.9] text-white"
-            style={{ fontSize: "clamp(2.8rem,7vw,6.5rem)", letterSpacing: "-0.03em" }}
-          >
-            EVERY MEMORY
-            <br />
-            <span className="text-ember">HAS A MELODY.</span>
-          </h2>
-          <p className="font-archivo mt-6 max-w-xl text-base leading-relaxed md:text-lg" style={{ color: "rgba(255,255,255,0.55)" }}>
-            Discover the unique soundtrack to your most cherished moments, arranged with the same care as the memory itself.
-          </p>
-        </motion.div>
-
-        {/* Memory board with frame-by-frame feedback */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto mt-14 w-full overflow-visible"
-          style={{
-            ...(prefersReduced ? {} : { opacity: framePulse }),
-            height: "clamp(320px, 48vw, 560px)",
-            borderRadius: "2rem",
-            background: "rgba(15,4,4,0.30)",
-            backdropFilter: "blur(12px)",
-            border: "1px solid rgba(255,255,255,0.06)",
-          }}
-        >
-          {/* Inner radial glow */}
-          <div className="absolute inset-0 pointer-events-none rounded-[2rem]"
-            style={{ background: "radial-gradient(ellipse at 50% 110%, rgba(255,153,96,0.10) 0%, transparent 60%)" }}
-          />
-
-          {/* Flow line connecting the middle memory to the next memory */}
-          <svg
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-[6] h-full w-full overflow-visible"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-          >
-            <defs>
-              <linearGradient id="melody-connector-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#ff5722" stopOpacity="0.15" />
-                <stop offset="42%" stopColor="#ffb980" stopOpacity="0.95" />
-                <stop offset="100%" stopColor="#ff5722" stopOpacity="0.55" />
-              </linearGradient>
-              <filter id="melody-connector-glow" x="-20%" y="-80%" width="140%" height="260%">
-                <feGaussianBlur stdDeviation="1.2" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-            <path
-              d="M 60 5 C 63 1.5, 68 1.5, 72 5"
-              fill="none"
-              stroke="rgba(255,185,128,0.16)"
-              strokeWidth="1.15"
-              strokeLinecap="round"
-            />
-            <path
-              d="M 60 5 C 63 1.5, 68 1.5, 72 5"
-              fill="none"
-              stroke="url(#melody-connector-gradient)"
-              strokeWidth="0.72"
-              strokeLinecap="round"
-              strokeDasharray="7 5"
-              filter="url(#melody-connector-glow)"
-              style={{
-                animation: prefersReduced ? "none" : "melodyConnectorFlow 1.7s linear infinite",
-              }}
-            />
-            <circle
-              cx="60"
-              cy="5"
-              r="0.8"
-              fill="#ffb980"
-              style={{
-                transformOrigin: "60px 5px",
-                filter: "drop-shadow(0 0 7px rgba(255,185,128,0.95))",
-                animation: prefersReduced ? "none" : "melodyConnectorPulse 1.8s ease-in-out infinite",
-              }}
-            />
-            <circle
-              cx="72"
-              cy="5"
-              r="0.8"
-              fill="#ffb980"
-              style={{
-                transformOrigin: "72px 5px",
-                filter: "drop-shadow(0 0 7px rgba(255,185,128,0.95))",
-                animation: prefersReduced ? "none" : "melodyConnectorPulse 1.8s ease-in-out infinite 0.45s",
-              }}
-            />
-          </svg>
-
-          {memoryFrames.map((frame, i) => (
-            <motion.figure
-              key={frame.alt}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: frame.delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ scale: 1.06, zIndex: 30, transition: { duration: 0.3 } }}
-              className={`absolute cursor-pointer ${frame.className}`}
-              style={{
-                animation: prefersReduced ? "none" : `float${i} ${3.5 + i * 0.4}s ease-in-out infinite`,
-                zIndex: i === 1 ? 20 : 10,
-              }}
+            <span className="font-archivo text-[11px] uppercase tracking-[0.4em] block mb-5" style={{ color: "#ff5722" }}>
+              Chapter 03 — Find Your Melody
+            </span>
+            <h2
+              className="font-archivo font-black leading-[0.9] text-white mb-5"
+              style={{ fontSize: "clamp(4.4rem,7.3vw,7.6rem)", letterSpacing: "-0.01em" }}
             >
-              {/* Polaroid frame */}
+              Memory<br />Melody.
+            </h2>
+            <p
+              className="font-archivo text-sm leading-relaxed mb-8"
+              style={{ color: "rgba(255,255,255,0.72)" }}
+            >
+              Discover the unique soundtrack to your most cherished moments,
+              arranged with the same care as the memory itself.
+            </p>
+            <a
+              href={waLink("Hi, I want to find the perfect melody for my memories.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#fff83d] px-5 py-3 font-archivo text-xs font-black text-black transition-transform duration-300 hover:scale-105"
+            >
+              Find Your Melody
+            </a>
+          </motion.div>
+
+          {/* ── Ascending staircase mosaic ── */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              flex: 1,
+              display: "flex",
+              alignItems: "flex-end",   /* bottom-align all columns → staircase ascends left→right */
+              gap: "4px",
+              minWidth: 0,
+            }}
+          >
+            {mosaicColumns.map((col, ci) => (
               <div
-                className="h-full w-full flex flex-col"
+                key={ci}
                 style={{
-                  background: "#f5efe6",
-                  padding: "6px 6px 28px 6px",
-                  boxShadow: "0 24px 48px -12px rgba(0,0,0,0.75), 0 4px 12px rgba(0,0,0,0.4)",
-                  borderRadius: "2px",
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "4px",
+                  minWidth: 0,
                 }}
               >
-                <div className="flex-1 overflow-hidden bg-black/10">
-                  <img
-                    src={frame.src}
-                    alt={frame.alt}
+                {col.images.map((img, ii) => (
+                  <motion.img
+                    key={ii}
+                    src={img.src}
+                    alt={img.alt}
                     loading="lazy"
-                    className="h-full w-full object-cover"
-                    style={{ filter: "sepia(0.15) contrast(1.05)" }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: ci * 0.07 + ii * 0.04, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    whileHover={{ scale: 1.03, zIndex: 10, transition: { duration: 0.25 } }}
+                    style={{
+                      width: "100%",
+                      height: img.h,
+                      objectFit: "cover",
+                      borderRadius: "10px",
+                      display: "block",
+                      filter: "saturate(1.06) contrast(1.04)",
+                      flexShrink: 0,
+                    }}
                   />
-                </div>
-                <p
-                  className="mt-1 text-center font-serif italic leading-none"
-                  style={{ fontSize: "clamp(7px,1vw,11px)", color: "#4a3728", opacity: 0.8 }}
-                >
-                  {frame.caption}
-                </p>
+                ))}
               </div>
-            </motion.figure>
-          ))}
-        </motion.div>
+            ))}
+          </motion.div>
+        </div>
 
-        {/* Player */}
+        {/* ── Mobile hero ── */}
+        <div className="md:hidden flex flex-col gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+          >
+            <span className="font-archivo text-[11px] uppercase tracking-[0.4em] block mb-4" style={{ color: "#ff5722" }}>
+              Chapter 03 — Find Your Melody
+            </span>
+            <h2
+              className="font-archivo font-black leading-[0.9] text-white mb-4"
+              style={{ fontSize: "clamp(2.8rem,10vw,4rem)", letterSpacing: "-0.01em" }}
+            >
+              Memory<br />Melody.
+            </h2>
+            <p className="font-archivo text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.72)" }}>
+              Discover the unique soundtrack to your most cherished moments.
+            </p>
+            <a
+              href={waLink("Hi, I want to find the perfect melody for my memories.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#fff83d] px-5 py-3 font-archivo text-xs font-black text-black"
+            >
+              Find Your Melody
+            </a>
+          </motion.div>
+
+          {/* Mobile: mini ascending staircase (4 cols) */}
+          <div style={{ display: "flex", alignItems: "flex-end", gap: "3px" }}>
+            {[
+              { src: "/content.png",           h: 100 },
+              { src: "/image.png",              h: 140 },
+              { src: "/image%20copy.png",       h: 180 },
+              { src: "/image%20copy%202.png",   h: 220 },
+            ].map((img, i) => (
+              <div key={i} style={{ flex: 1 }}>
+                <img
+                  src={img.src}
+                  alt=""
+                  loading="lazy"
+                  style={{ width: "100%", height: img.h, objectFit: "cover", borderRadius: "8px", display: "block" }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ══════════════════════════════════════════════════════════════
+            MUSIC PLAYER
+        ══════════════════════════════════════════════════════════════ */}
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -333,20 +302,15 @@ export default function MelodyFinder() {
                 style={{
                   borderRadius: "1rem",
                   padding: "1rem 1.25rem",
-                  background: activeTrack === i
-                    ? "rgba(255,185,128,0.12)"
-                    : "rgba(255,255,255,0.04)",
-                  border: activeTrack === i
-                    ? "1px solid rgba(255,185,128,0.25)"
-                    : "1px solid transparent",
+                  background: activeTrack === i ? "rgba(255,185,128,0.12)" : "rgba(255,255,255,0.04)",
+                  border:     activeTrack === i ? "1px solid rgba(255,185,128,0.25)" : "1px solid transparent",
                 }}
               >
                 <div className="flex items-center gap-3 mb-3">
                   <div
                     className="flex items-center justify-center rounded-full flex-shrink-0"
                     style={{
-                      width: 32,
-                      height: 32,
+                      width: 32, height: 32,
                       background: activeTrack === i ? "rgba(255,185,128,0.18)" : "rgba(255,255,255,0.06)",
                     }}
                   >
@@ -372,7 +336,7 @@ export default function MelodyFinder() {
                   ))}
                 </div>
 
-                {/* Progress bar */}
+                {/* Progress */}
                 <div className="mt-2 h-px rounded-full" style={{ background: "rgba(255,255,255,0.1)" }}>
                   <div
                     className="h-full rounded-full transition-all duration-700"
@@ -389,17 +353,16 @@ export default function MelodyFinder() {
           </div>
 
           {/* Transport controls */}
-          <div className="mt-3 flex items-center justify-center gap-6 rounded-full py-3" style={{ background: "rgba(0,0,0,0.35)" }}>
+          <div
+            className="mt-3 flex items-center justify-center gap-6 rounded-full py-3"
+            style={{ background: "rgba(0,0,0,0.35)" }}
+          >
             <button className="transition-opacity hover:opacity-100 opacity-50">
               <SkipBack className="h-5 w-5 text-white" />
             </button>
             <button
               className="flex items-center justify-center rounded-full transition-transform hover:scale-105 active:scale-95"
-              style={{
-                width: 44,
-                height: 44,
-                background: "linear-gradient(135deg,#ff5722,#ffb980)",
-              }}
+              style={{ width: 44, height: 44, background: "linear-gradient(135deg,#ff5722,#ffb980)" }}
             >
               <Pause className="h-5 w-5 text-white" />
             </button>
@@ -409,7 +372,9 @@ export default function MelodyFinder() {
           </div>
         </motion.div>
 
-        {/* CTA */}
+        {/* ══════════════════════════════════════════════════════════════
+            BOTTOM CTA
+        ══════════════════════════════════════════════════════════════ */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -437,6 +402,7 @@ export default function MelodyFinder() {
             Scan your photo. Find the song.
           </p>
         </motion.div>
+
       </div>
     </section>
   );
