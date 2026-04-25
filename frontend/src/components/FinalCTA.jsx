@@ -17,12 +17,8 @@ export default function FinalCTA() {
     target: ref,
     offset: ["start end", "end start"],
   });
-  const bgScale = useSpring(
-    useTransform(scrollYProgress, [0, 1], [1.08, 1]),
-    { stiffness: 140, damping: 45, mass: 0.3 }
-  );
   const ghostY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [70, -70]),
+    useTransform(scrollYProgress, [0, 1], [30, -30]),
     { stiffness: 140, damping: 45, mass: 0.3 }
   );
 
@@ -30,36 +26,20 @@ export default function FinalCTA() {
     <section
       ref={ref}
       data-testid="final-cta-section"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative w-full overflow-hidden"
     >
-      {/* Parallax portrait bg */}
-      <motion.div
-        style={prefersReduced ? undefined : { scale: bgScale }}
-        className="absolute inset-0 z-0"
-      >
-        <div className="duotone-red-wrap absolute inset-0 opacity-28">
-          <img
-            src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?crop=entropy&cs=tinysrgb&fit=crop&w=2000&q=85"
-            alt=""
-            className="duotone-red absolute inset-0 h-full w-full object-cover object-[center_20%]"
-            loading="lazy"
-          />
-        </div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(220,38,38,0.3)_0%,rgba(69,5,5,0.42)_60%,rgba(8,2,2,0.65)_100%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080202]/35 via-transparent to-[#080202]/52" />
-      </motion.div>
-
+      {/* Ghost "FINALE" text — floats over the frame sequence background */}
       <motion.div
         aria-hidden
         style={prefersReduced ? undefined : { y: ghostY }}
-        className="pointer-events-none absolute left-1/2 top-[15%] z-10 hidden -translate-x-1/2 md:block"
+        className="pointer-events-none absolute left-1/2 top-[8%] z-10 hidden -translate-x-1/2 md:block"
       >
-        <div className="ghost-text text-[18vw] leading-none opacity-35">
+        <div className="ghost-text text-[18vw] leading-none opacity-20">
           FINALE
         </div>
       </motion.div>
 
-      <div className="relative z-20 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col items-center justify-center px-6 py-24 text-center md:px-10 md:py-32">
+      <div className="relative z-20 mx-auto flex max-w-[1400px] flex-col items-center justify-center px-6 py-24 text-center md:px-10 md:py-32">
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
