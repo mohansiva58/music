@@ -52,7 +52,7 @@ export default function Hero() {
           <img
             src="content.png"
             alt="Letters to Tomorrow cover"
-            className="h-[100svh] w-full object-contain object-top sm:object-cover sm:object-center"
+            className="h-[100svh] w-full object-cover object-center"
             style={{ 
               pointerEvents: "none",
               imageRendering: "auto"
