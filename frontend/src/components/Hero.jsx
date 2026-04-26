@@ -190,11 +190,11 @@ export default function Hero() {
             className="font-serif-display animate-fade-rise text-[clamp(2.15rem,11vw,4.5rem)] font-bold text-white [text-wrap:balance] sm:text-[clamp(2.8rem,8vw,5.4rem)] sm:[text-wrap:pretty] md:text-[clamp(3.5rem,7vw,6rem)]"
           >
             TURN YOUR{" "}
-            <em className="italic text-[#ffe082] opacity-92">STORY</em>
+            <em className="italic text-[#ffe082] opacity-92">STORY</em><br></br>
             <br className="sm:hidden" />
-            {" "}INTO A{" "}
-            <em className="italic text-[#ffe082] opacity-92">MEMORABLE</em>
-            <br /> SONG
+            {" "}INTO A{"     "}<br></br>
+            <em className="italic text-[#ffe082] opacity-92">   MEMORABLE{"     "}</em>
+         SONG
           </motion.h1>
 
           <p
