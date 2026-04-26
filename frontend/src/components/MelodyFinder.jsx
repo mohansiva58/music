@@ -171,106 +171,88 @@ export default function MelodyFinder() {
             Start for Free
           </a>
         </motion.div>
-           <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.85, delay: 0.18 }}
-          className="mt-10 w-full"
-          style={{
-            borderRadius: "1.5rem",
-            background: "rgba(12,3,3,0.60)",
-            backdropFilter: "blur(20px)",
-            border: "1px solid rgba(255,255,255,0.07)",
-            padding: "1.25rem",
-          }}
-        >
-          {/* Track list */}
-          <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
-            {tracks.map((track, i) => (
-              <button
-                key={track.title}
-                onClick={() => setActiveTrack(i)}
-                className="text-left transition-all duration-300"
-                style={{
-                  borderRadius: "1rem",
-                  padding: "1rem 1.25rem",
-                  background: activeTrack === i
-                    ? "rgba(255,185,128,0.12)"
-                    : "rgba(255,255,255,0.04)",
-                  border: activeTrack === i
-                    ? "1px solid rgba(255,185,128,0.25)"
-                    : "1px solid transparent",
-                }}
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div
-                    className="flex items-center justify-center rounded-full flex-shrink-0"
-                    style={{
-                      width: 32,
-                      height: 32,
-                      background: activeTrack === i ? "rgba(255,185,128,0.18)" : "rgba(255,255,255,0.06)",
-                    }}
-                  >
-                    <Music2
-                      className="h-3.5 w-3.5"
-                      style={{ color: activeTrack === i ? "#ffb980" : "rgba(255,255,255,0.4)" }}
-                    />
-                  </div>
-                  <div>
-                    <p className="font-archivo text-sm font-semibold" style={{ color: activeTrack === i ? "#fff" : "rgba(255,255,255,0.7)" }}>
-                      {track.title}
-                    </p>
-                    <p className="font-archivo text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
-                      {track.artist}
-                    </p>
-                  </div>
-                </div>
+      </div>
 
-                {/* Waveform */}
-                <div className="flex items-end gap-[2px]" style={{ height: 28 }}>
-                  {Array.from({ length: BAR_COUNT }).map((_, bi) => (
-                    <WaveBar key={bi} i={bi} active={activeTrack === i} />
-                  ))}
-                </div>
-
-                {/* Progress bar */}
-                <div className="mt-2 h-px rounded-full" style={{ background: "rgba(255,255,255,0.1)" }}>
-                  <div
-                    className="h-full rounded-full transition-all duration-700"
-                    style={{
-                      width: `${track.progress}%`,
-                      background: activeTrack === i
-                        ? "linear-gradient(90deg,#ff5722,#ffb980)"
-                        : "rgba(255,255,255,0.25)",
-                    }}
-                  />
-                </div>
-              </button>
-            ))}
-          </div>
-
-          {/* Transport controls */}
-          <div className="mt-3 flex items-center justify-center gap-6 rounded-full py-3" style={{ background: "rgba(0,0,0,0.35)" }}>
-            <button className="transition-opacity hover:opacity-100 opacity-50">
-              <SkipBack className="h-5 w-5 text-white" />
-            </button>
+      {/* Track list and controls - visible on all screen sizes */}
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.85, delay: 0.18 }}
+        className="mt-10 w-full"
+        style={{
+          borderRadius: "1.5rem",
+          background: "rgba(12,3,3,0.60)",
+          backdropFilter: "blur(20px)",
+          border: "1px solid rgba(255,255,255,0.07)",
+          padding: "1.25rem",
+        }}
+      >
+        {/* Track list */}
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+          {tracks.map((track, i) => (
             <button
-              className="flex items-center justify-center rounded-full transition-transform hover:scale-105 active:scale-95"
+              key={track.title}
+              onClick={() => setActiveTrack(i)}
+              className="text-left transition-all duration-300"
               style={{
-                width: 44,
-                height: 44,
-                background: "linear-gradient(135deg,#ff5722,#ffb980)",
+                borderRadius: "1rem",
+                padding: "1rem 1.25rem",
+                background: activeTrack === i
+                  ? "rgba(255,185,128,0.12)"
+                  : "rgba(255,255,255,0.04)",
+                border: activeTrack === i
+                  ? "1px solid rgba(255,185,128,0.25)"
+                  : "1px solid transparent",
               }}
             >
-              <Pause className="h-5 w-5 text-white" />
+              <div className="flex items-center gap-3 mb-3">
+                <div
+                  className="flex items-center justify-center rounded-full flex-shrink-0"
+                  style={{
+                    width: 32,
+                    height: 32,
+                    background: activeTrack === i ? "rgba(255,185,128,0.18)" : "rgba(255,255,255,0.06)",
+                  }}
+                >
+                  <Music2
+                    className="h-3.5 w-3.5"
+                    style={{ color: activeTrack === i ? "#ffb980" : "rgba(255,255,255,0.4)" }}
+                  />
+                </div>
+                <div>
+                  <p className="font-archivo text-sm font-semibold" style={{ color: activeTrack === i ? "#fff" : "rgba(255,255,255,0.7)" }}>
+                    {track.title}
+                  </p>
+                  <p className="font-archivo text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+                    {track.artist}
+                  </p>
+                </div>
+              </div>
             </button>
-            <button className="transition-opacity hover:opacity-100 opacity-50">
-              <SkipForward className="h-5 w-5 text-white" />
-            </button>
-          </div>
-        </motion.div>
-      </div>
+          ))}
+        </div>
+
+        {/* Transport controls */}
+        <div className="mt-3 flex items-center justify-center gap-6 rounded-full py-3" style={{ background: "rgba(0,0,0,0.35)" }}>
+          <button className="transition-opacity hover:opacity-100 opacity-50">
+            <SkipBack className="h-5 w-5 text-white" />
+          </button>
+          <button
+            className="flex items-center justify-center rounded-full transition-transform hover:scale-105 active:scale-95"
+            style={{
+              width: 44,
+              height: 44,
+              background: "linear-gradient(135deg,#ff5722,#ffb980)",
+            }}
+          >
+            <Pause className="h-5 w-5 text-white" />
+          </button>
+          <button className="transition-opacity hover:opacity-100 opacity-50">
+            <SkipForward className="h-5 w-5 text-white" />
+          </button>
+        </div>
+      </motion.div>
     </section>
   );
 }
