@@ -28,7 +28,18 @@ export default function FinalCTA() {
       data-testid="final-cta-section"
       className="relative w-full overflow-hidden"
     >
-      {/* Ghost "FINALE" text — floats over the frame sequence background */}
+      {/* Background video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+        src="/cta.mp4"
+      />
+      <div className="absolute inset-0 bg-black/40" />
+
+      {/* Ghost "FINALE" text — floats over the video background */}
       <motion.div
         aria-hidden
         style={prefersReduced ? undefined : { y: ghostY }}

@@ -67,20 +67,17 @@ export default function ValueProps() {
       data-testid="value-proposition-section"
       className="relative min-h-[100svh] w-full overflow-hidden"
     >
-      {/* Parallax bg */}
-      <motion.div
-        style={prefersReduced ? undefined : { y: bgY }}
-        className="absolute inset-0 z-0 opacity-25"
-      >
-        <div className="duotone-red-wrap absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?crop=entropy&cs=tinysrgb&fit=crop&w=2000&q=85"
-            alt=""
-            className="duotone-red absolute inset-0 h-full w-full object-cover object-center"
-            loading="lazy"
-          />
-        </div>
-      </motion.div>
+      {/* Background video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+        src="/cta.mp4"
+      />
+      <div className="absolute inset-0 bg-black/50" />
+
       <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(220,38,38,0.16),transparent_60%)]" />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#080202]/32 via-transparent to-[#080202]/48" />
 

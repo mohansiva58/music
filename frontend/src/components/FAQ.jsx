@@ -38,19 +38,17 @@ export default function FAQ() {
       data-testid="faq-section"
       className="relative min-h-[100svh] w-full overflow-hidden"
     >
-      <motion.div
-        style={prefersReduced ? undefined : { y: bgY }}
-        className="absolute inset-0 z-0 opacity-20"
-      >
-        <div className="duotone-red-wrap absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?crop=entropy&cs=tinysrgb&fit=crop&w=2000&q=85"
-            alt=""
-            className="duotone-red absolute inset-0 h-full w-full object-cover object-[center_25%]"
-            loading="lazy"
-          />
-        </div>
-      </motion.div>
+      {/* Background video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+        src="/cta.mp4"
+      />
+      <div className="absolute inset-0 bg-black/50" />
+
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#080202]/35 via-transparent to-[#080202]/50" />
 
       <motion.div

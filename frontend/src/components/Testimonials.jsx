@@ -91,10 +91,21 @@ export default function Testimonials() {
       id="testimonials"
       className="relative w-full py-20 bg-transparent overflow-hidden"
     >
+      {/* Background video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+        src="/cta.mp4"
+      />
+      <div className="absolute inset-0 bg-black/50" />
+
       {/* Parallax ghost text background */}
       <motion.div
         style={prefersReduced ? undefined : { x: ghostX }}
-        className="pointer-events-none absolute inset-0 z-0 flex items-center opacity-10"
+        className="pointer-events-none absolute inset-0 z-10 flex items-center opacity-10"
       >
         <div className="text-8xl font-bold text-white whitespace-nowrap">VOICES</div>
       </motion.div>
