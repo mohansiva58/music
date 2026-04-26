@@ -42,7 +42,7 @@ export default function About() {
       <motion.div
         aria-hidden
         style={prefersReduced ? undefined : { x: ghostX }}
-        className="pointer-events-none absolute inset-0 z-10 flex items-center"
+        className="pointer-events-none absolute inset-0 z-10 hidden items-center sm:flex"
       >
         <div
           className="ghost-text text-[22vw] leading-none opacity-60"
@@ -55,7 +55,7 @@ export default function About() {
       {/* Content */}
       <motion.div
         style={prefersReduced ? undefined : { y: textY }}
-        className="relative z-20 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col justify-center px-6 py-24 md:px-10"
+        className="section-container section-pad relative z-20 flex min-h-[100svh] flex-col justify-center"
       >
         {/* Chapter label */}
         <motion.span
@@ -63,7 +63,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="font-archivo mb-6 text-[11px] uppercase tracking-[0.4em] text-[#ff5722]"
+          className="chapter-label mb-5 sm:mb-6"
         >
           Chapter 01 - The Story
         </motion.span>
@@ -87,7 +87,7 @@ export default function About() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           data-testid="about-headline"
-          className="font-display text-[18vw] font-black leading-[0.82] tracking-[-0.04em] text-white drop-shadow-[0_8px_40px_rgba(0,0,0,0.8)] md:text-[13vw] lg:text-[11rem]"
+          className="font-display text-[clamp(4rem,18vw,9rem)] font-black leading-[0.82] tracking-[-0.04em] text-white drop-shadow-[0_8px_40px_rgba(0,0,0,0.8)] lg:text-[clamp(8rem,12vw,11rem)]"
         >
           {ARTIST.brand.toUpperCase()}
         </motion.h2>
@@ -98,7 +98,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.9, delay: 0.3 }}
-          className="font-archivo mt-10 max-w-xl text-base leading-relaxed text-white/90 md:text-xl"
+          className="font-archivo mt-8 max-w-xl text-base leading-relaxed text-white/90 sm:mt-10 md:text-xl"
         >
           inspiration transforms into sound - every memory, every emotion,
           every story becoming something you can truly{" "}

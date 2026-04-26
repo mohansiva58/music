@@ -92,7 +92,7 @@ export default function ValueProps() {
         </div>
       </motion.div>
 
-      <div className="relative z-20 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col justify-center px-6 py-24 md:px-10 md:py-32">
+      <div className="section-container section-pad relative z-20 flex min-h-[100svh] flex-col justify-center">
 
         {/* Header */}
         <motion.span
@@ -100,7 +100,7 @@ export default function ValueProps() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="font-archivo text-[11px] uppercase tracking-[0.4em] text-[#ff5722]"
+          className="chapter-label"
         >
           Chapter 04 — Why It Matters
         </motion.span>
@@ -111,7 +111,7 @@ export default function ValueProps() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           data-testid="value-headline"
-          className="font-display mt-6 text-[12vw] font-black leading-[0.88] tracking-[-0.03em] text-white md:text-[7vw] lg:text-[7rem]"
+          className="font-display mt-5 text-[clamp(3rem,12vw,5rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:mt-6 md:text-[clamp(4.6rem,7vw,7rem)]"
         >
           NOT ANOTHER
           <br />
@@ -119,16 +119,12 @@ export default function ValueProps() {
         </motion.h2>
 
         {/* Horizontal scroll track */}
-        <div className="mt-16 -mx-6 md:-mx-10">
+        <div className="mt-10 sm:mt-12 lg:mt-16">
           {/* Scroll hint fade edges */}
           <div className="relative">
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-black/40 to-transparent" />
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-black/40 to-transparent" />
-
             <div
               ref={trackRef}
-              className="flex overflow-x-auto gap-0 px-6 md:px-10 pb-6 scrollbar-hide"
-              style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
+              className="grid grid-cols-1 gap-6 pb-2 sm:grid-cols-2 lg:grid-cols-3"
             >
               {items.map((it, i) => {
                 const Icon = it.icon;
@@ -144,15 +140,10 @@ export default function ValueProps() {
                       ease: [0.16, 1, 0.3, 1],
                     }}
                     data-testid={`value-card-${i + 1}`}
-                    className="group flex-shrink-0 flex flex-col justify-between"
-                    style={{
-                      width: "clamp(280px, 36vw, 440px)",
-                      scrollSnapAlign: "start",
-                      paddingRight: i < items.length - 1 ? "0" : "0",
-                    }}
+                    className="group flex min-w-0 flex-col justify-between rounded-2xl border border-white/10 bg-black/20 p-5 backdrop-blur-sm"
                   >
                     {/* Vertical divider + content */}
-                    <div className="flex gap-6 pr-10 md:pr-14">
+                    <div className="flex gap-5">
                       {/* Left: number + vertical line */}
                       <div className="flex flex-col items-center pt-1 flex-shrink-0">
                         <span
@@ -162,7 +153,7 @@ export default function ValueProps() {
                           {it.num}
                         </span>
                         <div
-                          className="mt-3 w-px flex-1 min-h-[120px]"
+                          className="mt-3 min-h-[96px] w-px flex-1"
                           style={{
                             background:
                               "linear-gradient(to bottom, rgba(255,87,34,0.6), rgba(255,255,255,0.04))",
@@ -192,7 +183,7 @@ export default function ValueProps() {
 
                         <p
                           className="font-archivo mt-3 text-sm leading-relaxed md:text-base"
-                          style={{ color: "rgba(255,255,255,0.55)", maxWidth: "26ch" }}
+                          style={{ color: "rgba(255,255,255,0.55)" }}
                         >
                           {it.body}
                         </p>
@@ -205,7 +196,7 @@ export default function ValueProps() {
           </div>
 
           {/* Scroll progress dots */}
-          <div className="flex gap-1.5 px-6 md:px-10 mt-2">
+          <div className="mt-5 flex gap-1.5">
             {items.map((_, i) => (
               <motion.div
                 key={i}

@@ -89,7 +89,7 @@ export default function Testimonials() {
     <section
       ref={ref}
       id="testimonials"
-      className="relative w-full py-20 bg-transparent overflow-hidden"
+      className="relative w-full overflow-hidden bg-transparent section-pad"
     >
       {/* Background video */}
       <video
@@ -109,10 +109,10 @@ export default function Testimonials() {
       >
         <div className="text-8xl font-bold text-white whitespace-nowrap">VOICES</div>
       </motion.div>
-      <div className="relative z-10 w-full px-8 md:px-16 flex flex-col md:flex-row gap-16 items-center">
+      <div className="section-container relative z-10 grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-12 lg:gap-16">
 
         {/* LEFT: Timeline + Avatars */}
-        <div className="flex flex-col items-start w-full md:w-5/12">
+        <div className="flex w-full flex-col items-start md:col-span-5">
           {/* Section label */}
           <div className="mb-6">
             <div className="w-10 h-1 bg-green-400 rounded mb-3" />
@@ -187,7 +187,7 @@ export default function Testimonials() {
 
         {/* RIGHT: Quote */}
         <div
-          className={`flex-1 flex flex-col justify-center ${quoteVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+          className={`flex flex-col justify-center md:col-span-7 ${quoteVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
           style={{ transition: "opacity 0.35s ease, transform 0.35s ease" }}
         >
           {/* Opening quotation mark */}
@@ -207,7 +207,7 @@ export default function Testimonials() {
             className="leading-relaxed max-w-lg"
             style={{
               fontFamily: "Georgia, 'Times New Roman', serif",
-              fontSize: "1.1rem",
+              fontSize: "clamp(1rem, 2.6vw, 1.1rem)",
               fontStyle: "italic",
               lineHeight: "1.85",
               color: "rgba(255,255,255,0.85)",

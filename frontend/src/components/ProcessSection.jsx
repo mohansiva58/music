@@ -107,7 +107,7 @@ export default function ProcessSection() {
     <section
       id="process"
       ref={ref}
-      className="relative w-full overflow-visible bg-transparent py-24 md:py-36"
+      className="relative flex min-h-[100svh] w-full items-center overflow-hidden bg-transparent py-10 sm:py-12 lg:py-0"
     >
       <motion.div
         aria-hidden
@@ -119,10 +119,10 @@ export default function ProcessSection() {
         </div>
       </motion.div>
 
-      <div className="relative z-20 w-full px-8 md:px-16">
+      <div className="section-container relative z-20">
         <motion.div
           style={prefersReduced ? undefined : { opacity: frameFeedback }}
-          className="absolute top-0 right-8 text-[10px] font-mono text-[#ff5722]/60 pointer-events-none"
+          className="pointer-events-none absolute right-4 top-0 font-mono text-[10px] text-[#ff5722]/60 sm:right-6"
         >
           FRAME <motion.span>{frameIndex}</motion.span>
         </motion.div>
@@ -132,7 +132,7 @@ export default function ProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="font-archivo text-[11px] uppercase tracking-[0.4em]"
+          className="chapter-label"
           style={{ color: "#ff5722" }}
         >
           Chapter 03 - The Journey
@@ -143,7 +143,7 @@ export default function ProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display mt-6 text-[11vw] font-black leading-[0.88] tracking-[-0.03em] text-white md:text-[6vw] lg:text-[6rem]"
+          className="font-display mt-3 text-[clamp(2.8rem,11vw,4.8rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:text-[clamp(4rem,6vw,5.8rem)]"
         >
           The Journey
           <br />
@@ -155,7 +155,7 @@ export default function ProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mt-16 overflow-visible md:mt-20"
+          className="relative mt-6 overflow-visible md:mt-8"
           style={{ perspective: "1200px" }}
         >
           <div className="absolute left-0 top-0 z-30 flex items-center gap-3">
@@ -184,8 +184,8 @@ export default function ProcessSection() {
             </button>
           </div>
 
-          <div className="grid min-h-[700px] items-center gap-10 pt-20 md:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)]">
-            <div className="relative h-[520px] overflow-visible md:h-[620px]">
+          <div className="grid min-h-0 items-center gap-6 pt-14 md:h-[62vh] md:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)] md:gap-8 md:pt-10">
+            <div className="relative h-[340px] overflow-visible md:h-full">
               {STEPS.map((step, index) => {
                 const totalCards = STEPS.length;
                 const rawAngle = (index - activeIndex) * (360 / totalCards);
@@ -193,9 +193,9 @@ export default function ProcessSection() {
                   rawAngle < -180 ? rawAngle + 360 : rawAngle > 180 ? rawAngle - 360 : rawAngle;
                 const isActive = index === activeIndex;
                 const angleInRadians = (normalizedAngle * Math.PI) / 180;
-                const radius = 205;
+                const radius = 160;
                 const xOffset = Math.sin(angleInRadians) * radius;
-                const yOffset = Math.cos(angleInRadians) * radius + 90;
+                const yOffset = Math.cos(angleInRadians) * radius + 60;
                 const zOffset = Math.cos(angleInRadians) * 90;
                 const scale = isActive ? 1.08 : 0.7 + Math.cos(angleInRadians) * 0.18;
                 const opacity = isActive ? 1 : Math.max(0.42, 0.68 + Math.cos(angleInRadians) * 0.2);
@@ -210,8 +210,8 @@ export default function ProcessSection() {
                     onClick={() => goToStep(index)}
                     className={`absolute left-1/2 top-[44%] block -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[1.4rem] text-left transition-shadow duration-300 ${
                       isActive
-                        ? "h-[330px] w-[260px] md:h-[400px] md:w-[320px]"
-                        : "h-[230px] w-[185px] md:h-[285px] md:w-[230px]"
+                        ? "h-[250px] w-[198px] md:h-[330px] md:w-[264px]"
+                        : "h-[170px] w-[138px] md:h-[225px] md:w-[182px]"
                     }`}
                     style={{
                       zIndex: isActive ? 1000 : Math.round((120 + zOffset) / 2),
@@ -249,18 +249,18 @@ export default function ProcessSection() {
               initial={{ opacity: 0, x: 28 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-20 max-w-2xl"
+              className="relative z-20 max-w-xl"
             >
               <span className="font-archivo text-[12px] font-semibold uppercase tracking-[0.4em] text-[#ffb980] md:text-sm">
                 {activeStep.num} / {activeStep.label}
               </span>
-              <h3 className="mt-6 font-display text-5xl font-black leading-[0.9] text-white md:text-7xl lg:text-[6rem]">
+              <h3 className="mt-4 font-display text-[clamp(2.6rem,9vw,4rem)] font-black leading-[0.9] text-white md:text-[clamp(3.5rem,5vw,5rem)]">
                 {activeStep.title}
               </h3>
-              <p className="mt-8 font-archivo text-lg leading-relaxed text-white/70 md:text-xl lg:text-2xl">
+              <p className="mt-5 font-archivo text-base leading-relaxed text-white/70 md:text-lg lg:text-xl">
                 {activeStep.description}
               </p>
-              <div className="mt-8 flex w-fit items-center gap-3 rounded-full border border-[#ffb980]/25 bg-black/25 px-4 py-2">
+              <div className="mt-6 flex w-fit items-center gap-3 rounded-full border border-[#ffb980]/25 bg-black/25 px-4 py-2">
                 {STEPS.map((step, index) => (
                   <button
                     key={step.num}

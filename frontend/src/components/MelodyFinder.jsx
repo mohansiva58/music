@@ -24,13 +24,16 @@ const DESKTOP_POSITIONS = [
   { side: "right", top: "66%", offset: "16%", size: "lower", rotate: 6, image: 7 },
 ];
 
-const MOBILE_POSITIONS = [
-  { side: "left", top: "11%", offset: "25%", size: "mobileTop", rotate: -8, image: 0 },
-  { side: "right", top: "11%", offset: "25%", size: "mobileTop", rotate: 8, image: 1 },
-  { side: "left", top: "32%", offset: "7%", size: "mobileMid", rotate: -15, image: 2 },
-  { side: "right", top: "32%", offset: "7%", size: "mobileMid", rotate: 15, image: 3 },
-  { side: "left", top: "70%", offset: "14%", size: "mobileLow", rotate: -6, image: 4 },
-  { side: "right", top: "70%", offset: "14%", size: "mobileLow", rotate: 6, image: 5 },
+const MOBILE_TOP_CARDS = [
+  { image: 0, rotate: -8, lift: "mt-7" },
+  { image: 1, rotate: 4, lift: "" },
+  { image: 2, rotate: 8, lift: "mt-7" },
+];
+
+const MOBILE_BOTTOM_CARDS = [
+  { image: 3, rotate: -6, lift: "mb-6" },
+  { image: 4, rotate: 5, lift: "" },
+  { image: 5, rotate: 9, lift: "mb-6" },
 ];
 
 const SIZE_CLASSES = {
@@ -38,9 +41,6 @@ const SIZE_CLASSES = {
   upper: "h-[195px] w-[250px]",
   middle: "h-[210px] w-[270px]",
   lower: "h-[220px] w-[285px]",
-  mobileTop: "h-[82px] w-[104px]",
-  mobileMid: "h-[92px] w-[116px]",
-  mobileLow: "h-[100px] w-[128px]",
 };
 
 function GalleryCard({ config, index, compact = false }) {
@@ -71,6 +71,28 @@ function GalleryCard({ config, index, compact = false }) {
   );
 }
 
+function MobileGalleryCard({ config, index }) {
+  const image = IMAGES[config.image];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.94 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.45, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+      className={`aspect-[4/3] w-[80px] overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_14px_30px_rgba(0,0,0,0.14)] sm:w-[100px] ${config.lift}`}
+      style={{ rotate: `${config.rotate}deg` }}
+    >
+      <img
+        src={image.src}
+        alt={image.alt}
+        loading="lazy"
+        className="h-full w-full object-cover"
+      />
+    </motion.div>
+  );
+}
+
 export default function MelodyFinder() {
   return (
     <section
@@ -88,7 +110,7 @@ export default function MelodyFinder() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-90px" }}
           transition={{ duration: 0.75, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute left-1/2 top-1/2 z-20 flex w-[min(100px,70vw)] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center"
+          className="absolute left-1/2 top-1/2 z-20 flex w-[min(700px,70vw)] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center"
         >
          <h2 className="font-display text-[clamp(3.4rem,5.4vw,5.8rem)] font-black uppercase leading-[0.9] tracking-[-0.03em] text-black">
   Turn
@@ -112,42 +134,52 @@ export default function MelodyFinder() {
         </motion.div>
       </div>
 
-      <div className="relative min-h-screen w-full overflow-hidden md:hidden">
-        {MOBILE_POSITIONS.map((config, index) => (
-          <GalleryCard
-            key={`${config.side}-${config.top}-mobile-${index}`}
-            config={config}
-            index={index}
-            compact
-          />
-        ))}
+      <div className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden px-5 py-8 md:hidden">
+        <div className="grid grid-cols-3 items-start justify-items-center gap-4 pt-4">
+          {MOBILE_TOP_CARDS.map((config, index) => (
+            <MobileGalleryCard
+              key={`${IMAGES[config.image].alt}-top-${index}`}
+              config={config}
+              index={index}
+            />
+          ))}
+        </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="absolute left-1/2 top-1/2 z-20 flex w-[min(340px,82vw)] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center"
+          transition={{ duration: 0.55, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute left-1/2 top-1/2 z-20 flex w-[85%] max-w-[320px] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center"
         >
-          <h2 className="font-sans text-[clamp(2.25rem,10vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-black">
-            A Gallery That
-            <br />
-            Redefines Creativity
+          <h2 className="font-display text-[clamp(2.8rem,13vw,4rem)] font-black uppercase leading-[0.9] tracking-[-0.03em] text-black">
+            Turn
+            <span className="block text-ember">Memory</span>
+            <span className="block">Into Melody</span>
           </h2>
-          <p className="mt-4 max-w-[310px] font-sans text-sm leading-snug text-black/70">
-            Explore a collection where art, design, and technology merge to
-            shape what's next.
+          <p className="mt-5 max-w-[300px] font-sans text-sm leading-relaxed text-black/70">
+            Discover the unique soundtrack to your most cherished moments.
           </p>
           <a
             href={waLink("Hi, I want to find the perfect melody for my memories.")}
             target="_blank"
             rel="noopener noreferrer"
             data-testid="melody-finder-cta"
-            className="mt-6 inline-flex min-h-10 items-center justify-center rounded-full bg-black px-6 font-sans text-sm font-semibold text-white transition-transform duration-300 hover:scale-105"
+            className="mt-6 inline-flex min-h-11 items-center justify-center rounded-full bg-black px-6 font-sans text-sm font-semibold text-white transition-transform duration-300 active:scale-95"
           >
             Start for Free
           </a>
         </motion.div>
+
+        <div className="grid grid-cols-3 items-end justify-items-center gap-4 pb-4">
+          {MOBILE_BOTTOM_CARDS.map((config, index) => (
+            <MobileGalleryCard
+              key={`${IMAGES[config.image].alt}-bottom-${index}`}
+              config={config}
+              index={index + MOBILE_TOP_CARDS.length}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

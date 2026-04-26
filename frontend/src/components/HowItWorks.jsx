@@ -84,14 +84,14 @@ export default function HowItWorks() {
         </div>
       </motion.div>
 
-      <div className="relative z-20 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col justify-center px-6 py-24 md:px-10 md:py-32">
+      <div className="section-container section-pad relative z-20 flex min-h-[100svh] flex-col justify-center">
         {/* Chapter label */}
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="font-archivo mb-6 text-[11px] uppercase tracking-[0.4em] text-[#ff5722]"
+          className="chapter-label mb-5 sm:mb-6"
         >
           Chapter 02 — How It Works
         </motion.span>
@@ -103,7 +103,7 @@ export default function HowItWorks() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           data-testid="how-it-works-headline"
-          className="font-display text-[11vw] font-black leading-[0.88] tracking-[-0.03em] text-white md:text-[6.5vw] lg:text-[6.5rem]"
+          className="font-display text-[clamp(3rem,11vw,5rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:text-[clamp(4.6rem,6.5vw,6.5rem)]"
         >
           CREATE <span className="text-ember">MUSIC</span>
           <br />
@@ -113,7 +113,7 @@ export default function HowItWorks() {
         </motion.h2>
 
         {/* Steps + sticky card */}
-        <div className="mt-16 grid grid-cols-1 gap-10 md:mt-20 md:grid-cols-12 md:gap-12">
+        <div className="mt-10 grid grid-cols-1 gap-8 sm:mt-12 md:grid-cols-12 md:gap-10 lg:mt-16 lg:gap-12">
           <div className="md:col-span-8">
             <div className="flex flex-col gap-10">
               {steps.map((s, i) => (
@@ -128,7 +128,7 @@ export default function HowItWorks() {
                     ease: [0.16, 1, 0.3, 1],
                   }}
                   data-testid={`process-step-${s.id}`}
-                  className="group relative grid grid-cols-12 gap-4 border-b border-white/15 pb-8 transition-all hover:border-[#ff5722]/50"
+                  className="group relative grid grid-cols-12 gap-4 border-b border-white/15 pb-6 transition-all hover:border-[#ff5722]/50 sm:pb-8"
                 >
                   <div className="col-span-2 md:col-span-1">
                     <span className="font-display text-4xl font-black text-white/75 transition-colors group-hover:text-[#ff5722] md:text-5xl">
@@ -139,7 +139,7 @@ export default function HowItWorks() {
                     <h3 className="font-archivo text-lg font-semibold text-[#ff5722] md:text-xl">
                       {s.title}
                     </h3>
-                    <p className="font-archivo mt-2 max-w-xl text-base leading-relaxed text-white/90 md:text-lg">
+                    <p className="font-archivo mt-2 max-w-xl text-sm leading-relaxed text-white/90 sm:text-base md:text-lg">
                       {s.body}
                     </p>
                   </div>
