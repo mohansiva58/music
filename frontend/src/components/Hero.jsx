@@ -43,24 +43,19 @@ export default function Hero() {
       ref={ref}
       id="top"
       data-testid="hero-section"
-      className="relative min-h-screen w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
       style={{ minHeight: "100svh" }}
     >
       {/* ===================== Full-Screen Background ===================== */}
       <div className="absolute inset-0 z-0">
-        <picture>
-          {/* Optional: Serve different images for mobile/desktop */}
-          <source 
-            media="(max-width: 768px)" 
-            srcSet="content-mobile.png" 
-          />
+        <picture className="block h-full min-h-[100svh] w-full">
           <img
             src="content.png"
             alt="Letters to Tomorrow cover"
-            className="h-full w-full object-cover"
+            className="h-full min-h-[100svh] w-full object-contain sm:object-cover"
             style={{ 
               pointerEvents: "none",
-              objectPosition: "58% 50%",
+              objectPosition: "center center",
               imageRendering: "auto"
             }}
             loading="eager"
@@ -78,7 +73,7 @@ export default function Hero() {
       </div>
 
       {/* ===================== Nav Bar ===================== */}
-      <nav className="section-container relative z-20 flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8 lg:py-5">
+      <nav className="section-container relative z-30 flex items-center justify-between py-3 sm:py-4 lg:py-5">
         {/* Logo */}
         <a
           href="#top"
@@ -129,7 +124,7 @@ export default function Hero() {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="lg:hidden z-30 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+          className="z-30 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 lg:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileMenuOpen}
@@ -152,7 +147,7 @@ export default function Hero() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 z-25 mx-4 mt-2 rounded-2xl border border-white/20 bg-black/60 backdrop-blur-md p-4 shadow-2xl">
+        <div className="absolute left-4 right-4 top-16 z-40 rounded-2xl border border-white/20 bg-black/75 p-4 shadow-2xl backdrop-blur-md lg:hidden">
           <div className="flex flex-col gap-2">
             {NAV_LINKS.map((l) => (
               <a
@@ -181,9 +176,9 @@ export default function Hero() {
       {/* ===================== Hero Content ===================== */}
       <motion.div
         style={prefersReduced ? undefined : { y: textY, opacity: textOpacity }}
-        className="section-container relative z-10 flex min-h-[calc(100svh-72px)] flex-col items-center justify-end px-4 pb-8 text-center sm:px-6 sm:pb-10 md:min-h-[calc(100svh-88px)] md:items-start md:px-8 md:pb-12 md:text-left lg:px-12"
+        className="section-container relative z-10 flex min-h-[calc(100svh-72px)] flex-col items-center justify-end pb-[clamp(1.5rem,6svh,3.5rem)] pt-8 text-center md:min-h-[calc(100svh-88px)] md:items-start md:text-left"
       >
-        <div className="w-full max-w-2xl md:max-w-3xl lg:max-w-4xl">
+        <div className="w-full max-w-[min(42rem,92vw)] md:max-w-3xl lg:max-w-4xl">
           <motion.h1
             style={{
               lineHeight: "1.05",
@@ -193,13 +188,7 @@ export default function Hero() {
               ...(prefersReduced ? {} : { scale: textScale, rotate: textRotate })
             }}
             data-testid="hero-headline"
-            className="font-serif-display animate-fade-rise font-bold text-white [text-wrap:balance] sm:[text-wrap:pretty]"
-            css={{
-              fontSize: "clamp(2.5rem, 9vw, 5.6rem)",
-              "@media (min-width: 768px)": {
-                fontSize: "clamp(3.5rem, 7vw, 6rem)",
-              }
-            }}
+            className="font-serif-display animate-fade-rise text-[clamp(2.15rem,11vw,4.5rem)] font-bold text-white [text-wrap:balance] sm:text-[clamp(2.8rem,8vw,5.4rem)] sm:[text-wrap:pretty] md:text-[clamp(3.5rem,7vw,6rem)]"
           >
             TURN YOUR{" "}
             <em className="italic text-[#ffe082] opacity-92">STORY</em>
@@ -211,7 +200,7 @@ export default function Hero() {
 
           <p
             data-testid="hero-sub"
-            className="animate-fade-rise-delay mt-5 max-w-xl text-base leading-relaxed text-white/70 sm:mt-6 sm:text-lg md:mt-7"
+            className="animate-fade-rise-delay mx-auto mt-4 max-w-xl text-[clamp(0.95rem,4vw,1.05rem)] leading-relaxed text-white/75 sm:mt-6 sm:text-lg md:mx-0 md:mt-7"
             style={{
               fontFamily: "Inter, sans-serif",
               textShadow: "0 2px 18px rgba(0,0,0,0.38)",
@@ -223,13 +212,13 @@ export default function Hero() {
           </p>
 
           {/* CTAs - Mobile-first, touch-friendly */}
-          <div className="mt-7 flex w-full flex-col items-stretch gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
+          <div className="mt-6 flex w-full flex-col items-stretch gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
             <a
               href={waLink()}
               target="_blank"
               rel="noopener noreferrer"
               data-testid="hero-whatsapp-cta"
-              className="animate-fade-rise-delay-2 inline-flex min-h-[48px] items-center justify-center rounded-full px-6 py-3 text-sm font-bold shadow-lg transition-transform hover:scale-[1.03] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 sm:px-7 sm:text-base"
+              className="animate-fade-rise-delay-2 inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-bold shadow-lg transition-transform hover:scale-[1.03] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 sm:min-h-12 sm:px-7 sm:text-base"
               style={{
                 background: "linear-gradient(90deg, #FFD700 0%, #FFB300 100%)",
                 color: "#1a0303",
@@ -242,7 +231,7 @@ export default function Hero() {
             <a
               href="#songs"
               data-testid="hero-listen-btn"
-              className="animate-fade-rise-delay-2 inline-flex min-h-[48px] items-center justify-center rounded-full px-6 py-3 text-xs font-bold uppercase tracking-[0.25em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 sm:tracking-[0.3em]"
+              className="animate-fade-rise-delay-2 inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 sm:min-h-12 sm:px-6 sm:text-xs sm:tracking-[0.3em]"
               style={{
                 background: "#1a0303",
                 color: "#FFD700",

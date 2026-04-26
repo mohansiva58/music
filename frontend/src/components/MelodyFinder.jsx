@@ -98,9 +98,9 @@ export default function MelodyFinder() {
     <section
       id="melody-finder"
       data-testid="melody-finder-section"
-      className="relative min-h-screen w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
-      <div className="relative hidden min-h-screen w-full overflow-hidden md:block">
+      <div className="relative hidden min-h-[100svh] w-full overflow-hidden md:block">
         {DESKTOP_POSITIONS.map((config, index) => (
           <GalleryCard key={`${config.side}-${config.top}-${index}`} config={config} index={index} />
         ))}
@@ -134,8 +134,8 @@ export default function MelodyFinder() {
         </motion.div>
       </div>
 
-      <div className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden px-5 py-8 md:hidden">
-        <div className="grid grid-cols-3 items-start justify-items-center gap-4 pt-4">
+      <div className="relative flex min-h-[100svh] w-full flex-col justify-between gap-[clamp(1.5rem,5svh,3rem)] overflow-hidden px-5 py-[clamp(1rem,4svh,2rem)] md:hidden">
+        <div className="grid grid-cols-3 items-start justify-items-center gap-3 pt-2 sm:gap-4 sm:pt-4">
           {MOBILE_TOP_CARDS.map((config, index) => (
             <MobileGalleryCard
               key={`${IMAGES[config.image].alt}-top-${index}`}
@@ -150,14 +150,14 @@ export default function MelodyFinder() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute left-1/2 top-1/2 z-20 flex w-[85%] max-w-[320px] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center"
+          className="relative z-20 mx-auto flex w-[85%] max-w-[320px] flex-col items-center text-center"
         >
-          <h2 className="font-display text-[clamp(2.8rem,13vw,4rem)] font-black uppercase leading-[0.9] tracking-[-0.03em] text-black">
+          <h2 className="font-display text-[clamp(2.35rem,12vw,4rem)] font-black uppercase leading-[0.9] tracking-[-0.03em] text-black">
             Turn
             <span className="block text-ember">Memory</span>
             <span className="block">Into Melody</span>
           </h2>
-          <p className="mt-5 max-w-[300px] font-sans text-sm leading-relaxed text-black/70">
+          <p className="mt-4 max-w-[300px] font-sans text-sm leading-relaxed text-black/70">
             Discover the unique soundtrack to your most cherished moments.
           </p>
           <a
@@ -165,13 +165,13 @@ export default function MelodyFinder() {
             target="_blank"
             rel="noopener noreferrer"
             data-testid="melody-finder-cta"
-            className="mt-6 inline-flex min-h-11 items-center justify-center rounded-full bg-black px-6 font-sans text-sm font-semibold text-white transition-transform duration-300 active:scale-95"
+            className="mt-5 inline-flex min-h-11 items-center justify-center rounded-full bg-black px-6 font-sans text-sm font-semibold text-white transition-transform duration-300 active:scale-95"
           >
             Start for Free
           </a>
         </motion.div>
 
-        <div className="grid grid-cols-3 items-end justify-items-center gap-4 pb-4">
+        <div className="grid grid-cols-3 items-end justify-items-center gap-3 pb-2 sm:gap-4 sm:pb-4">
           {MOBILE_BOTTOM_CARDS.map((config, index) => (
             <MobileGalleryCard
               key={`${IMAGES[config.image].alt}-bottom-${index}`}

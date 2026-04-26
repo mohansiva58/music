@@ -52,7 +52,7 @@ export default function HowItWorks() {
       id="process"
       ref={ref}
       data-testid="how-it-works-section"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
       {/* Parallax background imagery */}
       <motion.div
@@ -103,7 +103,7 @@ export default function HowItWorks() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           data-testid="how-it-works-headline"
-          className="font-display text-[clamp(3rem,11vw,5rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:text-[clamp(4.6rem,6.5vw,6.5rem)]"
+          className="font-display text-[clamp(2.45rem,10vw,5rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:text-[clamp(4.6rem,6.5vw,6.5rem)]"
         >
           CREATE <span className="text-ember">MUSIC</span>
           <br />

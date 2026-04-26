@@ -86,7 +86,7 @@ export default function AudioPortfolio() {
       id="songs"
       ref={ref}
       data-testid="audio-portfolio-section"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
       {/* Ghost text drifting */}
       <motion.div
@@ -120,7 +120,7 @@ export default function AudioPortfolio() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.9 }}
               data-testid="showcase-headline-left"
-              className="font-display z-20 text-[clamp(3rem,12vw,4.8rem)] font-black leading-[0.9] text-white/95 md:col-span-4 md:text-[clamp(3.2rem,4.5vw,5rem)]"
+              className="font-display z-20 text-[clamp(2.45rem,11vw,4.8rem)] font-black leading-[0.9] text-white/95 md:col-span-4 md:text-[clamp(3.2rem,4.5vw,5rem)]"
             >
               HEAR
               <br />
@@ -136,7 +136,7 @@ export default function AudioPortfolio() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.9 }}
               data-testid="showcase-headline-right"
-              className="z-20 text-left font-display text-[clamp(3rem,12vw,4.8rem)] font-black leading-[0.9] text-ember md:col-span-4 md:text-right md:text-[clamp(3.2rem,4.5vw,5rem)]"
+              className="z-20 text-left font-display text-[clamp(2.45rem,11vw,4.8rem)] font-black leading-[0.9] text-ember md:col-span-4 md:text-right md:text-[clamp(3.2rem,4.5vw,5rem)]"
             >
               AI
               <br />

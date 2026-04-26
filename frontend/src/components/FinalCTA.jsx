@@ -57,7 +57,7 @@ export default function FinalCTA() {
     <section
       ref={ref}
       data-testid="final-cta-section"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
       {/* Scroll-smoothed frame background */}
       <img
@@ -96,7 +96,7 @@ export default function FinalCTA() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           data-testid="final-cta-headline"
-          className="font-display mt-5 max-w-5xl text-[clamp(3rem,12vw,5.2rem)] font-black leading-[0.88] tracking-[-0.04em] text-white drop-shadow-[0_10px_50px_rgba(0,0,0,0.6)] md:text-[clamp(4.5rem,7vw,8rem)]"
+          className="font-display mt-5 max-w-5xl text-[clamp(2.35rem,11vw,5.2rem)] font-black leading-[0.88] tracking-[-0.04em] text-white drop-shadow-[0_10px_50px_rgba(0,0,0,0.6)] md:text-[clamp(4.5rem,7vw,8rem)]"
         >
           TURN YOUR STORY
           <br />

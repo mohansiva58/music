@@ -96,8 +96,15 @@ export default function GlobalScrollBackground({ overlayOpacity = 0.44 }) {
 
     const cw = canvas.width,  ch = canvas.height;
     const iw = img.naturalWidth, ih = img.naturalHeight;
-    const scale = Math.max(cw / iw, ch / ih);
+    const viewportAspect = window.innerWidth / Math.max(window.innerHeight, 1);
+    const imageAspect = iw / Math.max(ih, 1);
+    const shouldContainOnSmallScreens = window.innerWidth < 640 && viewportAspect < imageAspect;
+    const scale = shouldContainOnSmallScreens
+      ? Math.min(cw / iw, ch / ih)
+      : Math.max(cw / iw, ch / ih);
     const dw = iw * scale, dh = ih * scale;
+    ctx.fillStyle = "#080202";
+    ctx.fillRect(0, 0, cw, ch);
     ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
 
     lastSeqIdx.current   = seqIdx;

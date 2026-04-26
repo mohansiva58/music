@@ -31,7 +31,7 @@ export default function Pricing() {
       id="pricing"
       ref={ref}
       data-testid="pricing-section"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
       {/* Parallax bg */}
       <motion.div

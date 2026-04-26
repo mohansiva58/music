@@ -107,7 +107,7 @@ export default function ProcessSection() {
     <section
       id="process"
       ref={ref}
-      className="relative flex min-h-[100svh] w-full items-center overflow-hidden bg-transparent py-10 sm:py-12 lg:py-0"
+      className="relative flex min-h-[100svh] w-full items-center overflow-x-hidden bg-transparent py-10 sm:py-12 lg:py-0"
     >
       <motion.div
         aria-hidden
@@ -143,7 +143,7 @@ export default function ProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display mt-3 text-[clamp(2.8rem,11vw,4.8rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:text-[clamp(4rem,6vw,5.8rem)]"
+          className="font-display mt-3 text-[clamp(2.45rem,10vw,4.8rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:text-[clamp(4rem,6vw,5.8rem)]"
         >
           The Journey
           <br />

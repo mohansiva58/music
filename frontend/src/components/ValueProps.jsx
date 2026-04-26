@@ -65,7 +65,7 @@ export default function ValueProps() {
       id="benefits"
       ref={ref}
       data-testid="value-proposition-section"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
       {/* Background video */}
       <video
@@ -111,7 +111,7 @@ export default function ValueProps() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           data-testid="value-headline"
-          className="font-display mt-5 text-[clamp(3rem,12vw,5rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:mt-6 md:text-[clamp(4.6rem,7vw,7rem)]"
+          className="font-display mt-5 text-[clamp(2.45rem,11vw,5rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:mt-6 md:text-[clamp(4.6rem,7vw,7rem)]"
         >
           NOT ANOTHER
           <br />

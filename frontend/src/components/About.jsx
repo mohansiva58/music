@@ -36,7 +36,7 @@ export default function About() {
       id="about"
       ref={ref}
       data-testid="about-section"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
       {/* Ghost text drifting */}
       <motion.div
@@ -87,7 +87,7 @@ export default function About() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           data-testid="about-headline"
-          className="font-display text-[clamp(4rem,18vw,9rem)] font-black leading-[0.82] tracking-[-0.04em] text-white drop-shadow-[0_8px_40px_rgba(0,0,0,0.8)] lg:text-[clamp(8rem,12vw,11rem)]"
+          className="font-display text-[clamp(2.9rem,16vw,9rem)] font-black leading-[0.82] tracking-[-0.04em] text-white drop-shadow-[0_8px_40px_rgba(0,0,0,0.8)] lg:text-[clamp(8rem,12vw,11rem)]"
         >
           {ARTIST.brand.toUpperCase()}
         </motion.h2>

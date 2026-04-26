@@ -36,7 +36,7 @@ export default function FAQ() {
       id="faq"
       ref={ref}
       data-testid="faq-section"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
       {/* Background video */}
       <video
@@ -77,7 +77,7 @@ export default function FAQ() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display mt-5 text-[clamp(3rem,12vw,5rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:mt-6 md:text-[clamp(4rem,5.5vw,5.5rem)]"
+            className="font-display mt-5 text-[clamp(2.45rem,11vw,5rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:mt-6 md:text-[clamp(4rem,5.5vw,5.5rem)]"
             data-testid="faq-headline"
           >
             THE USUAL
