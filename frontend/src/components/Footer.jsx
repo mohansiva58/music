@@ -25,11 +25,11 @@ export default function Footer() {
     <footer
       ref={ref}
       data-testid="site-footer"
-      className="relative border-t border-white/8 px-6 py-12 md:px-10 overflow-hidden"
+      className="relative overflow-hidden border-t border-white/8 py-10 sm:py-12"
     >
       <motion.div
         style={prefersReduced ? undefined : { y: yOffset }}
-        className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left"
+        className="section-container flex flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left"
       >
         <motion.div
           initial={{ opacity: 0, x: -20 }}

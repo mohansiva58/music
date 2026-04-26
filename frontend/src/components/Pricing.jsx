@@ -31,7 +31,7 @@ export default function Pricing() {
       id="pricing"
       ref={ref}
       data-testid="pricing-section"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
       {/* Parallax bg */}
       <motion.div
@@ -60,13 +60,13 @@ export default function Pricing() {
         </div>
       </motion.div>
 
-      <div className="relative z-20 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col justify-center px-6 py-24 md:px-10 md:py-32">
+      <div className="section-container relative z-20 flex min-h-[100svh] flex-col justify-center section-pad">
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="font-archivo text-[11px] uppercase tracking-[0.4em] text-[#ff5722]"
+          className="chapter-label"
         >
           Chapter 06 — Investment
         </motion.span>
@@ -77,7 +77,7 @@ export default function Pricing() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           data-testid="pricing-headline"
-          className="font-display mt-6 text-[11vw] font-black leading-[0.9] tracking-[-0.03em] text-white md:text-[6.5vw] lg:text-[6.5rem]"
+          className="font-display mt-4 text-[clamp(2.8rem,10vw,5rem)] font-black leading-[0.9] tracking-[-0.03em] text-white md:text-[clamp(4.2rem,6.5vw,6.5rem)]"
         >
           STARTS AT <span className="text-ember">₹2,999</span>.
           <br />
@@ -95,7 +95,7 @@ export default function Pricing() {
           timeline. Exact pricing is confirmed on WhatsApp.
         </motion.p>
 
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {PRICING.map((p, i) => (
             <motion.div
               key={p.name}
@@ -108,7 +108,7 @@ export default function Pricing() {
                 ease: [0.16, 1, 0.3, 1],
               }}
               data-testid={`pricing-card-${p.name.toLowerCase()}`}
-              className={`group relative flex flex-col rounded-2xl p-8 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 md:p-10 ${
+              className={`group relative flex flex-col rounded-2xl p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 md:p-8 lg:p-10 ${
                 p.featured
                   ? "bg-gradient-to-b from-[#7a0c0c] via-[#450505] to-[#1a0303] ring-2 ring-[#ff5722]/60 shadow-[0_30px_100px_-20px_rgba(255,87,34,0.4)]"
                   : "border border-white/15 bg-[#140202]/80 hover:border-[#ff5722]/40"
@@ -160,7 +160,7 @@ export default function Pricing() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid={`pricing-cta-${p.name.toLowerCase()}`}
-                className={`font-archivo mt-10 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-all ${
+                className={`font-archivo mt-8 inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all ${
                   p.featured
                     ? "bg-white text-[#0a0202] hover:bg-[#ff5722] hover:text-white"
                     : "border border-white/25 bg-white/5 text-white hover:border-[#ff5722] hover:bg-[#ff5722] hover:text-black"

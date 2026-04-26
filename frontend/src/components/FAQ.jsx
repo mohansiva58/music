@@ -36,7 +36,7 @@ export default function FAQ() {
       id="faq"
       ref={ref}
       data-testid="faq-section"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
       {/* Background video */}
       <video
@@ -61,14 +61,14 @@ export default function FAQ() {
         </div>
       </motion.div>
 
-      <div className="relative z-20 mx-auto grid min-h-[100svh] max-w-[1400px] grid-cols-1 items-center gap-14 px-6 py-24 md:grid-cols-12 md:gap-20 md:px-10 md:py-32">
+      <div className="section-container section-pad relative z-20 grid min-h-[100svh] grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-14 lg:gap-20">
         <div className="md:col-span-5">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="font-archivo text-[11px] uppercase tracking-[0.4em] text-[#ff5722]"
+            className="chapter-label"
           >
             Chapter 07 — FAQ
           </motion.span>
@@ -77,7 +77,7 @@ export default function FAQ() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display mt-6 text-[12vw] font-black leading-[0.88] tracking-[-0.03em] text-white md:text-[5.5vw] lg:text-[5.5rem]"
+            className="font-display mt-5 text-[clamp(2.45rem,11vw,5rem)] font-black leading-[0.88] tracking-[-0.03em] text-white md:mt-6 md:text-[clamp(4rem,5.5vw,5.5rem)]"
             data-testid="faq-headline"
           >
             THE USUAL
@@ -123,10 +123,10 @@ export default function FAQ() {
                   data-testid={`faq-item-${i}`}
                   className="border-b border-white/15 last:border-0"
                 >
-                <AccordionTrigger className="py-7 text-left font-archivo text-lg font-semibold text-white hover:text-[#ff5722] hover:no-underline md:text-xl">
+                <AccordionTrigger className="py-5 text-left font-archivo text-base font-semibold text-white hover:text-[#ff5722] hover:no-underline sm:py-6 md:py-7 md:text-xl">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="font-archivo pb-6 pr-6 text-sm leading-relaxed text-white/75 md:text-base">
+                <AccordionContent className="font-archivo pb-5 pr-2 text-sm leading-relaxed text-white/75 sm:pr-6 md:text-base">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>

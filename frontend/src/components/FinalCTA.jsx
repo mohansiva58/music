@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -9,7 +9,6 @@ import {
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { waLink } from "../lib/content";
-import { useEffect, useState } from "react";
 
 const FINAL_CTA_FRAME_COUNT = 112;
 
@@ -58,7 +57,7 @@ export default function FinalCTA() {
     <section
       ref={ref}
       data-testid="final-cta-section"
-      className="relative min-h-[120svh] w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
       {/* Scroll-smoothed frame background */}
       <img
@@ -80,13 +79,13 @@ export default function FinalCTA() {
         </div>
       </motion.div>
 
-      <div className="relative z-20 mx-auto flex min-h-[120svh] max-w-[1400px] flex-col items-center justify-center px-6 py-24 text-center md:px-10 md:py-32">
+      <div className="section-container relative z-20 flex min-h-[100svh] flex-col items-center justify-center text-center section-pad">
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="font-archivo text-[11px] uppercase tracking-[0.4em] text-[#ff5722]"
+          className="chapter-label"
         >
           Your Turn
         </motion.span>
@@ -97,7 +96,7 @@ export default function FinalCTA() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           data-testid="final-cta-headline"
-          className="font-display mt-6 max-w-5xl text-[12vw] font-black leading-[0.88] tracking-[-0.04em] text-white drop-shadow-[0_10px_50px_rgba(0,0,0,0.6)] md:text-[7vw] lg:text-[8rem]"
+          className="font-display mt-5 max-w-5xl text-[clamp(2.35rem,11vw,5.2rem)] font-black leading-[0.88] tracking-[-0.04em] text-white drop-shadow-[0_10px_50px_rgba(0,0,0,0.6)] md:text-[clamp(4.5rem,7vw,8rem)]"
         >
           TURN YOUR STORY
           <br />
@@ -112,7 +111,7 @@ export default function FinalCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.9, delay: 0.3 }}
-          className="font-archivo mx-auto mt-10 max-w-xl text-base text-white/90 md:text-lg"
+          className="font-archivo mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/90 sm:mt-8 md:text-lg"
         >
           One message. Share the occasion, the person, the emotion — and I'll
           take it from there.
@@ -123,14 +122,14 @@ export default function FinalCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.9, delay: 0.45 }}
-          className="mt-12 flex flex-col items-center gap-5 sm:flex-row sm:justify-center"
+          className="mt-8 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row sm:justify-center lg:mt-10"
         >
           <a
             href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
             data-testid="final-cta-whatsapp"
-            className="group inline-flex items-center gap-6 rounded-full bg-white px-8 py-5 font-archivo text-base font-semibold text-[#0a0202] transition-all hover:bg-[#ff5722] hover:text-white"
+            className="group inline-flex min-h-12 w-full items-center justify-center gap-4 rounded-full bg-white px-6 py-3 font-archivo text-sm font-semibold text-[#0a0202] transition-all hover:bg-[#ff5722] hover:text-white sm:w-auto sm:px-8 sm:text-base"
           >
             <span>Request Your Song on WhatsApp</span>
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0a0202] text-white transition-all group-hover:translate-x-1 group-hover:bg-white group-hover:text-[#ff5722]">

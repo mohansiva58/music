@@ -86,7 +86,7 @@ export default function AudioPortfolio() {
       id="songs"
       ref={ref}
       data-testid="audio-portfolio-section"
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative min-h-[100svh] w-full overflow-x-hidden"
     >
       {/* Ghost text drifting */}
       <motion.div
@@ -99,28 +99,28 @@ export default function AudioPortfolio() {
         </div>
       </motion.div>
 
-      <div className="relative z-20 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col px-6 pb-20 pt-28 md:px-10 md:pt-32">
+      <div className="section-container relative z-20 flex min-h-[100svh] flex-col pb-12 pt-20 sm:pb-16 sm:pt-24 lg:pt-28">
         {/* Chapter label */}
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="font-archivo text-[11px] uppercase tracking-[0.4em] text-[#ff5722]"
+          className="chapter-label"
         >
           Chapter 03 — Showcase
         </motion.span>
 
         {/* Headline row with centered portrait */}
         <div className="relative mt-10 flex-1">
-          <div className="relative grid grid-cols-12 items-center gap-4">
+          <div className="relative grid grid-cols-1 items-center gap-3 md:grid-cols-12 md:gap-4">
             <motion.h2
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.9 }}
               data-testid="showcase-headline-left"
-              className="font-display col-span-12 z-20 text-[12vw] font-black leading-[0.9] text-white/95 md:col-span-4 md:text-[4.5vw]"
+              className="font-display z-20 text-[clamp(2.45rem,11vw,4.8rem)] font-black leading-[0.9] text-white/95 md:col-span-4 md:text-[clamp(3.2rem,4.5vw,5rem)]"
             >
               HEAR
               <br />
@@ -128,7 +128,7 @@ export default function AudioPortfolio() {
             </motion.h2>
 
             {/* Empty center column to preserve right alignment */}
-            <div className="col-span-12 md:col-span-4" />
+            <div className="hidden md:col-span-4 md:block" />
 
             <motion.h2
               initial={{ opacity: 0, x: 40 }}
@@ -136,7 +136,7 @@ export default function AudioPortfolio() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.9 }}
               data-testid="showcase-headline-right"
-              className="font-display col-span-12 z-20 text-right text-[12vw] font-black leading-[0.9] text-ember md:col-span-4 md:text-[4.5vw]"
+              className="z-20 text-left font-display text-[clamp(2.45rem,11vw,4.8rem)] font-black leading-[0.9] text-ember md:col-span-4 md:text-right md:text-[clamp(3.2rem,4.5vw,5rem)]"
             >
               AI
               <br />
@@ -165,11 +165,11 @@ export default function AudioPortfolio() {
         </div>
 
         {/* Controls */}
-        <div className="mt-10 flex items-center justify-between">
+        <div className="mt-8 flex items-center justify-between gap-4 sm:mt-10">
           <button
             onClick={() => go(-1)}
             data-testid="showcase-prev"
-            className="group flex items-center gap-3 font-archivo text-sm uppercase tracking-[0.3em] text-white/75 transition-colors hover:text-white"
+            className="group flex min-h-11 items-center gap-2 font-archivo text-xs uppercase tracking-[0.18em] text-white/75 transition-colors hover:text-white sm:gap-3 sm:text-sm sm:tracking-[0.3em]"
           >
             <ChevronLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
             Previous
@@ -177,7 +177,7 @@ export default function AudioPortfolio() {
           <button
             onClick={() => go(1)}
             data-testid="showcase-next"
-            className="group flex items-center gap-3 font-archivo text-sm uppercase tracking-[0.3em] text-white/75 transition-colors hover:text-white"
+            className="group flex min-h-11 items-center gap-2 font-archivo text-xs uppercase tracking-[0.18em] text-white/75 transition-colors hover:text-white sm:gap-3 sm:text-sm sm:tracking-[0.3em]"
           >
             Next
             <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -195,7 +195,7 @@ export default function AudioPortfolio() {
         </div>
 
         {/* Waveform player */}
-        <div className="relative mt-3 flex h-32 items-end justify-between gap-[2px] md:h-40">
+        <div className="relative mt-3 flex h-28 items-end justify-between gap-[2px] sm:h-32 md:h-40">
           <button
             onClick={toggle}
             data-testid="showcase-play-btn"
