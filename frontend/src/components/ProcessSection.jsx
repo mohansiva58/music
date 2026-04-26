@@ -107,22 +107,23 @@ export default function ProcessSection() {
     <section
       id="process"
       ref={ref}
-      className="relative flex min-h-[100svh] w-full items-center overflow-x-hidden bg-transparent py-10 sm:py-12 lg:py-0"
+      className="relative w-full z-40 isolate"  // Changed z-30 to z-40 and added isolate
+      style={{ isolation: 'isolate' }}
     >
       <motion.div
         aria-hidden
         style={prefersReduced ? undefined : { x: ghostX }}
-        className="pointer-events-none absolute left-0 top-[10%] z-10 hidden md:block"
+        className="pointer-events-none absolute left-0 top-[10%] z-0 hidden md:block"
       >
         <div className="ghost-text text-[14vw] leading-none opacity-30 select-none">
           PROCESS
         </div>
       </motion.div>
 
-      <div className="section-container relative z-20">
+      <div className="section-container relative z-10">
         <motion.div
           style={prefersReduced ? undefined : { opacity: frameFeedback }}
-          className="pointer-events-none absolute right-4 top-0 font-mono text-[10px] text-[#ff5722]/60 sm:right-6"
+          className="pointer-events-none absolute right-4 top-0 font-mono text-[10px] text-[#ff5722]/60 sm:right-6 z-20"
         >
           FRAME <motion.span>{frameIndex}</motion.span>
         </motion.div>
@@ -155,7 +156,7 @@ export default function ProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mt-6 overflow-visible md:mt-8"
+          className="relative mt-6 md:mt-8 z-10"
           style={{ perspective: "1200px" }}
         >
           <div className="absolute left-0 top-0 z-30 flex items-center gap-3">
@@ -185,7 +186,8 @@ export default function ProcessSection() {
           </div>
 
           <div className="grid min-h-0 items-center gap-6 pt-14 md:h-[62vh] md:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)] md:gap-8 md:pt-10">
-            <div className="relative h-[340px] overflow-visible md:h-full">
+            {/* Added overflow-visible and proper containment */}
+            <div className="relative h-[300px] overflow-visible md:h-full" style={{ contain: 'layout' }}>
               {STEPS.map((step, index) => {
                 const totalCards = STEPS.length;
                 const rawAngle = (index - activeIndex) * (360 / totalCards);
@@ -193,12 +195,15 @@ export default function ProcessSection() {
                   rawAngle < -180 ? rawAngle + 360 : rawAngle > 180 ? rawAngle - 360 : rawAngle;
                 const isActive = index === activeIndex;
                 const angleInRadians = (normalizedAngle * Math.PI) / 180;
-                const radius = 160;
+                const radius = 120;
                 const xOffset = Math.sin(angleInRadians) * radius;
                 const yOffset = Math.cos(angleInRadians) * radius + 60;
                 const zOffset = Math.cos(angleInRadians) * 90;
                 const scale = isActive ? 1.08 : 0.7 + Math.cos(angleInRadians) * 0.18;
                 const opacity = isActive ? 1 : Math.max(0.42, 0.68 + Math.cos(angleInRadians) * 0.2);
+                
+                // Simplified z-index - active card always on top
+                const zIndex = isActive ? 100 : 10;
 
                 return (
                   <motion.button
@@ -214,7 +219,7 @@ export default function ProcessSection() {
                         : "h-[170px] w-[138px] md:h-[225px] md:w-[182px]"
                     }`}
                     style={{
-                      zIndex: isActive ? 1000 : Math.round((120 + zOffset) / 2),
+                      zIndex: zIndex,
                       transformStyle: "preserve-3d",
                       border: isActive
                         ? "1px solid rgba(255,185,128,0.72)"
@@ -222,6 +227,8 @@ export default function ProcessSection() {
                       boxShadow: isActive
                         ? "0 42px 90px -28px rgba(255,87,34,0.55), 0 30px 70px rgba(0,0,0,0.55)"
                         : "0 18px 46px rgba(0,0,0,0.36)",
+                      // Prevent cards from going below section bounds
+                      clipPath: isActive ? 'none' : 'inset(0)',
                     }}
                   >
                     <img

@@ -48,11 +48,11 @@ export default function Hero() {
     >
       {/* ===================== Full-Screen Background ===================== */}
       <div className="absolute inset-0 z-0">
-        <picture className="block h-full min-h-[100svh] w-full">
+        <picture className="block h-[100svh] w-full">
           <img
             src="content.png"
             alt="Letters to Tomorrow cover"
-            className="h-full min-h-[100svh] w-full object-contain object-top sm:object-cover sm:object-center"
+            className="h-[100svh] w-full object-contain object-top sm:object-cover sm:object-center"
             style={{ 
               pointerEvents: "none",
               imageRendering: "auto"
