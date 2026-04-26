@@ -84,32 +84,29 @@ export default function MelodyFinder() {
         ))}
 
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-90px" }}
-          transition={{ duration: 0.75, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute left-1/2 top-1/2 z-20 flex w-[min(100px,70vw)] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center"
-        >
-         <h2 className="font-display text-[clamp(3.4rem,5.4vw,5.8rem)] font-black uppercase leading-[0.9] tracking-[-0.03em] text-black">
-  Turn
-  <span className="block text-ember">Memory</span>
-  <span className="block">Into Melody</span>
-</h2>
+  initial={{ opacity: 0, y: 18 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-90px" }}
+  transition={{ duration: 0.75, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
+  className="absolute left-1/2 top-1/2 z-20 flex w-[min(10px,90vw)] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center"
+>
+  <h2 className="font-display text-[clamp(3.4rem,5.4vw,5.8rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.04em] text-white drop-shadow-[0_10px_25px_rgba(0,0,0,0.6)]">
+  
+  {/* TURN */}
+  <span className="block">Turn</span>
 
-          {/* <p className="mt-5 max-w-[620px] font-sans text-lg leading-snug text-black/70">
-            Explore a collection where art, design, and technology merge to
-            shape what's next. This gallery isn't just about visuals.
-          </p> */}
-          {/* <a
-            href={waLink("Hi, I want to find the perfect melody for my memories.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-testid="melody-finder-cta"
-            className="mt-7 inline-flex min-h-11 items-center justify-center rounded-full bg-black px-7 font-sans text-base font-semibold text-white shadow-[0_12px_24px_rgba(0,0,0,0.18)] transition-transform duration-300 hover:scale-105"
-          >
-            Start for Free
-          </a> */}
-        </motion.div>
+  {/* MEMORY (Gold Highlight) */}
+  <span className="block bg-gradient-to-r from-[#f5c27a] via-[#e0a85a] to-[#b87333] bg-clip-text text-transparent drop-shadow-[0_4px_10px_rgba(255,180,80,0.35)]">
+    Memory
+  </span>
+
+  {/* INTO MELODY */}
+  <span className="block text-white/90">
+    Into Melody
+  </span>
+
+</h2>
+</motion.div>
       </div>
 
       <div className="relative min-h-screen w-full overflow-hidden md:hidden">
