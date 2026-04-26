@@ -27,26 +27,27 @@ import { useEffect, useRef } from "react";
 
 // ── Sequence manifest ────────────────────────────────────────────────────
 const SEQUENCES = [
-  { dir: "/herosection.jpg/",   count: 96  },
-  { dir: "/artistintro-jpg/",   count: 176 },
-  { dir: "/testinomials-jpg/",  count: 176 },
-  { dir: "/Mid-pageinterlude/", count: 176 },
-  { dir: "/finalcta/",          count: 184 },
+  { dir: "/herosection.jpg/",   count: 96,  weight: 96  },
+  { dir: "/artistintro-jpg/",   count: 176, weight: 176 },
+  { dir: "/testinomials-jpg/",  count: 176, weight: 176 },
+  { dir: "/Mid-pageinterlude/", count: 176, weight: 176 },
+  { dir: "/finalcta/",          count: 112, weight: 260 },
 ];
 const PREFIX = "ezgif-frame-";
 const EXT    = ".jpg";
 
-const TOTAL = SEQUENCES.reduce((s, q) => s + q.count, 0); // 952
+const TOTAL_WEIGHT = SEQUENCES.reduce((s, q) => s + q.weight, 0);
+const SCROLL_SMOOTHING = 0.12;
 
 // Cumulative break-points [0 … 1] in page-progress space
 const BREAKS = (() => {
   const b = [0];
   let cum = 0;
   for (const seq of SEQUENCES) {
-    cum += seq.count;
-    b.push(cum / TOTAL);
+    cum += seq.weight;
+    b.push(cum / TOTAL_WEIGHT);
   }
-  return b; // [0, ~0.252, ~0.437, ~0.622, ~0.807, 1]
+  return b;
 })();
 
 /**
@@ -76,7 +77,9 @@ export default function GlobalScrollBackground({ overlayOpacity = 0.44 }) {
   const loadedImages   = useRef([]);
   const lastSeqIdx     = useRef(-1);
   const lastFrameIdx   = useRef(-1);
-  const rafPending     = useRef(false);
+  const rafId          = useRef(0);
+  const currentProgress = useRef(0);
+  const targetProgress  = useRef(0);
 
   // ── Cover-fit draw ─────────────────────────────────────────────────────
   const paint = (seqIdx, frameIdx) => {
@@ -162,24 +165,45 @@ export default function GlobalScrollBackground({ overlayOpacity = 0.44 }) {
       return scrollable > 0 ? window.scrollY / scrollable : 0;
     };
 
-    const onScroll = () => {
-      if (rafPending.current) return; // coalesce
-      rafPending.current = true;
-      requestAnimationFrame(() => {
-        rafPending.current = false;
-        const { seqIdx, frameIdx } = resolveFrame(getProgress());
+    const tick = () => {
+      const delta = targetProgress.current - currentProgress.current;
+
+      if (Math.abs(delta) < 0.0005) {
+        currentProgress.current = targetProgress.current;
+        const { seqIdx, frameIdx } = resolveFrame(currentProgress.current);
         paint(seqIdx, frameIdx);
-      });
+        rafId.current = 0;
+        return;
+      }
+
+      currentProgress.current += delta * SCROLL_SMOOTHING;
+      const { seqIdx, frameIdx } = resolveFrame(currentProgress.current);
+      paint(seqIdx, frameIdx);
+      rafId.current = requestAnimationFrame(tick);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
+    const requestSmoothPaint = () => {
+      targetProgress.current = getProgress();
+      if (!rafId.current) {
+        rafId.current = requestAnimationFrame(tick);
+      }
+    };
+
+    window.addEventListener("scroll", requestSmoothPaint, { passive: true });
+    window.addEventListener("resize", requestSmoothPaint);
     // Draw initial state
     requestAnimationFrame(() => {
-      const { seqIdx, frameIdx } = resolveFrame(getProgress());
+      targetProgress.current = getProgress();
+      currentProgress.current = targetProgress.current;
+      const { seqIdx, frameIdx } = resolveFrame(currentProgress.current);
       paint(seqIdx, frameIdx);
     });
 
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", requestSmoothPaint);
+      window.removeEventListener("resize", requestSmoothPaint);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

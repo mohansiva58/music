@@ -5,37 +5,67 @@ import {
   useTransform,
   useSpring,
   useReducedMotion,
+  useMotionValueEvent,
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { waLink } from "../lib/content";
+import { useEffect, useState } from "react";
+
+const FINAL_CTA_FRAME_COUNT = 112;
+
+function getFinalCtaFrameSrc(index) {
+  const frame = String(index + 1).padStart(3, "0");
+  return `/finalcta/ezgif-frame-${frame}.jpg`;
+}
 
 export default function FinalCTA() {
   const ref = useRef(null);
   const prefersReduced = useReducedMotion();
+  const [frameIndex, setFrameIndex] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
+  });
+  const smoothedProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 28,
+    mass: 0.25,
   });
   const ghostY = useSpring(
     useTransform(scrollYProgress, [0, 1], [30, -30]),
     { stiffness: 140, damping: 45, mass: 0.3 }
   );
 
+  useEffect(() => {
+    const preload = [0, 1, 2, 8, 16, 32, 48, 64, 80, 96, 111];
+    preload.forEach((index) => {
+      const image = new Image();
+      image.src = getFinalCtaFrameSrc(index);
+    });
+  }, []);
+
+  useMotionValueEvent(smoothedProgress, "change", (latest) => {
+    if (prefersReduced) return;
+    const nextFrame = Math.min(
+      FINAL_CTA_FRAME_COUNT - 1,
+      Math.max(0, Math.round(latest * (FINAL_CTA_FRAME_COUNT - 1)))
+    );
+    setFrameIndex(nextFrame);
+  });
+
   return (
     <section
       ref={ref}
       data-testid="final-cta-section"
-      className="relative w-full overflow-hidden"
+      className="relative min-h-[120svh] w-full overflow-hidden"
     >
-      {/* Background video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
+      {/* Scroll-smoothed frame background */}
+      <img
+        src={getFinalCtaFrameSrc(prefersReduced ? 0 : frameIndex)}
+        alt=""
+        aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"
-        src="/cta.mp4"
       />
       <div className="absolute inset-0 bg-black/40" />
 
@@ -50,7 +80,7 @@ export default function FinalCTA() {
         </div>
       </motion.div>
 
-      <div className="relative z-20 mx-auto flex max-w-[1400px] flex-col items-center justify-center px-6 py-24 text-center md:px-10 md:py-32">
+      <div className="relative z-20 mx-auto flex min-h-[120svh] max-w-[1400px] flex-col items-center justify-center px-6 py-24 text-center md:px-10 md:py-32">
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
