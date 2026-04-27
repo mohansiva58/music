@@ -273,9 +273,9 @@ export default function VideoBackdrop({
       </div>
 
       {/* Global cinematic overlay like About, applied across all wrapped sections */}
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-black/35" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-32 bg-gradient-to-b from-black/45 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-56 bg-gradient-to-t from-[#080202] via-[#080202]/45 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-black/20" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-32 bg-gradient-to-b from-black/25 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-56 bg-gradient-to-t from-[#080202] via-[#080202]/25 to-transparent" />
 
       <div className="relative z-10">{children}</div>
     </div>
