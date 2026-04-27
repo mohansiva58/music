@@ -54,8 +54,9 @@ const Landing = () => (
     {/* ── Content sections (scroll normally over the background) ── */}
     <main>
       <Hero />
-      <ProcessSection />
       <About />
+      <ProcessSection />
+      
       <MelodyFinder />
       <HowItWorks />
       <AudioPortfolio />
