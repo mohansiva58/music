@@ -24,7 +24,7 @@ export default function SectionScrollMovie({
   frameDir,
   totalFrames,
   scrollHeight = "220vh",
-  overlayOpacity = 0.35,
+  overlayOpacity = 0.18,
   framePrefix = "ezgif-frame-",
   ext = ".jpg",
 }) {
@@ -97,7 +97,7 @@ export default function SectionScrollMovie({
             position: "absolute",
             inset: "0 0 auto 0",
             height: "20%",
-            background: "linear-gradient(to bottom, #080202 0%, transparent 100%)",
+            background: "linear-gradient(to bottom, rgba(8,2,2,0.75) 0%, transparent 100%)",
             pointerEvents: "none",
             zIndex: 2,
           }}
@@ -109,7 +109,7 @@ export default function SectionScrollMovie({
             position: "absolute",
             inset: "auto 0 0 0",
             height: "22%",
-            background: "linear-gradient(to top, #080202 0%, rgba(8,2,2,0.5) 55%, transparent 100%)",
+            background: "linear-gradient(to top, rgba(8,2,2,0.75) 0%, rgba(8,2,2,0.28) 55%, transparent 100%)",
             pointerEvents: "none",
             zIndex: 2,
           }}

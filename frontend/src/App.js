@@ -49,7 +49,7 @@ const Landing = () => (
     style={{ position: "relative", zIndex: 0 }}
   >
     {/* Global continuous background — covers entire page scroll */}
-    <GlobalScrollBackground overlayOpacity={0.44} />
+    <GlobalScrollBackground overlayOpacity={0.22} />
 
     {/* ── Content sections (scroll normally over the background) ── */}
     <main>
