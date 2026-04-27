@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
  * end-to-end proportional to total page scroll progress (0 → 100%).
  *
  * Sequence order  (user spec):
- *   0  herosection-jpg   240 frames  → top of page
+ *   0  herosection2      40 frames   → top of page
  *   1  artistintro-jpg   176 frames
  *   2  testinomials-jpg  176 frames
  *   3  Mid-pageinterlude 176 frames
@@ -27,11 +27,11 @@ import { useEffect, useRef } from "react";
 
 // ── Sequence manifest ────────────────────────────────────────────────────
 const SEQUENCES = [
-  { dir: "/herosection.jpg/",   count: 96,  weight: 96  },
-  { dir: "/artistintro-jpg/",   count: 176, weight: 176 },
-  { dir: "/testinomials-jpg/",  count: 176, weight: 176 },
-  { dir: "/Mid-pageinterlude/", count: 176, weight: 176 },
-  { dir: "/finalcta/",          count: 112, weight: 260 },
+  { dir: "/herosection2/",      count: 40,  weight: 96,  ext: ".png" },
+  { dir: "/artistintro-jpg/",   count: 176, weight: 176, ext: ".jpg" },
+  { dir: "/testinomials-jpg/",  count: 176, weight: 176, ext: ".jpg" },
+  { dir: "/Mid-pageinterlude/", count: 176, weight: 176, ext: ".jpg" },
+  { dir: "/finalcta/",          count: 112, weight: 260, ext: ".jpg" },
 ];
 const PREFIX = "ezgif-frame-";
 const EXT    = ".jpg";
@@ -132,7 +132,8 @@ export default function GlobalScrollBackground({ overlayOpacity = 0.44 }) {
           // Draw first frame of first sequence as soon as it's ready
           if (sIdx === 0 && fi === 0) paint(0, 0);
         };
-        img.src = `${seq.dir}${PREFIX}${String(f + 1).padStart(3, "0")}${EXT}`;
+        const ext = seq.ext || EXT;
+        img.src = `${seq.dir}${PREFIX}${String(f + 1).padStart(3, "0")}${ext}`;
       }
     });
 
